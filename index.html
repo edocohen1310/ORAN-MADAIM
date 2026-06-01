@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2563EB">
+<title>🧪 המעבדה של אורן — כימיה כיתה ח׳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@400;500;700;800;900&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#2563EB; --primary-d:#1d4ed8; --secondary:#F59E0B; --accent:#EC4899;
+  --bg:#EFF6FF; --fg:#0F172A; --muted:#5b6b85; --soft:#475569;
+  --card:#ffffff; --border:#E4ECFC; --err:#DC2626; --ok:#16a34a;
+  --el:#16a34a; --comp:#2563eb; --mix:#f59e0b; --phys:#0891b2; --chem:#e11d48;
+  --energy:#ea580c; --proc:#7c3aed;
+  --clay:0 14px 28px -14px rgba(37,99,235,.40), 0 4px 10px -4px rgba(15,23,42,.08);
+  --clay-sm:0 8px 18px -10px rgba(37,99,235,.34), 0 2px 6px -3px rgba(15,23,42,.07);
+  --inset:inset 3px 3px 7px rgba(37,99,235,.10), inset -3px -3px 7px rgba(255,255,255,.85);
+  --r:26px; --r-sm:18px;
+  --font-display:'Varela Round','Rubik',system-ui,sans-serif;
+  --font-body:'Heebo',system-ui,'Segoe UI',Arial,sans-serif;
+  --font-num:'Rubik','Heebo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:var(--font-body);color:var(--fg);line-height:1.6;min-height:100%;font-size:16px;overflow-x:hidden;touch-action:manipulation;
+  background:radial-gradient(820px 420px at 88% -6%,#dbeafe 0,transparent 60%),radial-gradient(680px 380px at -8% 8%,#fde9f4 0,transparent 55%),var(--bg)}
+h1,h2,h3,.disp{font-family:var(--font-display);line-height:1.18;letter-spacing:.2px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:1rem}
+:focus-visible{outline:3px solid var(--primary);outline-offset:3px;border-radius:8px}
+img,svg,canvas{display:block}
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;border-radius:46% 54% 57% 43%/47% 44% 56% 53%;opacity:.10;animation:drift linear infinite}
+@keyframes drift{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(180deg)}100%{transform:translateY(0) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.blobs{display:none}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+.app{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:10px 14px calc(96px + env(safe-area-inset-bottom)) 14px}
+header.appbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:linear-gradient(125deg,var(--primary),#3b82f6 45%,#60a5fa);
+  color:#fff;border-radius:var(--r);padding:14px 16px;box-shadow:0 16px 30px -16px rgba(37,99,235,.7);margin:6px 0 16px;padding-top:calc(14px + env(safe-area-inset-top))}
+.brand{display:flex;align-items:center;gap:11px;margin-inline-end:auto;min-width:0}
+.brand .logo{width:50px;height:50px;border-radius:16px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:27px;box-shadow:inset 0 -4px 8px rgba(0,0,0,.18),inset 0 3px 6px rgba(255,255,255,.4)}
+.brand h1{font-size:1.32rem}
+.brand p{font-size:.8rem;opacity:.92;font-weight:500}
+.stats{display:flex;gap:7px}
+.stat{background:rgba(255,255,255,.18);border-radius:14px;padding:6px 11px;text-align:center;min-width:58px;box-shadow:inset 0 -3px 6px rgba(0,0,0,.14)}
+.stat b{display:block;font-family:var(--font-num);font-size:1.1rem;line-height:1.1}
+.stat span{font-size:.66rem;opacity:.95;font-weight:600}
+.lvlbar{flex-basis:100%;height:10px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.2)}
+.lvlbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#fde047,var(--secondary));transition:width .6s cubic-bezier(.2,.9,.2,1)}
+
+.view{display:none;animation:fade .3s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.section-title{display:flex;align-items:center;gap:10px;margin:4px 2px 14px}
+.section-title .e{font-size:1.7rem}.section-title h2{font-size:1.5rem}
+.section-title p{font-size:.85rem;color:var(--muted);font-weight:500}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--clay-sm);padding:18px;border:1px solid var(--border)}
+
+.hero{background:linear-gradient(135deg,#fff,#eef4ff);border-radius:var(--r);padding:22px;box-shadow:var(--clay);border:1px solid var(--border);margin-bottom:16px}
+.hero h2{font-size:1.7rem;margin-bottom:6px;color:var(--primary-d)}
+.hero p{color:var(--soft);font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.mcard{position:relative;border-radius:22px;padding:16px;color:#fff;text-align:start;overflow:hidden;box-shadow:var(--clay-sm);transition:transform .12s;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.mcard:active{transform:scale(.96)}
+.mcard .big{font-size:1.9rem}.mcard b{font-size:1.08rem;font-family:var(--font-display)}
+.mcard small{opacity:.95;font-weight:600;font-size:.76rem;display:block;line-height:1.3}
+.mc1{background:linear-gradient(135deg,#2563eb,#3b82f6)}.mc2{background:linear-gradient(135deg,#0891b2,#06b6d4)}
+.mc3{background:linear-gradient(135deg,#ec4899,#f472b6)}.mc4{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.mc5{background:linear-gradient(135deg,#ea580c,#f59e0b)}.mc6{background:linear-gradient(135deg,#0ea5e9,#22d3ee)}
+.tip{display:flex;gap:10px;align-items:flex-start;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:var(--r-sm);padding:13px 15px;margin-top:14px;font-weight:600;font-size:.9rem}
+
+.topic{margin-bottom:12px;border-radius:22px;overflow:hidden;border:1px solid var(--border);background:var(--card);box-shadow:var(--clay-sm)}
+.topic>button{width:100%;display:flex;align-items:center;gap:12px;padding:15px;text-align:start;font-weight:800;font-size:1.06rem;font-family:var(--font-display);min-height:56px}
+.topic .dot{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;color:#fff;flex:none;box-shadow:inset 0 -4px 7px rgba(0,0,0,.22)}
+.topic .chev{margin-inline-start:auto;transition:.3s;color:var(--muted);font-size:1.1rem}
+.topic.open .chev{transform:rotate(180deg)}
+.topic .body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.topic .body .inner{padding:2px 16px 18px}
+.topic .body p{margin-bottom:9px;color:var(--soft)}
+.topic .body ul{margin:4px 20px 11px}.topic .body li{margin-bottom:6px;color:var(--soft)}
+.badge{display:inline-block;padding:3px 11px;border-radius:99px;font-size:.8rem;font-weight:700;color:#fff;margin:2px}
+.b-el{background:var(--el)}.b-comp{background:var(--comp)}.b-mix{background:var(--mix)}.b-phys{background:var(--phys)}.b-chem{background:var(--chem)}
+.b-syn{background:var(--proc)}.b-comb{background:var(--energy)}.b-dec{background:#0ea5e9}
+.callout{background:#eff6ff;border-inline-start:5px solid var(--primary);border-radius:14px;padding:11px 15px;margin:11px 0;font-weight:600}
+.formula{font-family:var(--font-num);font-weight:700;background:#ecfeff;color:#0e7490;border:1px solid #a5f3fc;border-radius:10px;padding:3px 9px;display:inline-block;direction:ltr;margin:2px}
+.formula sub{font-size:.7em}
+
+.tree{display:flex;flex-direction:column;align-items:center;gap:9px;margin:14px 0;text-align:center}
+.tree .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tnode{padding:9px 16px;border-radius:14px;color:#fff;font-weight:800;font-family:var(--font-display);box-shadow:var(--clay-sm)}
+.tn-top{background:var(--primary)}.tn-pure{background:#6366f1}.tn-mix{background:var(--mix)}.tn-el{background:var(--el)}.tn-comp{background:var(--comp)}
+.tline{width:3px;height:14px;background:#c7d8f5;border-radius:2px}
+
+.atoms{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.mole{text-align:center}.molrow{display:flex;align-items:center;justify-content:center;height:58px}
+.atom{border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-weight:800;font-size:.78rem;box-shadow:inset -4px -4px 8px rgba(0,0,0,.28),var(--clay-sm);margin:-3px}
+.a-H{width:24px;height:24px;background:radial-gradient(circle at 32% 30%,#fff,#cbd5e1);color:#334155}
+.a-O{width:38px;height:38px;background:radial-gradient(circle at 32% 30%,#fda4af,#ef4444)}
+.a-C{width:40px;height:40px;background:radial-gradient(circle at 32% 30%,#64748b,#1e293b)}
+.a-Na{width:40px;height:40px;background:radial-gradient(circle at 32% 30%,#c4b5fd,#7c3aed)}
+.a-Cl{width:44px;height:44px;background:radial-gradient(circle at 32% 30%,#bbf7d0,#16a34a)}
+.mole small{display:block;font-weight:700;color:var(--muted);margin-top:4px;font-size:.82rem}
+.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:.82rem;color:var(--soft);font-weight:600;margin-top:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-inline-end:5px;vertical-align:-2px}
+.eq{display:flex;align-items:center;justify-content:center;gap:12px;direction:ltr;margin:14px 0;flex-wrap:wrap}
+.eq-box{padding:12px 18px;border-radius:16px;color:#fff;font-weight:800;font-family:var(--font-display);text-align:center;box-shadow:var(--clay-sm)}
+.eq-box small{display:block;font-size:.72rem;opacity:.92;font-weight:600}
+.eq-react{background:var(--proc)}.eq-prod{background:var(--ok)}.eq-arr{font-size:1.8rem;color:var(--primary);font-weight:800}
+
+/* ---------- animations (web-animation-design + micro-interactions) ---------- */
+:root{--eo:cubic-bezier(.16,1,.3,1);--eio:cubic-bezier(.65,0,.35,1)}
+@keyframes pop{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes flamePop{0%{transform:scale(.4) translate(-50%,0);opacity:0}30%{opacity:1}100%{transform:scale(1) translate(-50%,0);opacity:0}}
+.stagger>*{animation:riseIn .42s var(--eo) both}
+.stagger>*:nth-child(1){animation-delay:.03s}.stagger>*:nth-child(2){animation-delay:.08s}.stagger>*:nth-child(3){animation-delay:.13s}
+.stagger>*:nth-child(4){animation-delay:.18s}.stagger>*:nth-child(5){animation-delay:.23s}.stagger>*:nth-child(6){animation-delay:.28s}
+.opt.pop{animation:pop .32s var(--eo)}
+.stat b.bump{animation:pulse .4s var(--eo)}
+@keyframes luPop{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}20%{opacity:1}70%{transform:translate(-50%,-50%) scale(1.08);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.levelup{position:fixed;top:36%;left:50%;z-index:70;background:linear-gradient(135deg,var(--secondary),var(--accent));color:#fff;font-family:var(--font-display);font-size:1.5rem;padding:16px 28px;border-radius:22px;box-shadow:var(--clay);pointer-events:none;display:none;text-align:center}
+.levelup.show{display:block;animation:luPop 1.9s var(--eo) forwards}
+.v3d-energy{display:none;text-align:center;margin:8px auto 0;font-weight:800;font-family:var(--font-display);padding:8px 14px;border-radius:14px;width:fit-content}
+.v3d-energy.show{display:block;animation:pop .4s var(--eo)}
+.v3d-energy.exo{background:#fff1e6;color:#c2410c;border:2px solid #fed7aa}
+.v3d-energy.endo{background:#e0f2fe;color:#0369a1;border:2px solid #bae6fd}
+.lab2d{margin:12px 0;background:radial-gradient(circle at 50% 18%,#f0f7ff,#e3eefb);border:1px solid var(--border);border-radius:18px;padding:12px;text-align:center}
+.lab2d canvas{width:100%;max-width:340px;height:210px;display:block;margin:0 auto 8px;border-radius:14px;background:linear-gradient(#fbfdff,#eef4fb);touch-action:none}
+@media (prefers-reduced-motion:reduce){.stagger>*{animation:none}.opt.pop,.stat b.bump,.v3d-energy.show{animation:none}.levelup.show{animation:none;display:none}}
+
+/* ---------- 3D viewer ---------- */
+.v3dbox{margin:12px 0}
+.viewer3d{position:relative;width:100%;height:240px;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 32%,#eef5ff,#d8e6fb);border:1px solid var(--border);touch-action:none}
+.viewer3d canvas{width:100%;height:100%}
+.v3d-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted);font-weight:700;text-align:center;padding:14px}
+.v3d-load.err{color:var(--soft)}
+.spinner{width:34px;height:34px;border:4px solid #c7d8f5;border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.v3d-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:4px 0 8px}
+.v3d-chip{padding:8px 13px;border-radius:12px;background:#fff;border:2px solid var(--border);font-weight:700;font-size:.9rem;min-height:42px;direction:ltr}
+.v3d-chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.v3d-label{text-align:center;font-weight:700;color:var(--soft);margin-top:8px;font-size:.95rem}
+.v3d-label .formula{margin-inline-start:6px}
+.v3d-hint{text-align:center;font-size:.74rem;color:var(--muted);font-weight:600;margin-top:4px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:18px;font-weight:800;font-family:var(--font-display);font-size:1.02rem;min-height:48px;transition:transform .08s,box-shadow .08s;color:#fff}
+.btn.primary{background:var(--primary);box-shadow:0 6px 0 var(--primary-d),0 10px 16px -6px rgba(37,99,235,.5)}
+.btn.pink{background:var(--accent);box-shadow:0 6px 0 #be185d,0 10px 16px -6px rgba(236,72,153,.5)}
+.btn.green{background:var(--ok);box-shadow:0 6px 0 #15803d,0 10px 16px -6px rgba(22,163,74,.5)}
+.btn.amber{background:var(--secondary);box-shadow:0 6px 0 #b45309,0 10px 16px -6px rgba(245,158,11,.5);color:#3a2400}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn.ghost{background:#fff;color:var(--primary);border:2px solid #c7d8f5;box-shadow:var(--clay-sm)}
+.btn.ghost:active{transform:translateY(3px)}
+.btn.sm{padding:10px 16px;font-size:.92rem;min-height:44px;border-radius:14px}
+.btn:disabled{opacity:.45;box-shadow:none;transform:none;cursor:not-allowed}
+.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+
+.fc-stage{perspective:1500px;margin:8px auto 0;max-width:560px}
+.flashcard{display:grid;cursor:pointer;transition:transform .55s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.flashcard.flip{transform:rotateY(180deg)}
+.face{grid-area:1/1;-webkit-backface-visibility:hidden;backface-visibility:hidden;min-height:240px;border-radius:var(--r);padding:30px 26px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:var(--clay);border:1px solid var(--border);position:relative}
+.face.front{background:linear-gradient(135deg,#fff,#eef4ff)}
+.face.back{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;transform:rotateY(180deg)}
+.face .kicker{font-size:.78rem;font-weight:700;letter-spacing:.05em;opacity:.7;margin-bottom:10px}
+.face .term{font-size:1.85rem;font-family:var(--font-display)}.face .def{font-size:1.14rem;font-weight:600}
+.face .hint{position:absolute;bottom:14px;left:0;right:0;font-size:.76rem;opacity:.62;font-weight:600}
+.fc-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.fc-count{font-weight:700;color:var(--muted);min-width:64px;text-align:center}
+
+.q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;color:var(--muted);font-size:.92rem}
+.q-prog{height:12px;background:#dbe7fb;border-radius:99px;overflow:hidden;margin-bottom:16px;box-shadow:var(--inset)}
+.q-prog i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .4s;border-radius:99px}
+.q-text{font-size:1.28rem;font-family:var(--font-display);margin-bottom:16px;line-height:1.35}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;background:#f7faff;border:2px solid var(--border);font-weight:700;text-align:start;transition:.15s;font-size:1.04rem;min-height:52px;width:100%}
+.opt:active:not(.locked){transform:scale(.98)}
+.opt .mk{width:32px;height:32px;border-radius:11px;background:#e0ecff;color:var(--primary);display:grid;place-items:center;font-weight:800;flex:none;font-family:var(--font-num)}
+.opt.sel-ex{border-color:var(--primary);background:#eaf1ff}
+.opt.correct{background:#dcfce7;border-color:var(--ok)}.opt.correct .mk{background:var(--ok);color:#fff}
+.opt.wrong{background:#fee2e2;border-color:var(--err)}.opt.wrong .mk{background:var(--err);color:#fff}
+.opt.locked{cursor:default}
+.explain{margin-top:14px;border-radius:14px;padding:12px 16px;font-weight:600;display:none}
+.explain.show{display:block;animation:fade .3s}
+.explain.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.explain.no{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.result{text-align:center;padding:14px 6px}
+.result .ring{width:148px;height:148px;margin:6px auto 14px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ok) var(--p,0%),#dbe7fb 0);position:relative}
+.result .ring::after{content:"";position:absolute;inset:14px;background:#fff;border-radius:50%}
+.result .ring b{position:relative;z-index:1;font-family:var(--font-num);font-size:2.1rem}
+.result h2{font-size:1.7rem;margin-bottom:6px}.result p{color:var(--soft);margin-bottom:14px;font-weight:500}
+
+.seg{display:flex;gap:6px;background:#e4ecfc;border-radius:18px;padding:6px;margin-bottom:16px;box-shadow:var(--inset)}
+.seg button{flex:1;padding:11px 4px;border-radius:13px;font-weight:800;font-family:var(--font-display);color:var(--soft);font-size:.92rem;min-height:46px;transition:.15s}
+.seg button.on{background:#fff;color:var(--primary);box-shadow:var(--clay-sm)}
+.gamepane{display:none}.gamepane.on{display:block;animation:fade .3s}
+.game-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.pill{background:#fff;border:1px solid var(--border);border-radius:99px;padding:7px 15px;font-weight:800;font-family:var(--font-display);box-shadow:var(--clay-sm);font-size:.92rem}
+.mode-switch{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.mode-switch button{padding:9px 15px;border-radius:13px;background:#fff;border:2px solid var(--border);font-weight:700;min-height:44px}
+.mode-switch button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pool{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;min-height:54px;margin-bottom:16px}
+.chip{padding:12px 15px;border-radius:14px;background:#fff;border:2px solid var(--border);font-weight:800;box-shadow:var(--clay-sm);transition:.15s;font-size:.98rem;min-height:46px;display:inline-flex;align-items:center}
+.chip:active{transform:scale(.96)}
+.chip.sel{border-color:var(--primary);box-shadow:0 0 0 4px #dbe7fb;transform:scale(1.04)}
+.chip.placed{cursor:default}
+.bins{display:grid;grid-template-columns:1fr;gap:10px}
+.bin{border-radius:18px;padding:12px;min-height:96px;border:3px dashed rgba(37,99,235,.18);transition:.15s}
+.bin h4{font-family:var(--font-display);text-align:center;margin-bottom:8px;font-size:1rem;color:#fff;padding:7px;border-radius:11px}
+.bin .drop{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}.bin .chip{font-size:.9rem;padding:9px 12px}
+.b-el-bg{background:#ecfdf5}.b-el-bg h4{background:var(--el)}.b-comp-bg{background:#eff6ff}.b-comp-bg h4{background:var(--comp)}
+.b-mix-bg{background:#fffbeb}.b-mix-bg h4{background:var(--mix)}.b-phys-bg{background:#ecfeff}.b-phys-bg h4{background:var(--phys)}
+.b-chem-bg{background:#fdf2f8}.b-chem-bg h4{background:var(--chem)}.b-syn-bg{background:#f5f3ff}.b-syn-bg h4{background:var(--proc)}
+.b-comb-bg{background:#fff7ed}.b-comb-bg h4{background:var(--energy)}.b-dec-bg{background:#f0f9ff}.b-dec-bg h4{background:#0ea5e9}
+.chip.right{border-color:var(--ok);background:#dcfce7}.chip.wrongp{border-color:var(--err);background:#fee2e2;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match-col h4{text-align:center;font-family:var(--font-display);margin-bottom:8px;color:var(--muted)}
+.mtile{padding:13px 11px;border-radius:14px;background:#f7faff;border:2px solid var(--border);font-weight:700;margin-bottom:8px;transition:.15s;text-align:center;font-size:.95rem;min-height:48px;width:100%;display:flex;align-items:center;justify-content:center}
+.mtile:active:not(.done){transform:scale(.97)}
+.mtile.sel{border-color:var(--primary);background:#eaf1ff;box-shadow:0 0 0 3px #dbe7fb}
+.mtile.done{opacity:.4;cursor:default;border-style:dashed}
+.mtile.flash-ok{border-color:var(--ok);background:#dcfce7}.mtile.flash-no{border-color:var(--err);background:#fee2e2;animation:shake .4s}
+
+nav.bottom{position:fixed;inset-inline:0;bottom:0;z-index:30;display:flex;justify-content:center;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--border);box-shadow:0 -8px 24px -12px rgba(37,99,235,.3)}
+nav.bottom .inner{display:flex;gap:2px;width:100%;max-width:560px;justify-content:space-between}
+nav.bottom button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;border-radius:15px;color:var(--muted);font-weight:700;font-size:.7rem;min-height:54px;transition:.15s}
+nav.bottom button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav.bottom button.active{color:var(--primary);background:#eaf1ff}
+nav.bottom button:active{transform:scale(.92)}
+.toast{position:fixed;inset-inline:0;bottom:calc(86px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:50;pointer-events:none}
+.toast .msg{background:var(--fg);color:#fff;padding:12px 22px;border-radius:16px;font-weight:800;box-shadow:var(--clay);transform:translateY(140px);transition:.4s;font-family:var(--font-display);max-width:90%}
+.toast.show .msg{transform:none}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
+footer{text-align:center;color:var(--muted);font-size:.78rem;padding:18px 8px;font-weight:600}
+@media(min-width:780px){.app{max-width:860px;padding-bottom:120px}.grid{grid-template-columns:repeat(3,1fr)}.bins{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="blobs" id="blobs"></div>
+<div class="app">
+  <header class="appbar">
+    <div class="brand"><div class="logo">🧪</div><div><h1>המעבדה של אורן</h1><p>כימיה · כיתה ח׳ · לומדים בכיף</p></div></div>
+    <div class="stats">
+      <div class="stat"><b id="stXP">0</b><span>נקודות</span></div>
+      <div class="stat"><b id="stLvl">1</b><span>רמה</span></div>
+      <div class="stat"><b id="stStreak">0</b><span>רצף🔥</span></div>
+    </div>
+    <div class="lvlbar"><i id="lvlFill"></i></div>
+  </header>
+
+  <!-- HOME -->
+  <section class="view active" id="home">
+    <div class="hero">
+      <h2>היי אורן! 👋</h2>
+      <p>כל החומר בכימיה במקום אחד: סיכומים, כרטיסיות, חידונים, משחקים — ומעבדת תלת-ממד שאפשר לסובב באצבע! כל תשובה נכונה = נקודות ועלייה ברמה. קדימה לכבוש את המבחן! 🚀</p>
+      <div class="grid stagger">
+        <button class="mcard mc1" data-go="learn"><span class="big">📚</span><span><b>לומדים</b><small>סיכומים + תלת-ממד</small></span></button>
+        <button class="mcard mc2" data-go="flash"><span class="big">🃏</span><span><b>כרטיסיות</b><small>מושג ↔ הגדרה</small></span></button>
+        <button class="mcard mc3" data-go="quiz"><span class="big">❓</span><span><b>חידון</b><small>שאלות עם משוב</small></span></button>
+        <button class="mcard mc4" data-go="games"><span class="big">🎮</span><span><b>משחקים</b><small>מיון · התאמה</small></span></button>
+        <button class="mcard mc6" data-go="games" data-game="lab3d"><span class="big">🧊</span><span><b>מעבדת 3D</b><small>סובב מולקולות</small></span></button>
+        <button class="mcard mc5" data-go="games" data-game="exam"><span class="big">🏆</span><span><b>מבחן הדמיה</b><small>תרגול מסכם</small></span></button>
+      </div>
+      <div class="tip">💡 <span>סדר מומלץ: <b>לומדים</b> ← <b>כרטיסיות</b> ← <b>חידון</b> ← <b>משחקים</b>, ובסוף <b>מבחן הדמיה</b>!</span></div>
+    </div>
+    <div class="card" id="masteryCard" style="margin-top:16px"></div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="view" id="learn">
+    <div class="section-title"><span class="e">📚</span><div><h2>לומדים — סיכומים</h2><p>הקש על נושא כדי לפתוח (יש גם מודלים בתלת-ממד!)</p></div></div>
+    <div id="topics"></div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="view" id="flash">
+    <div class="section-title"><span class="e">🃏</span><div><h2>כרטיסיות</h2><p>הקש על הכרטיס כדי להפוך</p></div></div>
+    <div class="fc-stage">
+      <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="כרטיסייה — הקש להיפוך">
+        <div class="face front"><span class="kicker">מהו / מהי?</span><div class="term" id="fcTerm"></div><span class="hint">🧠 נסה להיזכר/להסביר — ואז הקש</span></div>
+        <div class="face back"><span class="kicker">ההגדרה</span><div class="def" id="fcDef"></div><span class="hint">👆 הקש לחזרה</span></div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="btn ghost sm" id="fcPrev">⟶ הקודם</button><span class="fc-count" id="fcCount"></span><button class="btn ghost sm" id="fcNext">הבא ⟵</button>
+    </div>
+    <div style="text-align:center;margin-top:8px"><span id="fcBox" class="v3d-hint"></span></div>
+    <div class="btn-row"><button class="btn green sm" id="fcKnow">✅ ידעתי</button><button class="btn pink sm" id="fcDont">🔁 צריך לחזור</button></div>
+    <div class="btn-row" style="margin-top:8px"><button class="btn ghost sm" id="fcSmart">🧠 חזרה חכמה: כבוי</button><button class="btn ghost sm" id="fcShuffle">🔀 ערבוב</button></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="quiz">
+    <div class="section-title"><span class="e">❓</span><div><h2>חידון</h2><p>בחר תשובה — תקבל מיד משוב והסבר</p></div></div>
+    <div class="card" id="quizCard"></div>
+  </section>
+
+  <!-- GAMES -->
+  <section class="view" id="games">
+    <div class="section-title"><span class="e">🎮</span><div><h2>משחקים</h2><p>מיון · התאמה · מעבדת 3D · מבחן</p></div></div>
+    <div class="seg" id="gameSeg">
+      <button data-game="sort" class="on">🎯 מיון</button>
+      <button data-game="match">🔗 התאמה</button>
+      <button data-game="lab3d">🧊 3D</button>
+      <button data-game="exam">🏆 מבחן</button>
+    </div>
+
+    <div class="gamepane on" id="g-sort">
+      <div class="mode-switch" id="sortModes">
+        <button class="on" data-mode="matter">יסוד/תרכובת/תערובת</button>
+        <button data-mode="change">פיזיקלי/כימי</button>
+        <button data-mode="process">סוגי תהליכים</button>
+      </div>
+      <div class="card">
+        <div class="game-bar"><span class="pill">🎯 ניקוד: <span id="sortScore">0</span></span><span class="pill">נשארו: <span id="sortLeft">0</span></span><button class="btn ghost sm" id="sortReset">↺ מחדש</button></div>
+        <div class="pool" id="sortPool"></div><div class="bins" id="sortBins"></div>
+      </div>
+    </div>
+
+    <div class="gamepane" id="g-match">
+      <div class="card">
+        <div class="game-bar"><span class="pill">✅ הותאמו: <span id="matchDone">0</span>/<span id="matchTotal">0</span></span><button class="btn ghost sm" id="matchReset">🔀 סבב חדש</button></div>
+        <div class="match-grid"><div class="match-col"><h4>מושגים</h4><div id="matchA"></div></div><div class="match-col"><h4>הגדרות</h4><div id="matchB"></div></div></div>
+      </div>
+    </div>
+
+    <div class="gamepane" id="g-lab3d">
+      <div class="card">
+        <div class="game-bar"><span class="pill">🎯 ניקוד: <span id="q3dScore">0</span></span><span class="pill">רצף 🔥 <span id="q3dStreak">0</span></span></div>
+        <div class="v3d-label" style="margin-top:0;margin-bottom:6px">איזו חלקיק/מולקולה מסתובב/ת כאן? סובב באצבע 👇</div>
+        <div class="v3dbox" data-mode="quiz3d"><div class="viewer3d" data-role="stage"><div class="v3d-load"><div class="spinner"></div>טוען תלת-ממד…</div></div></div>
+        <div class="opts stagger" id="q3dOpts" style="margin-top:12px"></div>
+        <div class="explain" id="q3dExp"></div>
+        <div class="btn-row"><button class="btn primary" id="q3dNext" style="display:none">הבא ⟵</button></div>
+      </div>
+    </div>
+
+    <div class="gamepane" id="g-exam"><div class="card" id="examCard"></div></div>
+  </section>
+
+  <footer>נבנה באהבה לאורן ❤️ · ההתקדמות נשמרת אוטומטית במכשיר</footer>
+</div>
+
+<nav class="bottom"><div class="inner" id="bottomNav">
+  <button data-view="home" class="active"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>בית</button>
+  <button data-view="learn"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M18 3v16"/></svg>לומדים</button>
+  <button data-view="flash"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v9"/></svg>כרטיסיות</button>
+  <button data-view="quiz"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.5 1.5c0 1.5-2 2-2 3.5"/><path d="M12 17h.01"/></svg>חידון</button>
+  <button data-view="games"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="4"/><path d="M7 12h3M8.5 10.5v3"/><path d="M15 11h.01M17.5 13h.01"/></svg>משחקים</button>
+</div></nav>
+
+<div class="levelup" id="levelup"></div>
+<div class="toast" id="toast"><div class="msg" id="toastMsg"></div></div>
+<canvas class="confetti" id="confetti"></canvas>
+
+<script>
+/* =================== DATA =================== */
+const V3D_MOL=`<div class="v3d-chips"><button class="v3d-chip on" data-mol="H2O">H₂O</button><button class="v3d-chip" data-mol="CO2">CO₂</button><button class="v3d-chip" data-mol="CH4">CH₄</button><button class="v3d-chip" data-mol="O2">O₂</button></div><div class="viewer3d" data-role="stage"><div class="v3d-load"><div class="spinner"></div>טוען תלת-ממד…</div></div><div class="v3d-label" data-role="label"></div><div class="v3d-hint">🔄 סובב באצבע / בעכבר</div>`;
+const V3D_LATTICE=`<div class="viewer3d" data-role="stage"><div class="v3d-load"><div class="spinner"></div>טוען תלת-ממד…</div></div><div class="v3d-label">מלח בישול <span class="formula">NaCl</span> — סריג ענק של יונים (סגול=Na⁺ · ירוק=Cl⁻)</div><div class="v3d-hint">🔄 סובב וראה שאין מולקולות בודדות אלא מבנה ענק</div>`;
+const V3D_REACTION=`<div class="v3d-chips"><button class="v3d-chip on" data-rxn="synth">ברזל+גופרית</button><button class="v3d-chip" data-rxn="combustion">פחמן+חמצן</button><button class="v3d-chip" data-rxn="formwater">מימן+חמצן</button><button class="v3d-chip" data-rxn="electro">פירוק מים</button></div><div class="viewer3d" data-role="stage"><div class="v3d-load"><div class="spinner"></div>טוען תלת-ממד…</div></div><div class="v3d-label" data-role="label"></div><div class="v3d-energy" data-role="energy"></div><div class="btn-row" style="margin-top:8px"><button class="btn primary sm" data-role="play">▶ הפעל את התהליך</button></div><div class="v3d-hint">אותם אטומים — סידור חדש (חוק שימור המסה)</div>`;
+const V3D_STATES=`<div class="v3d-chips"><button class="v3d-chip on" data-state="solid">🧊 מוצק</button><button class="v3d-chip" data-state="liquid">💧 נוזל</button><button class="v3d-chip" data-state="gas">💨 גז</button></div><div class="viewer3d" data-role="stage"><div class="v3d-load"><div class="spinner"></div>טוען תלת-ממד…</div></div><div class="v3d-label" data-role="label"></div><div class="v3d-hint">מעבר בין מצבים = שינוי פיזיקלי (אותם חלקיקים)</div>`;
+
+const TOPICS=[
+ {icon:"⚗️",color:"#6366f1",title:"חומרים טהורים ותערובות",html:`
+   <p><b>חומר טהור</b> — חומר בעל הרכב קבוע ותכונות אופייניות (טמפ' היתוך/רתיחה קבועה, צפיפות, צבע). בנוי מסוג אחד של אבני בניין.</p>
+   <p><b>תערובת</b> — ערבוב של כמה חומרים טהורים. <u>אין</u> לה הרכב קבוע, וכל רכיב שומר על תכונותיו.</p>
+   <div class="callout">🥤 רוב החומרים סביבנו הם תערובות! משקה קל = מים + סוכר + צבע מאכל + חומרי טעם.</div>
+   <ul><li><span class="badge b-mix">תערובת</span> משקה קל, חלב, מיונז, אוויר</li><li><span class="badge b-el">חומר טהור</span> מים מזוקקים, זהב, גופרית, מלח</li></ul>`},
+ {icon:"🌳",color:"#7c3aed",title:"עץ הסיווג: יסודות ותרכובות",html:`
+   <ul><li><b>יסוד</b> — חומר טהור הבנוי מאטומים <b>מסוג אחד בלבד</b> (גופרית, חמצן O₂, זהב).</li>
+   <li><b>תרכובת</b> — חומר טהור הבנוי מ<b>שני יסודות או יותר</b> הקשורים בקשר כימי, עם תכונות שונות מהיסודות.</li></ul>
+   <div class="tree"><div class="tnode tn-top">חומרים</div><div class="tline"></div>
+     <div class="row"><div class="tnode tn-pure">חומרים טהורים</div><div class="tnode tn-mix">תערובות</div></div><div class="tline"></div>
+     <div class="row"><div class="tnode tn-el">יסודות</div><div class="tnode tn-comp">תרכובות</div></div></div>
+   <div class="callout">🔬 ניסוי: מחממים נחושת + גופרית → נוצרת התרכובת <b>נחושת-גופרית</b>, מוצק שחור-כחול עם תכונות שונות מהיסודות.</div>`},
+ {icon:"💧",color:"#06b6d4",title:"תרכובות מולקולריות ונוסחה כימית",html:`
+   <p><b>תרכובת מולקולרית</b> בנויה ממולקולות. ה<b>נוסחה הכימית</b> מתארת אילו אטומים יש במולקולה וכמה.</p>
+   <p>נוסחת המים: <span class="formula">H<sub>2</sub>O</span> — 2 אטומי מימן + אטום חמצן אחד.</p>
+   <p><b>🧊 מודל תלת-ממדי — סובב אותו!</b></p>
+   <div class="v3dbox" data-mode="molecule">${V3D_MOL}</div>
+   <div class="legend"><span><i style="background:#1e293b"></i>פחמן (C)</span><span><i style="background:#ef4444"></i>חמצן (O)</span><span><i style="background:#cbd5e1"></i>מימן (H)</span></div>`},
+ {icon:"🧂",color:"#2563eb",title:"תרכובות יוניות",html:`
+   <p><b>יון</b> — אטום בעל מטען חשמלי, שנוצר כשאטום <b>מאבד או קולט אלקטרונים</b>.</p>
+   <p><b>מלח בישול = נתרן כלורי</b> <span class="formula">NaCl</span> — יון Na⁺ ויון Cl⁻ ביחס 1:1.</p>
+   <p><b>🧊 מודל הסריג בתלת-ממד — סובב אותו!</b></p>
+   <div class="v3dbox" data-mode="lattice">${V3D_LATTICE}</div>
+   <div class="callout">⚡ בתרכובת יונית אין מולקולות בודדות אלא <b>מבנה ענק</b> של יונים; הנוסחה מציינת רק את היחס בין היונים.</div>`},
+ {icon:"🔎",color:"#0891b2",title:"תכונות פיזיקליות מול כימיות",html:`
+   <p><b>תכונה פיזיקלית</b> — אפשר למדוד/לזהות <u>בלי</u> שהחומר הופך לחומר חדש: צבע, קשיות, צפיפות, מצב צבירה.</p>
+   <p><b>תכונה כימית</b> — נטייה של חומר <u>להגיב</u> עם חומרים אחרים וליצור חומרים חדשים.</p>
+   <div class="callout">🔩 לברזל יש נטייה להגיב עם חמצן וליצור חלודה — <b>תכונה כימית</b>. לזהב אין נטייה כזו.</div>
+   <ul><li><span class="badge b-phys">פיזיקלית</span> צבע, צפיפות, מצב צבירה</li><li><span class="badge b-chem">כימית</span> נטייה להחליד, דליקות</li></ul>
+   <p><b>🔩 החלדה מונפשת — תכונה כימית של ברזל</b></p>
+   <div class="lab2d" data-demo="rust"><canvas></canvas><div class="btn-row" style="margin-top:0"><button class="btn primary sm" data-role="play">▶ הפעל</button></div><div class="v3d-label">ברזל מגיב עם חמצן ולחות ← חלודה (שינוי כימי)</div></div>`},
+ {icon:"🔄",color:"#ec4899",title:"שינוי פיזיקלי מול שינוי כימי",html:`
+   <p><b>שינוי פיזיקלי</b> — שינוי בצורה/מראה <u>בלי</u> שנוצרים חומרים חדשים. לרוב הפיך (כמו היתוך).</p>
+   <p><b>שינוי כימי</b> — נוצרים חומרים <b>חדשים</b>; האטומים מתארגנים מחדש.</p>
+   <p><b>🧊 מצבי צבירה בתלת-ממד</b> — מעבר ביניהם (היתוך/קיפאון) הוא שינוי <u>פיזיקלי</u>:</p>
+   <div class="v3dbox" data-mode="states">${V3D_STATES}</div>
+   <ul><li><span class="badge b-phys">פיזיקלי</span> היתוך קרח, קריעת נייר, המסת סוכר</li><li><span class="badge b-chem">כימי</span> טיגון ביצה, החלדה, בעירה</li></ul>
+   <div class="callout">🍿 הידעת? פיצוץ פופקורן הוא <b>שינוי פיזיקלי</b> — המים שבגרעין הופכים לאדים ומפוצצים אותו, בלי שנוצר חומר חדש.</div>`},
+ {icon:"➡️",color:"#7c3aed",title:"מגיבים, תוצרים וניסוח תהליך כימי",html:`
+   <p>בתהליך כימי: ה<b>מגיבים</b> הם החומרים שבהתחלה, וה<b>תוצרים</b> הם החומרים שנוצרים בסוף.</p>
+   <div class="eq"><div class="eq-box eq-react">Fe + S<small>מגיבים</small></div><span class="eq-arr">→</span><div class="eq-box eq-prod">FeS<small>תוצרים</small></div></div>
+   <p><b>🧊 ראה את האטומים מתארגנים מחדש — לחץ "הפעל"!</b></p>
+   <div class="v3dbox" data-mode="reaction">${V3D_REACTION}</div>
+   <div class="callout">🏷️ סימן מצב צבירה: <b>(s)</b> מוצק · <b>(g)</b> גז · <b>(l)</b> נוזל. למשל <span class="formula">S(s) + Fe(s) → FeS(s)</span></div>`},
+ {icon:"🧬",color:"#ea580c",title:"סוגי תהליכים כימיים",html:`
+   <ul><li><b>תהליך הרכבה</b> — שני חומרים מתחברים לתרכובת אחת (ברזל + גופרית → ברזל-גפרי).</li>
+   <li><b>תהליך בעירה</b> — חומר מגיב עם חמצן ופולט אנרגיה (שריפת עץ, בעירת גז).</li>
+   <li><b>תהליך פירוק</b> — תרכובת מתפרקת לחומרים פשוטים יותר (אפיית עוגה, אלקטרוליזה).</li></ul>
+   <div><span class="badge b-syn">הרכבה</span><span class="badge b-comb">בעירה</span><span class="badge b-dec">פירוק</span></div>
+   <p><b>🔥 בעירה מונפשת — הצת והתבונן</b></p>
+   <div class="lab2d" data-demo="flame"><canvas></canvas><div class="btn-row" style="margin-top:0"><button class="btn primary sm" data-role="play">▶ הצת / כבה</button></div><div class="v3d-label">בעירה = תגובה עם חמצן הפולטת אור וחום (אקסותרמי)</div></div>`},
+ {icon:"⚡",color:"#0ea5e9",title:"אלקטרוליזה — פירוק בעזרת חשמל",html:`
+   <p><b>אלקטרוליזה</b> — פירוק חומר בעזרת זרם חשמלי (סוג של תהליך פירוק).</p>
+   <p>אלקטרוליזה של <b>מים</b>: <span class="formula">מים → מימן (H₂) + חמצן (O₂)</span>.</p>
+   <p>אלקטרוליזה של <b>נחושת-כלורית</b>: <span class="formula">CuCl<sub>2</sub>(s) → Cu(s) + Cl<sub>2</sub>(g)</span></p>
+   <div class="callout">🔌 היונים נמשכים לאלקטרודות: יוני הנחושת (חיוביים) לאלקטרודה השלילית, ויוני הכלור (שליליים) לחיובית.</div>
+   <div class="callout">🚀 הידעת? בתחנת החלל הבינלאומית משתמשים ב<b>אלקטרוליזה של מים</b> כדי לייצר חמצן לנשימה של האסטרונאוטים!</div>`},
+ {icon:"⚖️",color:"#10b981",title:"חוק שימור המסה",html:`
+   <p>בתהליך כימי החומר <b>אינו נעלם ואינו נברא יש מאין</b> — האטומים רק מתארגנים מחדש (לבואזיה).</p>
+   <div class="callout">⚖️ מסת ה<b>מגיבים</b> = מסת ה<b>תוצרים</b>. למשל: 63 גרם נחושת + 32 גרם גופרית ⟵ 95 גרם נחושת-גופרית.</div>
+   <p><b>🎈 ניסוי מונפש: חומץ + סודה לשתייה</b></p>
+   <div class="lab2d" data-demo="balloon"><canvas></canvas><div class="btn-row" style="margin-top:0"><button class="btn primary sm" data-role="play">▶ הפעל את הניסוי</button></div><div class="v3d-label">הגז (CO₂) שנוצר מנפח את הבלון — והמסה הכוללת נשמרת!</div></div>`},
+ {icon:"🔥",color:"#f59e0b",title:"אנרגיה: אקסותרמי ואנדותרמי",html:`
+   <ul><li><b>תהליך פולט אנרגיה (אקסותרמי)</b> — משחרר חום לסביבה. דוגמה: בעירה. 🔥</li>
+   <li><b>תהליך קולט אנרגיה (אנדותרמי)</b> — סופג אנרגיה מהסביבה. דוגמה: אפיית עוגה. 🧊</li></ul>`},
+ {icon:"♻️",color:"#059669",title:"איכות הסביבה — 3 ה\"שימור\"",html:`
+   <ul><li><b>הפחתה</b> (Reduce) — לצרוך פחות.</li><li><b>שימוש חוזר</b> (Reuse) — להשתמש שוב.</li><li><b>מיחזור</b> (Recycle) — להפוך פסולת לחומר חדש.</li></ul>
+   <div class="callout">⏳ לחומרים יש "תאריך אחרון לשימוש" — אחריו התרכובות עלולות להשתנות (שינוי כימי).</div>`}
+];
+
+const FLASH=[
+ ["חומר טהור","חומר בעל הרכב קבוע ותכונות אופייניות, הבנוי מסוג אחד של אבני בניין."],
+ ["תערובת","ערבוב של כמה חומרים טהורים, ללא הרכב קבוע — כל רכיב שומר על תכונותיו."],
+ ["יסוד","חומר טהור הבנוי מאטומים מסוג אחד בלבד (גופרית, חמצן, זהב)."],
+ ["תרכובת","חומר טהור הבנוי משני יסודות או יותר הקשורים בקשר כימי, עם תכונות שונות מהיסודות."],
+ ["נוסחה כימית","סימון המתאר אילו אטומים יש במולקולה וכמה מכל סוג (למשל H₂O)."],
+ ["יון","אטום בעל מטען חשמלי, שנוצר כשאטום מאבד או קולט אלקטרונים."],
+ ["תרכובת מולקולרית","תרכובת הבנויה ממולקולות (כמו מים H₂O וסוכר)."],
+ ["תרכובת יונית","תרכובת הבנויה ממבנה ענק של יונים חיוביים ושליליים (כמו מלח NaCl)."],
+ ["תכונה פיזיקלית","תכונה שניתן למדוד בלי להפוך את החומר לחומר חדש (צבע, צפיפות, מצב צבירה)."],
+ ["תכונה כימית","נטייה של חומר להגיב עם חומרים אחרים וליצור חומרים חדשים (כמו נטייה להחליד)."],
+ ["שינוי פיזיקלי","שינוי בצורה/מראה בלי שנוצרים חומרים חדשים (היתוך קרח, קריעת נייר)."],
+ ["שינוי כימי","תהליך שבו נוצרים חומרים חדשים בעלי תכונות חדשות (טיגון ביצה, החלדה)."],
+ ["מגיבים","החומרים שיש בתחילת התהליך הכימי (נכתבים בצד שמאל)."],
+ ["תוצרים","החומרים שנוצרים בסוף התהליך הכימי (נכתבים בצד ימין)."],
+ ["תהליך הרכבה","שני חומרים מתחברים ליצירת תרכובת אחת (ברזל + גופרית → ברזל-גפרי)."],
+ ["תהליך בעירה","חומר מגיב עם חמצן ופולט אנרגיה (חום ואור)."],
+ ["תהליך פירוק","תרכובת מתפרקת ליסודות או לחומרים פשוטים יותר."],
+ ["אלקטרוליזה","פירוק חומר בעזרת זרם חשמלי (מים → מימן + חמצן)."],
+ ["מצב צבירה (s)/(g)/(l)","סימון ליד הנוסחה: (s) מוצק, (g) גז, (l) נוזל."],
+ ["חוק שימור המסה","בתהליך כימי מסת המגיבים שווה למסת התוצרים — חומר לא נעלם ולא נברא."],
+ ["תהליך אקסותרמי","תהליך כימי הפולט אנרגיה (חום) לסביבה — למשל בעירה."],
+ ["תהליך אנדותרמי","תהליך כימי הקולט (סופג) אנרגיה מהסביבה — למשל אפיית עוגה."],
+ ["H₂O","נוסחת המים: 2 אטומי מימן ואטום חמצן אחד."],
+ ["NaCl","מלח בישול (נתרן כלורי) — תרכובת יונית של Na⁺ ו-Cl⁻."],
+ ["בעירת מגנזיום","מגנזיום + חמצן → מגנזיום חמצני (תגובה עם חמצן הפולטת אור וחום)."],
+ ["פוטוסינתזה","תהליך קולט אנרגיה (אנדותרמי) — הצמח קולט אור ליצירת מזון."]
+];
+
+const QUIZ=[
+ {q:"איזה מהבאים הוא <b>יסוד</b>?",o:["גופרית","מים","מלח בישול","משקה קל"],a:0,e:"גופרית בנויה מאטומים מסוג אחד בלבד — יסוד."},
+ {q:"מים (H₂O) הם...",o:["יסוד","תרכובת","תערובת","יון"],a:1,e:"מים בנויים משני יסודות הקשורים בקשר כימי — תרכובת.",w:"כמו לגו 🧱 — מחברים שתי אבני יסוד שונות (מימן וחמצן) ומקבלים חומר חדש לגמרי: מים."},
+ {q:"משקה קל הוא...",o:["יסוד","תרכובת","תערובת","אטום"],a:2,e:"ערבוב של כמה חומרים = תערובת."},
+ {q:"כמה אטומי מימן יש במולקולת מים H₂O?",o:["1","2","3","אין"],a:1,e:"הספרה 2 ליד ה-H מציינת 2 אטומי מימן."},
+ {q:"<b>יון</b> הוא...",o:["אטום ללא מטען","אטום בעל מטען חשמלי","סוג של מולקולה","תערובת"],a:1,e:"יון נוצר כשאטום מאבד או קולט אלקטרונים ומקבל מטען.",w:"אטום ניטרלי הוא כמו ארנק מאוזן. אם הוא נותן או מקבל 'מטבע' (אלקטרון) — הוא נעשה טעון, וזה יון."},
+ {q:"מלח בישול NaCl הוא תרכובת...",o:["מולקולרית","יונית","מתכתית","תערובת"],a:1,e:"NaCl בנוי מיונים (Na⁺ ו-Cl⁻) — תרכובת יונית."},
+ {q:"מים הם תרכובת...",o:["יונית","מולקולרית","מתכתית","לא תרכובת"],a:1,e:"מים בנויים ממולקולות — תרכובת מולקולרית."},
+ {q:"<b>טיגון ביצה</b> הוא שינוי...",o:["פיזיקלי","כימי","אין שינוי","הפיך"],a:1,e:"נוצרים חומרים חדשים — שינוי כימי.",w:"מבחן פשוט: אפשר להחזיר אחורה? קרח↔מים = פיזיקלי (הפיך). ביצה מטוגנת לא חוזרת לביצה נא = כימי."},
+ {q:"<b>היתוך קרח</b> למים הוא שינוי...",o:["כימי","פיזיקלי","בעירה","יוני"],a:1,e:"רק מצב הצבירה משתנה — שינוי פיזיקלי (הפיך)."},
+ {q:"<b>החלדת ברזל</b> היא שינוי...",o:["פיזיקלי","כימי","היתוך","המסה"],a:1,e:"נוצרת חלודה — חומר חדש. שינוי כימי."},
+ {q:"<b>צבע</b> של חומר הוא תכונה...",o:["פיזיקלית","כימית","יונית","משתנה"],a:0,e:"אפשר לזהות צבע בלי ליצור חומר חדש — תכונה פיזיקלית."},
+ {q:"הנטייה של ברזל <b>להחליד</b> היא תכונה...",o:["פיזיקלית","כימית","צפיפות","היתוך"],a:1,e:"נטייה להגיב וליצור חומר חדש = תכונה כימית."},
+ {q:"בניסוח תהליך כימי, החומרים שבהתחלה נקראים...",o:["תוצרים","מגיבים","יסודות","יונים"],a:1,e:"החומרים בתחילת התהליך = מגיבים (בצד שמאל).",w:"חושבים על מתכון 🍳: המצרכים = מגיבים (שמאל), המנה המוכנה = תוצרים (ימין), והחץ = ההכנה."},
+ {q:"החומרים שנוצרים בסוף התהליך נקראים...",o:["מגיבים","תוצרים","מולקולות","תערובת"],a:1,e:"החומרים שנוצרים בסוף = תוצרים (בצד ימין)."},
+ {q:"ברזל + גופרית → ברזל-גפרי. זהו תהליך...",o:["פירוק","בעירה","הרכבה","פיזיקלי"],a:2,e:"שני חומרים מתחברים לתרכובת אחת — הרכבה."},
+ {q:"חומר המגיב עם חמצן ופולט חום ואור — תהליך...",o:["הרכבה","בעירה","פירוק","אנדותרמי"],a:1,e:"בעירה: תגובה עם חמצן הפולטת אנרגיה."},
+ {q:"פירוק מים למימן וחמצן בעזרת חשמל נקרא...",o:["בעירה","אלקטרוליזה","הרכבה","היתוך"],a:1,e:"פירוק בעזרת זרם חשמלי = אלקטרוליזה."},
+ {q:"במשוואה Fe + S → FeS, מהו <b>התוצר</b>?",o:["Fe","S","FeS","חמצן"],a:2,e:"התוצר הוא החומר שנוצר בסוף — FeS."},
+ {q:"<b>אפיית עוגה</b> היא תהליך...",o:["פולט אנרגיה","קולט אנרגיה","פיזיקלי","יוני"],a:1,e:"דורשת קליטת חום מהתנור — קולט אנרגיה (אנדותרמי).",w:"אקסותרמי = משחרר חום החוצה (כמו מדורה 🔥). אנדותרמי = 'בולע' חום מהסביבה (כמו עוגה שצריכה תנור חם)."},
+ {q:"לפי <b>חוק שימור המסה</b>, מסת התוצרים...",o:["גדולה מהמגיבים","קטנה מהמגיבים","שווה למגיבים","אפס"],a:2,e:"חומר לא נעלם ולא נברא — המסה נשמרת.",w:"כמו לגו 🧱: אם תפרק מבנה ותבנה אותו מחדש — מספר הלבנים לא משתנה, רק הסידור. לכן המשקל נשמר."},
+ {q:"הסימן <b>(s)</b> ליד נוסחה מציין...",o:["מהירות","מצב צבירה מוצק","מספר אטומים","מטען"],a:1,e:"(s)=solid — מצב צבירה מוצק."},
+ {q:"בתרכובת נחושת-גופרית התכונות...",o:["זהות לנחושת","זהות לגופרית","שונות מהיסודות","אין"],a:2,e:"לתרכובת תכונות חדשות, שונות מהיסודות."},
+ {q:"מגנזיום בוער באוויר באור מסנוור ויוצר מגנזיום חמצני. זהו תהליך...",o:["פירוק","בעירה","היתוך","פיזיקלי"],a:1,e:"תגובה עם חמצן הפולטת אור וחום = בעירה."},
+ {q:"מחממים סוכר עד שהוא מתפרק לפחמן ולמים. זהו תהליך...",o:["הרכבה","בעירה","פירוק","פיזיקלי"],a:2,e:"הסוכר מתפרק לחומרים פשוטים יותר — תהליך פירוק."},
+ {q:"<b>פוטוסינתזה</b> (יצירת מזון בצמח) היא תהליך...",o:["פולט אנרגיה","קולט אנרגיה","פיזיקלי","היתוך"],a:1,e:"הצמח קולט אנרגיית אור מהשמש — תהליך קולט אנרגיה (אנדותרמי)."},
+ {q:"<b>זיקוקים</b> שמתפוצצים באוויר הם תהליך...",o:["קולט אנרגיה","פולט אנרגיה","פיזיקלי","יוני"],a:1,e:"פולטים אור, חום וקול — תהליך פולט אנרגיה (אקסותרמי)."},
+ {q:"שורפים צמר פלדה (ברזל) על מאזניים. מסת המוצק לאחר הבעירה...",o:["קטנה","לא משתנה","גדלה","אפס"],a:2,e:"הברזל נקשר עם חמצן מהאוויר, לכן המוצק כבד יותר — אבל המסה הכוללת (ברזל+חמצן) נשמרה."},
+ {q:"מסירים אבנית בקומקום עם חומצת לימון ונוצר גז CO₂. זהו...",o:["שינוי פיזיקלי","תהליך כימי","היתוך","המסה"],a:1,e:"נוצר חומר חדש (גז פחמן דו-חמצני) — תהליך כימי."}
+];
+
+const SORT={
+ matter:{bins:[{key:"el",name:"יסוד",cls:"b-el-bg"},{key:"comp",name:"תרכובת",cls:"b-comp-bg"},{key:"mix",name:"תערובת",cls:"b-mix-bg"}],
+  items:[["גופרית","el"],["חמצן O₂","el"],["זהב","el"],["מים H₂O","comp"],["מלח NaCl","comp"],["סוכר","comp"],["פחמן דו-חמצני","comp"],["משקה קל","mix"],["חלב","mix"],["אוויר","mix"]]},
+ change:{bins:[{key:"phys",name:"שינוי פיזיקלי",cls:"b-phys-bg"},{key:"chem",name:"שינוי כימי",cls:"b-chem-bg"}],
+  items:[["היתוך קרח","phys"],["קריעת נייר","phys"],["ייבוש כביסה","phys"],["המסת סוכר בתה","phys"],["טיגון ביצה","chem"],["החלדת ברזל","chem"],["החמצת חלב","chem"],["בעירת עץ","chem"]]},
+ process:{bins:[{key:"syn",name:"הרכבה",cls:"b-syn-bg"},{key:"comb",name:"בעירה",cls:"b-comb-bg"},{key:"dec",name:"פירוק",cls:"b-dec-bg"}],
+  items:[["ברזל+גופרית→ברזל גפרי","syn"],["נתרן+כלור→מלח","syn"],["בעירת מגנזיום","comb"],["שריפת עץ","comb"],["בעירת גז בכיריים","comb"],["אלקטרוליזה של מים","dec"],["חימום סוכר→פחמן+מים","dec"],["פירוק נחושת-כלורית","dec"]]}
+};
+
+const MATCH_POOL=[
+ ["יסוד","אטומים מסוג אחד בלבד"],["תרכובת","שני יסודות+ הקשורים בקשר כימי"],["תערובת","ערבוב חומרים, אין הרכב קבוע"],
+ ["יון","אטום בעל מטען חשמלי"],["שינוי כימי","נוצרים חומרים חדשים"],["שינוי פיזיקלי","שינוי צורה בלי חומר חדש"],
+ ["מגיבים","החומרים בתחילת התהליך"],["תוצרים","החומרים בסוף התהליך"],["אלקטרוליזה","פירוק בעזרת חשמל"],["אקסותרמי","תהליך הפולט אנרגיה"]
+];
+const MATCH_N=6;
+
+/* =================== STATE =================== */
+const SKEY="oren_chem_v3";
+let state={xp:0,streak:0};
+try{const s=JSON.parse(localStorage.getItem(SKEY));if(s)state=Object.assign(state,s)}catch(e){}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}}
+const $=id=>document.getElementById(id);
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function levelOf(xp){return Math.floor(xp/100)+1}
+function animateCount(el,to){const from=parseInt(el.textContent,10)||0;if(RM||from===to){el.textContent=to;return}const t0=performance.now();function step(now){const k=Math.min(1,(now-t0)/500);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
+function bump(el){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+function addXP(n){const b=levelOf(state.xp);state.xp+=n;const a=levelOf(state.xp);save();const x=$("stXP");animateCount(x,state.xp);bump(x);$("stLvl").textContent=a;$("stStreak").textContent=state.streak;$("lvlFill").style.width=(state.xp%100)+"%";if(a>b)levelUp(a)}
+function renderStats(){$("stXP").textContent=state.xp;$("stLvl").textContent=levelOf(state.xp);$("stStreak").textContent=state.streak;$("lvlFill").style.width=(state.xp%100)+"%"}
+function levelUp(a){const el=$("levelup");if(!el)return;el.textContent="🎉 עלית לרמה "+a+"!";el.classList.remove('show');void el.offsetWidth;el.classList.add('show');confetti();setTimeout(()=>el.classList.remove('show'),2000)}
+
+/* =================== LEARNING: spaced repetition + mastery (teach + memory-retrieval) =================== */
+let learn={cards:{},topic:{},smart:false};
+try{const l=JSON.parse(localStorage.getItem('oren_learn'));if(l)learn=Object.assign(learn,l)}catch(e){}
+function saveLearn(){try{localStorage.setItem('oren_learn',JSON.stringify(learn))}catch(e){}}
+const QTOPIC=['mat','mat','mat','mat','mat','mat','mat','chg','chg','chg','chg','chg','rxn','rxn','rxn','rxn','rxn','rxn','enr','mass','rxn','mat','rxn','rxn','enr','enr','mass','chg'];
+const TNAMES={mat:'חומרים, יסודות ותרכובות',chg:'תכונות ושינויים',rxn:'תהליכים כימיים',enr:'אנרגיה: אקסו/אנדו',mass:'חוק שימור המסה'};
+const TICON={mat:'⚗️',chg:'🔄',rxn:'🧬',enr:'🔥',mass:'⚖️'};
+function recTopic(qi,ok){const t=QTOPIC[qi];if(!t)return;const o=learn.topic[t]||(learn.topic[t]={s:0,c:0});o.s++;if(ok)o.c++;saveLearn()}
+function renderMastery(){
+  const el=$("masteryCard");if(!el)return;let weakest=null,weakPct=101;
+  const rows=Object.keys(TNAMES).map(k=>{const o=learn.topic[k];const pct=o&&o.s?Math.round(o.c/o.s*100):null;if(pct!==null&&pct<weakPct){weakPct=pct;weakest=k}return{k,pct}});
+  el.innerHTML=`<h3 style="font-size:1.15rem;margin-bottom:2px">📊 מפת שליטה</h3><p style="font-size:.82rem;color:var(--muted);margin-bottom:10px">מתעדכן לפי החידון והמבחן · ערבוב נושאים מחזק זיכרון</p>`+
+    rows.map(r=>`<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem"><span>${TICON[r.k]} ${TNAMES[r.k]}</span><span style="color:var(--muted)">${r.pct===null?'—':r.pct+'%'}</span></div><div class="q-prog" style="height:9px;margin:4px 0 0"><i style="width:${r.pct||0}%"></i></div></div>`).join('')+
+    (weakest?`<div class="callout" style="margin-top:6px">🎯 מומלץ לחזור על: <b>${TNAMES[weakest]}</b></div>`:`<div style="font-size:.85rem;color:var(--muted);margin-top:6px">פתור חידון כדי לראות במה כדאי להתמקד 💪</div>`);
+}
+
+/* =================== NAV =================== */
+const views=document.querySelectorAll('.view');
+function show(id){
+  views.forEach(v=>v.classList.toggle('active',v.id===id));
+  document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='quiz'&&!quizStarted)startQuiz();
+  if(id==='home')renderMastery();
+  if(id==='games'){ if($("g-lab3d").classList.contains('on'))startLab3d(); }
+  else pauseLab3d();
+}
+$("bottomNav").addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(b.dataset.view)});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{show(b.dataset.go);if(b.dataset.go==='games')selectGame(b.dataset.game||'sort')}));
+
+/* =================== GAMES SEG =================== */
+function selectGame(g){
+  document.querySelectorAll('#gameSeg button').forEach(b=>b.classList.toggle('on',b.dataset.game===g));
+  document.querySelectorAll('.gamepane').forEach(p=>p.classList.toggle('on',p.id==='g-'+g));
+  if(g==='exam')startExam();
+  if(g==='lab3d')startLab3d(); else pauseLab3d();
+}
+$("gameSeg").addEventListener('click',e=>{const b=e.target.closest('button');if(b)selectGame(b.dataset.game)});
+
+/* =================== LEARN + 3D MOUNTING =================== */
+const topicsEl=$("topics");
+TOPICS.forEach(t=>{
+  const d=document.createElement('div');d.className='topic';
+  d.innerHTML=`<button aria-expanded="false"><span class="dot" style="background:${t.color}">${t.icon}</span><span>${t.title}</span><span class="chev">▾</span></button><div class="body"><div class="inner">${t.html}</div></div>`;
+  const body=d.querySelector('.body'),btn=d.querySelector('button'),box=d.querySelector('.v3dbox'),lab=d.querySelector('.lab2d');
+  btn.addEventListener('click',()=>{
+    const open=d.classList.toggle('open');btn.setAttribute('aria-expanded',open);
+    body.style.maxHeight=open?body.firstElementChild.scrollHeight+60+'px':'0';
+    if(box){ if(open) mountV3D(box); else unmountV3D(box); }
+    if(lab){ if(open) initLab2D(lab); else unmountLab2D(lab); }
+  });
+  topicsEl.appendChild(d);
+});
+
+/* =================== FLASHCARDS =================== */
+let fcOrder=FLASH.map((_,i)=>i),fcIdx=0;const flashcard=$("flashcard");
+function cardBox(i){return learn.cards[i]||0}
+function buildFcOrder(){fcOrder=FLASH.map((_,i)=>i);if(learn.smart)fcOrder.sort((a,b)=>(cardBox(a)-cardBox(b))||(Math.random()-.5))}
+function renderFlash(){const gi=fcOrder[fcIdx];const [t,d]=FLASH[gi];$("fcTerm").textContent=t;$("fcDef").textContent=d;flashcard.classList.remove('flip');$("fcCount").textContent=(fcIdx+1)+" / "+FLASH.length;const b=cardBox(gi);$("fcBox").textContent='שליטה: '+'⭐'.repeat(b)+'☆'.repeat(4-b)}
+function fcAdvance(){fcIdx=(fcIdx+1)%FLASH.length;renderFlash()}
+flashcard.addEventListener('click',()=>flashcard.classList.toggle('flip'));
+flashcard.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();flashcard.classList.toggle('flip')}});
+$("fcNext").onclick=()=>{fcIdx=(fcIdx+1)%FLASH.length;renderFlash()};
+$("fcPrev").onclick=()=>{fcIdx=(fcIdx-1+FLASH.length)%FLASH.length;renderFlash()};
+$("fcShuffle").onclick=()=>{fcOrder=shuffle(fcOrder.slice());fcIdx=0;renderFlash();toast("🔀 עורבב")};
+$("fcKnow").onclick=()=>{const gi=fcOrder[fcIdx];learn.cards[gi]=Math.min(4,cardBox(gi)+1);saveLearn();addXP(5);toast("✅ +5 · יפה!");fcAdvance()};
+$("fcDont").onclick=()=>{const gi=fcOrder[fcIdx];learn.cards[gi]=0;saveLearn();toast("🔁 נחזור על זה בקרוב");fcAdvance()};
+$("fcSmart").onclick=()=>{learn.smart=!learn.smart;saveLearn();$("fcSmart").textContent='🧠 חזרה חכמה: '+(learn.smart?'דולק':'כבוי');buildFcOrder();fcIdx=0;renderFlash();toast(learn.smart?'🧠 חוזרים קודם על מה שחלש':'סדר רגיל')};
+buildFcOrder();if(learn.smart)$("fcSmart").textContent='🧠 חזרה חכמה: דולק';renderFlash();
+
+/* =================== QUIZ =================== */
+let quizStarted=false,qOrder=[],qIdx=0,qScore=0,qLocked=false;
+function startQuiz(){quizStarted=true;qOrder=shuffle(QUIZ.map((_,i)=>i));qIdx=0;qScore=0;state.streak=0;renderStats();renderQuiz()}
+function renderQuiz(){
+  qLocked=false;const q=QUIZ[qOrder[qIdx]];
+  $("quizCard").innerHTML=`<div class="q-head"><span>שאלה ${qIdx+1} מתוך ${QUIZ.length}</span><span>ניקוד: ${qScore}</span></div>
+   <div class="q-prog"><i style="width:${(qIdx/QUIZ.length)*100}%"></i></div><div class="q-text">${q.q}</div>
+   <div class="opts stagger">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="mk">${"אבגד"[i]}</span><span>${o}</span></button>`).join("")}</div>
+   <div class="explain" id="qExp"></div><div class="btn-row"><button class="btn primary" id="qNext" style="display:none">${qIdx<QUIZ.length-1?"השאלה הבאה ⟵":"לתוצאות 🏁"}</button></div>`;
+  $("quizCard").querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>answerQuiz(b,q)));
+  $("qNext").addEventListener('click',()=>{if(qIdx<QUIZ.length-1){qIdx++;renderQuiz()}else quizResult()});
+}
+function answerQuiz(btn,q){
+  if(qLocked)return;qLocked=true;const pick=+btn.dataset.i;const ok=pick===q.a;
+  $("quizCard").querySelectorAll('.opt').forEach((o,i)=>{o.classList.add('locked');if(i===q.a)o.classList.add('correct','pop');if(i===pick&&pick!==q.a)o.classList.add('wrong')});
+  const exp=$("qExp");
+  if(ok){qScore++;state.streak++;addXP(10);exp.className="explain ok show";exp.innerHTML="✅ נכון! "+q.e;if(state.streak%3===0){confetti();toast("🔥 רצף של "+state.streak+"!")}}
+  else{state.streak=0;exp.className="explain no show";exp.innerHTML="❌ לא מדויק. "+q.e}
+  if(q.w){exp.innerHTML+=`<div style="margin-top:8px"><button class="btn ghost sm" id="qWhy">💡 הסבר פשוט</button></div><div id="qWhyB" style="display:none;margin-top:8px;font-weight:600">${q.w}</div>`}
+  recTopic(qOrder[qIdx],ok);
+  const wb=$("qWhy");if(wb)wb.onclick=()=>{const b=$("qWhyB");b.style.display=b.style.display==='none'?'block':'none'};
+  renderStats();save();$("qNext").style.display="inline-flex";
+}
+function quizResult(){
+  const pct=Math.round(qScore/QUIZ.length*100);
+  const msg=pct>=85?"מדהים! אתה שולט בחומר 🤩":pct>=60?"כל הכבוד! עוד קצת תרגול ואתה שם 💪":"התחלה טובה — חזור על הסיכומים ונסה שוב 📚";
+  $("quizCard").innerHTML=`<div class="result"><div class="ring" style="--p:${pct}%"><b>${pct}%</b></div><h2>סיימת את החידון!</h2><p>${qScore} מתוך ${QUIZ.length} נכונות<br>${msg}</p><button class="btn primary" id="qAgain">🔁 לשחק שוב</button></div>`;
+  $("qAgain").onclick=startQuiz;if(pct>=60)confetti();
+}
+
+/* =================== SORT =================== */
+let sortMode="matter",sortSel=null,sortScore=0,sortLeftN=0;
+$("sortModes").addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#sortModes button').forEach(x=>x.classList.toggle('on',x===b));sortMode=b.dataset.mode;buildSort()});
+$("sortReset").onclick=buildSort;
+function buildSort(){
+  sortSel=null;sortScore=0;const cfg=SORT[sortMode];const items=shuffle(cfg.items.slice());sortLeftN=items.length;
+  $("sortScore").textContent=0;$("sortLeft").textContent=sortLeftN;
+  const pool=$("sortPool");pool.innerHTML="";
+  items.forEach(it=>{const c=document.createElement('button');c.className='chip';c.textContent=it[0];c.dataset.cat=it[1];
+    c.addEventListener('click',()=>{if(c.classList.contains('placed'))return;document.querySelectorAll('#sortPool .chip').forEach(x=>{if(x!==c)x.classList.remove('sel')});sortSel=c.classList.toggle('sel')?c:null});
+    pool.appendChild(c)});
+  const bn=$("sortBins");bn.innerHTML="";
+  cfg.bins.forEach(b=>{const dv=document.createElement('div');dv.className='bin '+b.cls;dv.innerHTML=`<h4>${b.name}</h4><div class="drop"></div>`;dv.addEventListener('click',()=>placeSort(b.key,dv));bn.appendChild(dv)});
+}
+function placeSort(key,binEl){
+  if(!sortSel)return;const chip=sortSel;
+  if(chip.dataset.cat===key){chip.classList.remove('sel');chip.classList.add('placed','right');binEl.querySelector('.drop').appendChild(chip);
+    sortScore++;sortLeftN--;addXP(6);$("sortScore").textContent=sortScore;$("sortLeft").textContent=sortLeftN;sortSel=null;
+    if(sortLeftN===0){toast("🏆 מושלם! סיימת את המיון");confetti()}}
+  else{chip.classList.add('wrongp');state.streak=0;renderStats();setTimeout(()=>chip.classList.remove('wrongp'),450);toast("❌ נסה תא אחר")}
+}
+
+/* =================== MATCH =================== */
+let matchSel=null,matchDoneN=0,matchSet=[];
+function buildMatch(){
+  matchSel=null;matchDoneN=0;matchSet=shuffle(MATCH_POOL.slice()).slice(0,MATCH_N);
+  $("matchDone").textContent=0;$("matchTotal").textContent=matchSet.length;
+  const A=$("matchA"),B=$("matchB");A.innerHTML="";B.innerHTML="";
+  shuffle(matchSet.map((m,i)=>({t:m[0],id:i}))).forEach(o=>A.appendChild(mtile(o.t,o.id,'a')));
+  shuffle(matchSet.map((m,i)=>({t:m[1],id:i}))).forEach(o=>B.appendChild(mtile(o.t,o.id,'b')));
+}
+function mtile(text,id,side){
+  const d=document.createElement('button');d.className='mtile';d.textContent=text;d.dataset.id=id;d.dataset.side=side;
+  d.addEventListener('click',()=>{
+    if(d.classList.contains('done'))return;
+    if(!matchSel){matchSel=d;d.classList.add('sel');return}
+    if(matchSel===d){d.classList.remove('sel');matchSel=null;return}
+    if(matchSel.dataset.side===d.dataset.side){matchSel.classList.remove('sel');matchSel=d;d.classList.add('sel');return}
+    if(matchSel.dataset.id===d.dataset.id){const a=matchSel,b=d;a.classList.add('flash-ok');b.classList.add('flash-ok');
+      setTimeout(()=>[a,b].forEach(x=>{x.classList.remove('flash-ok','sel');x.classList.add('done')}),400);
+      matchDoneN++;$("matchDone").textContent=matchDoneN;addXP(8);matchSel=null;
+      if(matchDoneN===matchSet.length){toast("🔗 כל ההתאמות נכונות!");confetti()}}
+    else{const a=matchSel,b=d;a.classList.add('flash-no');b.classList.add('flash-no');setTimeout(()=>{a.classList.remove('flash-no','sel');b.classList.remove('flash-no')},450);matchSel=null;state.streak=0;renderStats()}
+  });
+  return d;
+}
+$("matchReset").onclick=buildMatch;
+
+/* =================== EXAM =================== */
+let exOrder=[],exAns=[],exIdx=0;const EXAM_N=Math.min(15,QUIZ.length);
+function startExam(){exOrder=shuffle(QUIZ.map((_,i)=>i)).slice(0,EXAM_N);exAns=Array(EXAM_N).fill(null);exIdx=0;renderExam()}
+function renderExam(){
+  const q=QUIZ[exOrder[exIdx]];
+  $("examCard").innerHTML=`<div class="q-head"><span>שאלה ${exIdx+1} / ${EXAM_N}</span><span>מבחן הדמיה 🏆</span></div>
+   <div class="q-prog"><i style="width:${(exIdx/EXAM_N)*100}%"></i></div><div class="q-text">${q.q}</div>
+   <div class="opts stagger">${q.o.map((o,i)=>`<button class="opt ${exAns[exIdx]===i?'sel-ex':''}" data-i="${i}"><span class="mk">${"אבגד"[i]}</span><span>${o}</span></button>`).join("")}</div>
+   <div class="btn-row">${exIdx>0?'<button class="btn ghost" id="exPrev">⟶ הקודם</button>':''}${exIdx<EXAM_N-1?'<button class="btn primary" id="exNext">הבא ⟵</button>':'<button class="btn green" id="exSubmit">סיום והגשה 🏁</button>'}</div>`;
+  $("examCard").querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{exAns[exIdx]=+b.dataset.i;renderExam()}));
+  const p=$("exPrev"),n=$("exNext"),s=$("exSubmit");
+  if(p)p.onclick=()=>{exIdx--;renderExam()};if(n)n.onclick=()=>{exIdx++;renderExam()};if(s)s.onclick=examResult;
+}
+function examResult(){
+  let c=0;exOrder.forEach((qi,i)=>{const ok=exAns[i]===QUIZ[qi].a;if(ok)c++;recTopic(qi,ok)});const pct=Math.round(c/EXAM_N*100);
+  const msg=pct>=85?"ציון מעולה! אתה מוכן למבחן 🌟":pct>=60?"יפה מאוד! עבור על מה שטעית 💪":"כדאי לחזור על הסיכומים ולתרגל עוד 📚";
+  addXP(c*4);
+  $("examCard").innerHTML=`<div class="result"><div class="ring" style="--p:${pct}%"><b>${pct}</b></div><h2>הציון שלך: ${pct}</h2><p>${c} מתוך ${EXAM_N} נכונות<br>${msg}</p><div class="btn-row"><button class="btn primary" id="exReview">📋 סקירת תשובות</button><button class="btn ghost" id="exAgain">🔁 מבחן חדש</button></div></div>`;
+  $("exReview").onclick=examReview;$("exAgain").onclick=startExam;if(pct>=60)confetti();
+}
+function examReview(){
+  $("examCard").innerHTML=`<h2 class="disp" style="margin-bottom:14px">📋 סקירת תשובות</h2>`+
+   exOrder.map((qi,i)=>{const q=QUIZ[qi];const ok=exAns[i]===q.a;return `<div class="card" style="margin-bottom:10px;border-inline-start:5px solid ${ok?'var(--ok)':'var(--err)'}">
+     <div style="font-weight:800;margin-bottom:6px">${i+1}. ${q.q}</div>
+     <div style="color:${ok?'#065f46':'#991b1b'};font-weight:700">${ok?'✅':'❌'} ענית: ${exAns[i]==null?'לא נענתה':q.o[exAns[i]]}</div>
+     ${ok?'':`<div style="color:#065f46;font-weight:700">✔️ הנכונה: ${q.o[q.a]}</div>`}
+     <div style="color:var(--muted);margin-top:4px">${q.e}</div></div>`}).join("")+`<div class="btn-row"><button class="btn primary" id="exAgain2">🔁 מבחן חדש</button></div>`;
+  $("exAgain2").onclick=startExam;
+}
+
+/* =================== 3D ENGINE (Three.js, lazy CDN) =================== */
+const ATOM={H:{c:0xd5dde8,r:.34},O:{c:0xef4444,r:.46},C:{c:0x273244,r:.5},N:{c:0x3b82f6,r:.48},Na:{c:0x7c3aed,r:.5},Cl:{c:0x16a34a,r:.62},Fe:{c:0x94a3b8,r:.6},S:{c:0xf59e0b,r:.56}};
+const MOLS={
+ H2O:{name:"מים",f:"H₂O",a:[['O',0,0,0],['H',.76,.59,0],['H',-.76,.59,0]],b:[[0,1],[0,2]]},
+ CO2:{name:"פחמן דו-חמצני",f:"CO₂",a:[['C',0,0,0],['O',1.16,0,0],['O',-1.16,0,0]],b:[[0,1],[0,2]]},
+ CH4:{name:"מתאן",f:"CH₄",a:[['C',0,0,0],['H',.63,.63,.63],['H',-.63,-.63,.63],['H',-.63,.63,-.63],['H',.63,-.63,-.63]],b:[[0,1],[0,2],[0,3],[0,4]]},
+ O2:{name:"חמצן (יסוד)",f:"O₂",a:[['O',.62,0,0],['O',-.62,0,0]],b:[[0,1]]}
+};
+const RXN={
+ synth:{eq:"Fe + S → FeS",type:"הרכבה",atoms:[['Fe',[-1.7,0,0],[-.6,0,0]],['S',[1.7,0,0],[.6,0,0]]],bs:[],be:[[0,1]]},
+ combustion:{eq:"C + O₂ → CO₂",type:"בעירה",atoms:[['C',[-1.9,0,0],[0,0,0]],['O',[1.3,.0,0],[1.16,0,0]],['O',[2.1,0,0],[-1.16,0,0]]],bs:[[1,2]],be:[[0,1],[0,2]]},
+ formwater:{eq:"2H₂ + O₂ → 2H₂O",type:"הרכבה",atoms:[['H',[-2.4,.9,0],[-1.25,.5,0]],['H',[-1.7,.9,0],[-2.0,.5,0]],['H',[-2.4,-.9,0],[1.25,.5,0]],['H',[-1.7,-.9,0],[2.0,.5,0]],['O',[1.7,0,0],[-1.85,0,0]],['O',[2.4,0,0],[1.85,0,0]]],bs:[[0,1],[2,3],[4,5]],be:[[4,0],[4,1],[5,2],[5,3]]},
+ electro:{eq:"2H₂O → 2H₂ + O₂",type:"פירוק (אלקטרוליזה)",atoms:[['H',[-1.85,.5,0],[-2.4,.9,0]],['H',[-1.25,.5,0],[-1.7,.9,0]],['H',[1.25,.5,0],[-2.4,-.9,0]],['H',[1.85,.5,0],[-1.7,-.9,0]],['O',[-1.55,0,0],[1.7,0,0]],['O',[1.55,0,0],[2.4,0,0]]],bs:[[4,0],[4,1],[5,2],[5,3]],be:[[0,1],[2,3],[4,5]]}
+};
+const QUIZ3D=[{k:'H2O',n:'מים (H₂O)'},{k:'CO2',n:'פחמן דו-חמצני (CO₂)'},{k:'CH4',n:'מתאן (CH₄)'},{k:'O2',n:'חמצן O₂'},{k:'NaCl',n:'מלח NaCl'}];
+
+let threeP=null;
+function loadThree(){
+  if(window.THREE)return Promise.resolve(true);
+  if(threeP)return threeP;
+  threeP=new Promise(res=>{
+    const s=document.createElement('script');
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s.onload=()=>res(true);s.onerror=()=>res(false);
+    document.head.appendChild(s);
+  });
+  return threeP;
+}
+
+function makeViewer(stage,mode){
+  let THREE,renderer,scene,camera,group,raf=0,clock,dragging=false,lastX,lastY,running=false,ro;
+  let particles=[],rxnState=null,curMol='H2O',sphereGeo,bondGeo,fx=[],fxGeo,flash=0,flashCol=0xffaa33;
+  const ctrl={mode,start,stop,dispose,api:{}};
+
+  function initGL(){
+    THREE=window.THREE;
+    const w=stage.clientWidth||300,h=stage.clientHeight||240;
+    const cv=document.createElement('canvas');stage.appendChild(cv);
+    renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(w,h,false);
+    scene=new THREE.Scene();
+    camera=new THREE.PerspectiveCamera(50,w/h,.1,100);camera.position.set(0,0,6.5);
+    scene.add(new THREE.AmbientLight(0xffffff,.72));
+    const d1=new THREE.DirectionalLight(0xffffff,.95);d1.position.set(3,5,4);scene.add(d1);
+    const hemi=new THREE.HemisphereLight(0xdfeeff,0x223044,.5);scene.add(hemi);
+    group=new THREE.Group();scene.add(group);
+    sphereGeo=new THREE.SphereGeometry(1,26,18);bondGeo=new THREE.CylinderGeometry(.09,.09,1,10);
+    clock=new THREE.Clock();
+    cv.style.touchAction='none';
+    cv.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;cv.setPointerCapture(e.pointerId)});
+    cv.addEventListener('pointermove',e=>{if(!dragging)return;group.rotation.y+=(e.clientX-lastX)*.01;group.rotation.x+=(e.clientY-lastY)*.01;lastX=e.clientX;lastY=e.clientY});
+    cv.addEventListener('pointerup',e=>{dragging=false});
+    cv.addEventListener('pointercancel',()=>{dragging=false});
+    ro=new ResizeObserver(()=>{const W=stage.clientWidth,H=stage.clientHeight;if(W&&H){camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setSize(W,H,false)}});
+    ro.observe(stage);
+    buildForMode();
+  }
+  function mat(color){return new THREE.MeshStandardMaterial({color,roughness:.34,metalness:.05})}
+  function clearGroup(){for(let i=group.children.length-1;i>=0;i--){const o=group.children[i];group.remove(o);if(o.material&&o.material.dispose)o.material.dispose()}}
+  function addAtom(el,x,y,z){const a=ATOM[el]||ATOM.C;const m=new THREE.Mesh(sphereGeo,mat(a.c));m.scale.setScalar(a.r);m.position.set(x,y,z);group.add(m);return m}
+  function addBond(p1,p2){const dir=new THREE.Vector3().subVectors(p2,p1);const len=dir.length();const m=new THREE.Mesh(bondGeo,mat(0xbcd0ea));m.scale.set(1,len,1);m.position.copy(p1).add(p2).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().normalize());group.add(m)}
+  function buildMolecule(key){clearGroup();const M=MOLS[key];M.a.forEach(at=>addAtom(at[0],at[1],at[2],at[3]));M.b.forEach(bd=>addBond(new THREE.Vector3(...M.a[bd[0]].slice(1)),new THREE.Vector3(...M.a[bd[1]].slice(1))));group.rotation.set(.3,.5,0);const lbl=stage.parentElement.querySelector('[data-role=label]');if(lbl)lbl.innerHTML=M.name+' <span class="formula">'+M.f+'</span>'}
+  function buildLattice(){clearGroup();const sp=1.0;for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++)for(let k=-1;k<=1;k++){const el=((i+j+k)&1)===0?'Na':'Cl';const m=addAtom(el,i*sp,j*sp,k*sp);m.scale.multiplyScalar(.62)}group.rotation.set(.35,.6,0)}
+  function buildReaction(key){fx.forEach(p=>{if(p.m.material)p.m.material.dispose()});fx=[];flash=0;rxnState={key,t:0,playing:false};const R=RXN[key];clearGroup();rxnState.meshes=R.atoms.map(a=>addAtom(a[0],a[1][0],a[1][1],a[1][2]));rxnState.bondMode='start';drawRxnBonds();group.rotation.set(.2,.5,0);const lbl=stage.parentElement.querySelector('[data-role=label]');if(lbl)lbl.innerHTML='<b>'+R.type+'</b> · <span class="formula">'+R.eq+'</span>';const en=stage.parentElement.querySelector('[data-role=energy]');if(en)en.className='v3d-energy'}
+  let rxnBonds=[];
+  function drawRxnBonds(){rxnBonds.forEach(b=>{group.remove(b);b.material.dispose()});rxnBonds=[];const R=RXN[rxnState.key];const list=rxnState.bondMode==='start'?R.bs:R.be;list.forEach(bd=>{const p1=rxnState.meshes[bd[0]].position,p2=rxnState.meshes[bd[1]].position;const dir=new THREE.Vector3().subVectors(p2,p1);const len=dir.length();const m=new THREE.Mesh(bondGeo,mat(0xbcd0ea));m.scale.set(1,len,1);m.position.copy(p1).add(p2).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().normalize());group.add(m);rxnBonds.push(m)})}
+  const RXN_E={synth:'exo',combustion:'exo',formwater:'exo',electro:'endo'};
+  function showEnergy(key){const el=stage.parentElement.querySelector('[data-role=energy]');if(!el)return;const exo=RXN_E[key]==='exo';el.className='v3d-energy show '+(exo?'exo':'endo');el.textContent=exo?'🔥 פולט אנרגיה (אקסותרמי)':'❄️ קולט אנרגיה (אנדותרמי)'}
+  function spawnFX(key){fx.forEach(p=>{group.remove(p.m);p.m.material.dispose()});fx=[];if(RM)return;if(!fxGeo)fxGeo=new THREE.SphereGeometry(1,8,8);const bubble=key==='electro';flashCol=bubble?0x60a5fa:0xffaa33;const N=bubble?22:26;for(let i=0;i<N;i++){const col=bubble?(Math.random()<.5?0x7dd3fc:0xbae6fd):(Math.random()<.5?0xfde047:0xf97316);const m=new THREE.Mesh(fxGeo,new THREE.MeshBasicMaterial({color:col}));const x=bubble?(Math.random()<.5?-1.6:1.6)+(Math.random()-.5)*.5:(Math.random()-.5)*1.2;m.position.set(x,(Math.random()-.5)*.8,(Math.random()-.5)*1);m.scale.setScalar(bubble?.16:.14);group.add(m);fx.push({m,vx:bubble?(Math.random()-.5)*.01:(Math.random()-.5)*.06,vy:bubble?.03+Math.random()*.03:.02+Math.random()*.05,vz:(Math.random()-.5)*.03,life:1,bubble})}}
+  function playReaction(){if(!rxnState)return;rxnState.t=0;rxnState.playing=true;rxnState.bondMode='none';rxnBonds.forEach(b=>{group.remove(b);b.material.dispose()});rxnBonds=[];spawnFX(rxnState.key);showEnergy(rxnState.key)}
+  function buildStates(stateName){clearGroup();particles=[];const N=42;const blue=mat(0x38bdf8);for(let i=0;i<N;i++){const m=new THREE.Mesh(sphereGeo,blue);m.scale.setScalar(.22);group.add(m);particles.push({m,p:new THREE.Vector3(),v:new THREE.Vector3((Math.random()-.5)*.04,(Math.random()-.5)*.04,(Math.random()-.5)*.04)})}layoutStates(stateName);group.rotation.set(.2,.3,0);const lbl=stage.parentElement.querySelector('[data-role=label]');const names={solid:'מוצק — חלקיקים צפופים ורוטטים במקום',liquid:'נוזל — חלקיקים נוגעים אך זורמים',gas:'גז — חלקיקים מפוזרים ומהירים'};if(lbl)lbl.textContent=names[stateName]}
+  function layoutStates(stateName){particles.forEach((pt,i)=>{if(stateName==='solid'){const s=Math.ceil(Math.cbrt(particles.length));const x=i%s,y=Math.floor(i/s)%s,z=Math.floor(i/(s*s));pt.home=new THREE.Vector3((x-s/2)*.62,(y-s/2)*.62,(z-s/2)*.62);pt.p.copy(pt.home)}else{pt.p.set((Math.random()-.5)*3.4,(Math.random()-.5)*3.4,(Math.random()-.5)*3.4)}pt.m.position.copy(pt.p)});states_mode=stateName}
+  let states_mode='solid';
+  function updateStates(dt){const B=1.8;particles.forEach(pt=>{if(states_mode==='solid'){const t=performance.now()*.004;pt.m.position.set(pt.home.x+Math.sin(t+pt.home.y*3)*.05,pt.home.y+Math.cos(t+pt.home.x*3)*.05,pt.home.z+Math.sin(t+pt.home.z*3)*.05)}else{const sp=states_mode==='gas'?1:.4;pt.p.addScaledVector(pt.v,sp);['x','y','z'].forEach(ax=>{if(pt.p[ax]>B){pt.p[ax]=B;pt.v[ax]*=-1}if(pt.p[ax]<-B){pt.p[ax]=-B;pt.v[ax]*=-1}});if(states_mode==='liquid'){pt.v.y-=.0008;if(pt.p.y<-B+.1)pt.v.y*=-.6;pt.v.multiplyScalar(.99)}pt.m.position.copy(pt.p)}})}
+  function buildForMode(){
+    if(mode==='molecule'){buildMolecule(curMol);ctrl.api.setMol=k=>{curMol=k;buildMolecule(k)}}
+    else if(mode==='lattice'){buildLattice()}
+    else if(mode==='reaction'){buildReaction('synth');ctrl.api.setRxn=k=>buildReaction(k);ctrl.api.play=playReaction}
+    else if(mode==='states'){buildStates('solid');ctrl.api.setState=s=>layoutStates(s)}
+    else if(mode==='quiz3d'){ctrl.api.showItem=k=>{if(k==='NaCl')buildLattice();else buildMolecule(k)}}
+  }
+  function loop(){
+    raf=requestAnimationFrame(loop);const dt=clock.getDelta();
+    if(!dragging&&!RM&&(mode==='molecule'||mode==='lattice'||mode==='reaction'||mode==='quiz3d'))group.rotation.y+=dt*.45;
+    if(mode==='states')updateStates(dt);
+    if(rxnState&&rxnState.playing){rxnState.t+=dt/1.7;let t=Math.min(1,rxnState.t);const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;const R=RXN[rxnState.key];rxnState.meshes.forEach((m,i)=>{const a=R.atoms[i];m.position.set(a[1][0]+(a[2][0]-a[1][0])*e,a[1][1]+(a[2][1]-a[1][1])*e,a[1][2]+(a[2][2]-a[1][2])*e)});if(t>=1){rxnState.playing=false;rxnState.bondMode='end';drawRxnBonds();flash=1;rxnState.meshes.forEach(m=>{if(m.material&&m.material.emissive)m.material.emissive.setHex(flashCol)})}}
+    if(flash>0){flash=Math.max(0,flash-dt*1.3);if(rxnState&&rxnState.meshes)rxnState.meshes.forEach(m=>{if(m.material)m.material.emissiveIntensity=flash})}
+    if(fx.length){for(let i=fx.length-1;i>=0;i--){const p=fx[i];p.m.position.x+=p.vx;p.m.position.y+=p.vy;p.m.position.z+=p.vz;if(!p.bubble)p.vy-=.0016;p.life-=.016;p.m.scale.setScalar(Math.max(0,p.life)*(p.bubble?.18:.16));if(p.life<=0){group.remove(p.m);p.m.material.dispose();fx.splice(i,1)}}}
+    renderer.render(scene,camera);
+  }
+  function start(){running=true;loadThree().then(ok=>{if(!ok){showErr();return}if(!renderer)initGL();const ld=stage.querySelector('.v3d-load');if(ld)ld.remove();if(!raf)loop()})}
+  function stop(){running=false;if(raf){cancelAnimationFrame(raf);raf=0}}
+  function showErr(){const ld=stage.querySelector('.v3d-load');if(ld){ld.classList.add('err');ld.innerHTML='🔌 צריך חיבור לאינטרנט פעם אחת כדי לטעון את התלת-ממד.<br>שאר האתר עובד רגיל!'}}
+  function dispose(){stop();if(ro)ro.disconnect();if(renderer){try{scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)o.material.dispose&&o.material.dispose()});renderer.dispose();const gl=renderer.getContext&&renderer.getContext();const lose=gl&&gl.getExtension&&gl.getExtension('WEBGL_lose_context');if(lose)lose.loseContext();if(renderer.domElement&&renderer.domElement.parentElement)renderer.domElement.parentElement.removeChild(renderer.domElement)}catch(e){}renderer=null}}
+  return ctrl;
+}
+
+/* mount/unmount learn 3D boxes */
+function mountV3D(box){
+  if(box._v3d){box._v3d.start();return}
+  const stage=box.querySelector('[data-role=stage]');const mode=box.dataset.mode;
+  const v=makeViewer(stage,mode);box._v3d=v;v.start();
+  if(mode==='molecule')box.querySelectorAll('[data-mol]').forEach(b=>b.onclick=()=>{box.querySelectorAll('[data-mol]').forEach(x=>x.classList.toggle('on',x===b));v.api.setMol(b.dataset.mol)});
+  if(mode==='reaction'){box.querySelectorAll('[data-rxn]').forEach(b=>b.onclick=()=>{box.querySelectorAll('[data-rxn]').forEach(x=>x.classList.toggle('on',x===b));v.api.setRxn(b.dataset.rxn)});const pb=box.querySelector('[data-role=play]');if(pb)pb.onclick=()=>v.api.play()}
+  if(mode==='states')box.querySelectorAll('[data-state]').forEach(b=>b.onclick=()=>{box.querySelectorAll('[data-state]').forEach(x=>x.classList.toggle('on',x===b));v.api.setState(b.dataset.state)});
+}
+function unmountV3D(box){if(box._v3d)box._v3d.stop()}
+
+/* =================== 3D GAME: סובב וזהה =================== */
+let lab3dV=null,q3dScore=0,q3dStreak=0,q3dAnswer=null,q3dLock=false;
+function startLab3d(){
+  const box=document.querySelector('#g-lab3d .v3dbox');const stage=box.querySelector('[data-role=stage]');
+  if(!lab3dV){lab3dV=makeViewer(stage,'quiz3d');}
+  lab3dV.start();
+  loadThree().then(ok=>{if(ok)q3dNew()});
+}
+function pauseLab3d(){if(lab3dV)lab3dV.stop()}
+function q3dNew(){
+  q3dLock=false;$("q3dExp").className="explain";$("q3dNext").style.display="none";
+  const target=QUIZ3D[Math.floor(Math.random()*QUIZ3D.length)];q3dAnswer=target;
+  if(lab3dV.api.showItem)lab3dV.api.showItem(target.k);
+  const opts=shuffle([target].concat(shuffle(QUIZ3D.filter(x=>x.k!==target.k)).slice(0,3)));
+  const wrap=$("q3dOpts");wrap.innerHTML="";
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<span class="mk">${"אבגד"[i]}</span><span>${o.n}</span>`;b.onclick=()=>q3dPick(b,o);wrap.appendChild(b)});
+}
+function q3dPick(btn,o){
+  if(q3dLock)return;q3dLock=true;
+  const ok=o.k===q3dAnswer.k;const exp=$("q3dExp");
+  $("q3dOpts").querySelectorAll('.opt').forEach(x=>{x.classList.add('locked');if(x===btn)x.classList.add(ok?'correct':'wrong');if(x===btn&&ok)x.classList.add('pop')});
+  if(ok){q3dScore++;q3dStreak++;addXP(10);$("q3dScore").textContent=q3dScore;$("q3dStreak").textContent=q3dStreak;exp.className="explain ok show";exp.textContent="✅ נכון! זו "+q3dAnswer.n;if(q3dStreak%3===0){confetti();toast("🔥 רצף "+q3dStreak+"!")}}
+  else{q3dStreak=0;$("q3dStreak").textContent=0;exp.className="explain no show";exp.textContent="❌ זו דווקא "+q3dAnswer.n;}
+  $("q3dNext").style.display="inline-flex";
+}
+$("q3dNext").onclick=q3dNew;
+
+/* =================== 2D REACTION LAB (canvas) =================== */
+function initLab2D(lab){
+  if(lab._l2d){lab._l2d.draw0();return}
+  const demo=lab.dataset.demo,cv=lab.querySelector('canvas'),ctx=cv.getContext('2d');
+  const W=340,H=210,dpr=Math.min(window.devicePixelRatio,2);cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  let raf=0,t=0,on=false,parts=[];
+  const C=x=>ctx.fillStyle=x;function clear(){ctx.clearRect(0,0,W,H)}
+  function drawBalloon(p){clear();C('#cbd5e1');ctx.fillRect(40,182,260,4);
+    ctx.strokeStyle='#60a5fa';ctx.lineWidth=3;C('rgba(191,219,254,.55)');
+    ctx.beginPath();ctx.moveTo(130,182);ctx.lineTo(130,120);ctx.lineTo(150,104);ctx.lineTo(190,104);ctx.lineTo(210,120);ctx.lineTo(210,182);ctx.closePath();ctx.fill();ctx.stroke();
+    C('#3b82f6');ctx.globalAlpha=.5;ctx.fillRect(132,150,76,30);ctx.globalAlpha=1;
+    C('#94a3b8');ctx.fillRect(162,92,16,14);
+    const r=10+p*30;C('#ec4899');ctx.beginPath();ctx.ellipse(170,90-r,r*.9,r,0,0,7);ctx.fill();C('#be185d');ctx.fillRect(166,90,8,6);
+    parts.forEach(b=>{C('rgba(255,255,255,.85)');ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,7);ctx.fill()});}
+  function stepBalloon(){t+=1/90;if(t>1)t=1;if(on&&!RM&&Math.random()<.4)parts.push({x:140+Math.random()*60,y:178,r:2+Math.random()*3,v:.8+Math.random()});parts.forEach(b=>b.y-=b.v);parts=parts.filter(b=>b.y>150);drawBalloon(t);if(t<1&&on)raf=requestAnimationFrame(stepBalloon);else on=false;}
+  function drawFlame(f){clear();C('#92400e');ctx.fillRect(120,176,100,12);C('#b45309');ctx.fillRect(135,170,70,10);if(f<=0)return;
+    const cx=170,by=172;function flm(h,w,col,off){C(col);ctx.beginPath();ctx.moveTo(cx-w,by);ctx.quadraticCurveTo(cx-w,by-h*.6,cx,by-h-off);ctx.quadraticCurveTo(cx+w,by-h*.6,cx+w,by);ctx.closePath();ctx.fill()}
+    const fl=1+Math.sin(t*9)*.12;flm(86*fl,30,'#f59e0b',0);flm(60*fl,20,'#f97316',Math.sin(t*11)*4);flm(34*fl,11,'#fde047',0);
+    parts.forEach(s=>{C('rgba(253,224,71,'+s.a.toFixed(2)+')');ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fill()});}
+  function stepFlame(){t+=1/60;if(!RM&&Math.random()<.5)parts.push({x:160+Math.random()*20,y:150,r:1+Math.random()*2,v:.6+Math.random(),a:1});parts.forEach(s=>{s.y-=s.v;s.a-=.02});parts=parts.filter(s=>s.a>0);drawFlame(1);if(on)raf=requestAnimationFrame(stepFlame);}
+  function drawRust(p){clear();C('#94a3b8');ctx.fillRect(86,96,160,22);C('#cbd5e1');ctx.fillRect(86,96,160,6);C('#64748b');ctx.beginPath();ctx.moveTo(246,96);ctx.lineTo(270,107);ctx.lineTo(246,118);ctx.closePath();ctx.fill();
+    const n=Math.floor(p*46);for(let i=0;i<n;i++){const x=88+((i*53)%158),y=98+((i*29)%18);C(i%2?'#b45309':'#9a3412');ctx.beginPath();ctx.arc(x,y,2+(i%3),0,7);ctx.fill()}}
+  function stepRust(){t+=1/120;if(t>1)t=1;drawRust(t);if(t<1&&on)raf=requestAnimationFrame(stepRust);else on=false}
+  function draw0(){t=0;parts=[];if(demo==='balloon')drawBalloon(0);else if(demo==='flame')drawFlame(0);else drawRust(0)}
+  function play(){
+    if(demo==='flame'){if(on){stop();drawFlame(0);return}on=true;t=0;parts=[];if(RM){drawFlame(1);on=false;return}stepFlame();return}
+    if(on)return;on=true;t=0;parts=[];
+    if(RM){if(demo==='balloon')drawBalloon(1);else drawRust(1);on=false;return}
+    if(demo==='balloon')stepBalloon();else stepRust();
+  }
+  function stop(){on=false;if(raf)cancelAnimationFrame(raf);raf=0}
+  draw0();const pb=lab.querySelector('[data-role=play]');if(pb)pb.onclick=play;lab._l2d={stop,draw0};
+}
+function unmountLab2D(lab){if(lab._l2d)lab._l2d.stop()}
+
+/* =================== HELPERS =================== */
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let toastT;function toast(m){$("toastMsg").textContent=m;const t=$("toast");t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1700)}
+const cvs=$("confetti"),ctx=cvs.getContext('2d');let parts=[];
+function rs(){cvs.width=innerWidth;cvs.height=innerHeight}rs();addEventListener('resize',rs);
+function confetti(){if(RM)return;const cols=['#2563EB','#F59E0B','#EC4899','#16a34a','#7c3aed','#06b6d4'];for(let i=0;i<80;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*12,vy:Math.random()*-12-4,g:.34,c:cols[i%cols.length],s:Math.random()*8+5,r:Math.random()*6,vr:(Math.random()-.5)*.4,life:90});if(parts.length<=80)anim()}
+function anim(){ctx.clearRect(0,0,cvs.width,cvs.height);parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);ctx.restore()});parts=parts.filter(p=>p.life>0&&p.y<cvs.height+30);if(parts.length)requestAnimationFrame(anim);else ctx.clearRect(0,0,cvs.width,cvs.height)}
+(function(){const b=$("blobs"),cols=['#2563EB','#EC4899','#F59E0B','#06b6d4'];for(let i=0;i<6;i++){const s=document.createElement('i');const sz=Math.random()*120+80;s.style.width=s.style.height=sz+'px';s.style.left=Math.random()*90+'%';s.style.top=Math.random()*90+'%';s.style.background=cols[i%cols.length];s.style.animationDuration=(Math.random()*20+22)+'s';s.style.animationDelay=(-Math.random()*20)+'s';b.appendChild(s)}})();
+
+buildSort();buildMatch();renderStats();renderMastery();
+</script>
+</body>
+</html>
