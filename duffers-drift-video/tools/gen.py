@@ -107,8 +107,11 @@ def main(only):
     comps_dir = ROOT / "compositions"
     comps_dir.mkdir(exist_ok=True)
     all_sfx, all_music = [], []
+    HOLD = 1.2  # each chapter's last frame stays under the next chapter's entrance
+    last_id = TL["chapters"][-1]["id"]
     for ch in TL["chapters"]:
         c = kit.Comp(ch, ch["start"])
+        c.extra = 0.0 if ch["id"] == last_id else HOLD
         BUILDERS[ch["id"]](c)
         all_sfx += c.sfx_cues
         all_music += c.music_cues
@@ -122,7 +125,7 @@ def main(only):
     for k, ch in enumerate(TL["chapters"]):
         hosts.append(
             f'      <div id="{ch["id"]}" data-composition-id="{ch["id"]}" data-composition-src="compositions/{ch["id"]}.html" '
-            f'data-start="{ch["start"]:.3f}" data-duration="{ch["duration"]:.3f}" data-track-index="1" data-track-kind="graphics" '
+            f'data-start="{ch["start"]:.3f}" data-duration="{ch["duration"] + (0 if k == len(TL["chapters"]) - 1 else 1.2):.3f}" data-track-index="1" data-track-kind="graphics" '
             f'data-width="1920" data-height="1080" style="z-index:{k + 1}"></div>'
         )
     hosts.append(

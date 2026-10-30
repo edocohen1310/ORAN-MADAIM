@@ -171,16 +171,21 @@ def bobber(inner, uid):
 
 
 # ---------------------------------------------------------------- cross-sections
+_SEC = [0]
+
+
 def section(content="", ground_d="", water=False, label_html=""):
     """A cut through the ground, drawn like a diagram on sand."""
+    _SEC[0] += 1
+    k = _SEC[0]
     w = '<path d="M 690 905 Q 760 925 830 905 L 830 935 L 690 935 Z" fill="#4C8C86" opacity="0.9"/>' if water else ""
     return (
         '<div class="full" style="background:linear-gradient(180deg,#F6E7C6 0%,#EED7A6 100%)"></div>'
-        f'<svg class="stage" viewBox="0 0 1920 1080"><defs><pattern id="strata" width="60" height="22" patternUnits="userSpaceOnUse">'
+        f'<svg class="stage" viewBox="0 0 1920 1080"><defs><pattern id="strata{k}" width="60" height="22" patternUnits="userSpaceOnUse">'
         f'<path d="M 0 11 Q 15 5 30 11 T 60 11" fill="none" stroke="#6b4a26" stroke-width="2" opacity="0.35"/></pattern></defs>'
-        '<marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1E1812"/></marker>'
-        f'<path d="{ground_d}" fill="#B98A52"/><path d="{ground_d}" fill="url(#strata)"/>'
-        f'<path d="{ground_d}" fill="none" stroke="#5b3d1d" stroke-width="5"/>{w}{content}</svg>{label_html}'
+        f'<marker id="ar{k}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1E1812"/></marker>'
+        f'<path d="{ground_d}" fill="#B98A52"/><path d="{ground_d}" fill="url(#strata{k})"/>'
+        f'<path d="{ground_d}" fill="none" stroke="#5b3d1d" stroke-width="5"/>{w}{content.replace("url(#ar)", f"url(#ar{k})")}</svg>{label_html}'
     )
 
 

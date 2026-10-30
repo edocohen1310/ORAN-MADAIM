@@ -549,7 +549,7 @@ def recap(c):
             f'<img src="assets/art/slate.png" style="width:120px; height:62px; display:block" alt=""><div class="abs k-title" style="left:0; width:120px; top:6px; text-align:center; font-size:50px; color:#E3A33B">{k + 1}</div></div></div>'
         )
     six = "".join(
-        f'<div id="rc-s{k}" class="abs k-title" style="left:{1580 - k * 260}px; top:420px; width:200px; height:200px; text-align:center; font-size:170px; '
+        f'<div id="rc-six{k}" class="abs k-title" style="left:{1580 - k * 260}px; top:420px; width:200px; height:200px; text-align:center; font-size:170px; '
         f'line-height:200px; color:#1E1812; background:#E3A33B; border-radius:24px; opacity:0">{k + 1}</div>'
         for k in range(6)
     )
@@ -566,7 +566,7 @@ def recap(c):
         tx, ty = 1580 - g * 260 + 40, 470
         c.to(f"#rc-c{k}", {"x": tx - x, "y": ty - y, "scale": 0.5, "opacity": 0, "duration": 0.8, "ease": "power3.in"}, round(tg + (k % 6) * 0.03, 3))
     for k in range(6):
-        c.fromTo(f"#rc-s{k}", {"opacity": 0, "scale": 0.5}, {"opacity": 1, "scale": 1, "duration": 0.4, "ease": "back.out(2)"}, round(tg + 0.7 + k * 0.1, 3))
+        c.fromTo(f"#rc-six{k}", {"opacity": 0, "scale": 0.5}, {"opacity": 1, "scale": 1, "duration": 0.4, "ease": "back.out(2)"}, round(tg + 0.7 + k * 0.1, 3))
     c.sfx("whoosh", tg, 0.3)
 
     # S2..S7: one idea at a time

@@ -59,6 +59,8 @@ class Comp:
         self.music_cues = []
         self._z = 1
         self._n = 0
+        self.shots = []
+        self.extra = 0.0  # seconds this chapter stays on screen under the next one
 
     # time lookups (chapter-local seconds)
     def t(self, sid, frac=0.0):
@@ -91,8 +93,9 @@ class Comp:
         z = self._z
         self._z += 1
         bg_css = f"background:{bg};" if bg else ""
+        self.shots.append((sid, t0, t1))
         self.html.append(
-            f'<div id="{sid}" class="clip shot {cls}" data-start="{t0:.3f}" data-duration="{(t1 - t0):.3f}" '
+            f'<div id="{sid}" class="clip shot {cls}" data-start="{t0:.3f}" data-duration="@@DUR:{sid}@@" '
             f'data-track-index="{z}" style="z-index:{z};{bg_css}"><div id="{sid}-in" class="shot-in">{inner}</div></div>'
         )
         if fade_in == "fade" and fade > 0:
@@ -196,18 +199,31 @@ class Comp:
         self.music_cues.append({"track": track, "t0": round(self.start + t0, 3), "t1": round(self.start + t1, 3), "gain": gain})
 
     # output
+    def resolve_durations(self, body):
+        """Each shot stays on screen under the shot that replaces it until that shot has
+        finished entering, so transitions dissolve instead of dipping to black."""
+        end_all = self.dur + self.extra
+        for sid, t0, t1 in self.shots:
+            nxt = any(abs(o0 - t1) < 0.08 and osid != sid for osid, o0, _ in self.shots)
+            end = t1 + 1.0 if nxt else t1
+            if t1 >= self.dur - 0.05:
+                end = end_all
+            end = min(end, end_all)
+            body = body.replace(f"@@DUR:{sid}@@", f"{end - t0:.3f}")
+        return body
+
     def render(self):
-        body = "\n".join(self.html)
+        body = self.resolve_durations("\n".join(self.html))
         css = "\n".join(self.css)
         lines = "\n".join("      " + l for l in self.js_lines())
         return f"""<template>
   <style>
 {FONTS_CSS}
-#root {{ position:absolute; inset:0; overflow:hidden; background:#140f0a; direction:rtl; }}
+#root {{ position:absolute; inset:0; overflow:hidden; direction:rtl; }}
 {BASE_CSS}
 {css}
   </style>
-  <div id="root" data-composition-id="{self.id}" data-width="1920" data-height="1080" data-duration="{self.dur:.3f}">
+  <div id="root" data-composition-id="{self.id}" data-width="1920" data-height="1080" data-duration="{self.dur + self.extra:.3f}">
 {body}
   </div>
   <script>
