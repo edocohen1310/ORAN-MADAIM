@@ -1,0 +1,730 @@
+<template>
+  <style>
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/FrankRuhlLibre-500-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/FrankRuhlLibre-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/FrankRuhlLibre-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/FrankRuhlLibre-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 900; font-display: block; src: url('assets/fonts/FrankRuhlLibre-900-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 900; font-display: block; src: url('assets/fonts/FrankRuhlLibre-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 400; font-display: block; src: url('assets/fonts/Karantina-400-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 400; font-display: block; src: url('assets/fonts/Karantina-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Karantina-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Karantina-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/Rubik-500-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/Rubik-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Rubik-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Rubik-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+#root { position:absolute; inset:0; pointer-events:none; }
+.cap { position:absolute; left:0; right:0; bottom:58px; height:96px; display:flex; align-items:center; justify-content:center; direction:rtl; }
+.cap-t { font-family:'Rubik'; font-weight:700; font-size:48px; line-height:1.1; color:#FFF8EC; background:rgba(22,16,10,.78);
+  padding:12px 30px 16px; border-radius:16px; white-space:nowrap; box-shadow:0 6px 18px rgba(0,0,0,.25); }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080" data-duration="925.000">
+<div id="cap0" class="clip cap" data-start="1.067" data-duration="2.333" data-track-index="1"><span id="cap0-t" class="cap-t">דמיינו שאתם קצינים צעירים.</span></div>
+<div id="cap1" class="clip cap" data-start="3.400" data-duration="1.633" data-track-index="1"><span id="cap1-t" class="cap-t">קיבלתם חמישים חיילים,</span></div>
+<div id="cap2" class="clip cap" data-start="5.033" data-duration="1.500" data-track-index="1"><span id="cap2-t" class="cap-t">ופקודה אחת פשוטה:</span></div>
+<div id="cap3" class="clip cap" data-start="6.533" data-duration="1.567" data-track-index="1"><span id="cap3-t" class="cap-t">לשמור על מעבר בנהר,</span></div>
+<div id="cap4" class="clip cap" data-start="8.100" data-duration="1.167" data-track-index="1"><span id="cap4-t" class="cap-t">בכל מחיר.</span></div>
+<div id="cap5" class="clip cap" data-start="9.267" data-duration="1.733" data-track-index="1"><span id="cap5-t" class="cap-t">נשמע קל?</span></div>
+<div id="cap6" class="clip cap" data-start="11.000" data-duration="2.667" data-track-index="1"><span id="cap6-t" class="cap-t">הקצין שלנו ינסה את זה שש פעמים.</span></div>
+<div id="cap7" class="clip cap" data-start="13.667" data-duration="2.500" data-track-index="1"><span id="cap7-t" class="cap-t">חמש פעמים הוא ייכשל.</span></div>
+<div id="cap8" class="clip cap" data-start="16.167" data-duration="1.267" data-track-index="1"><span id="cap8-t" class="cap-t">ובכל כישלון,</span></div>
+<div id="cap9" class="clip cap" data-start="17.433" data-duration="1.733" data-track-index="1"><span id="cap9-t" class="cap-t">הוא ילמד משהו חדש.</span></div>
+<div id="cap10" class="clip cap" data-start="19.167" data-duration="3.233" data-track-index="1"><span id="cap10-t" class="cap-t">זה הסיפור של הספר ״הגנת מעברות פתיים״.</span></div>
+<div id="cap11" class="clip cap" data-start="25.567" data-duration="2.067" data-track-index="1"><span id="cap11-t" class="cap-t">את הספר כתב קצין בריטי,</span></div>
+<div id="cap12" class="clip cap" data-start="27.633" data-duration="1.667" data-track-index="1"><span id="cap12-t" class="cap-t">סר ארנסט סווינטון,</span></div>
+<div id="cap13" class="clip cap" data-start="29.300" data-duration="2.533" data-track-index="1"><span id="cap13-t" class="cap-t">שלחם במלחמת הבורים בדרום אפריקה.</span></div>
+<div id="cap14" class="clip cap" data-start="31.833" data-duration="5.667" data-track-index="1"><span id="cap14-t" class="cap-t">המלחמה הזו נמשכה בין 1899 לבין 1902.</span></div>
+<div id="cap15" class="clip cap" data-start="37.500" data-duration="1.033" data-track-index="1"><span id="cap15-t" class="cap-t">מצד אחד,</span></div>
+<div id="cap16" class="clip cap" data-start="38.533" data-duration="1.367" data-track-index="1"><span id="cap16-t" class="cap-t">האימפריה הבריטית,</span></div>
+<div id="cap17" class="clip cap" data-start="39.900" data-duration="1.400" data-track-index="1"><span id="cap17-t" class="cap-t">הגדולה בעולם.</span></div>
+<div id="cap18" class="clip cap" data-start="41.300" data-duration="1.067" data-track-index="1"><span id="cap18-t" class="cap-t">ומצד שני,</span></div>
+<div id="cap19" class="clip cap" data-start="42.367" data-duration="2.600" data-track-index="1"><span id="cap19-t" class="cap-t">הבורים: חקלאים ממוצא הולנדי,</span></div>
+<div id="cap20" class="clip cap" data-start="44.967" data-duration="1.700" data-track-index="1"><span id="cap20-t" class="cap-t">שלחמו רכובים על סוסים,</span></div>
+<div id="cap21" class="clip cap" data-start="46.667" data-duration="2.833" data-track-index="1"><span id="cap21-t" class="cap-t">בקבוצות קטנות וזריזות שנקראו ״קומנדו״.</span></div>
+<div id="cap22" class="clip cap" data-start="49.500" data-duration="2.200" data-track-index="1"><span id="cap22-t" class="cap-t">הם הכירו כל גבעה וכל ערוץ,</span></div>
+<div id="cap23" class="clip cap" data-start="51.700" data-duration="2.433" data-track-index="1"><span id="cap23-t" class="cap-t">והפתיעו שוב ושוב את הצבא הבריטי.</span></div>
+<div id="cap24" class="clip cap" data-start="54.133" data-duration="2.433" data-track-index="1"><span id="cap24-t" class="cap-t">סווינטון ראה במלחמה הרבה טעויות של</span></div>
+<div id="cap25" class="clip cap" data-start="56.567" data-duration="1.767" data-track-index="1"><span id="cap25-t" class="cap-t">קצינים צעירים.</span></div>
+<div id="cap26" class="clip cap" data-start="58.333" data-duration="1.633" data-track-index="1"><span id="cap26-t" class="cap-t">אז הוא כתב עליהן סיפור,</span></div>
+<div id="cap27" class="clip cap" data-start="59.967" data-duration="1.800" data-track-index="1"><span id="cap27-t" class="cap-t">וחתם בשם עט משעשע:</span></div>
+<div id="cap28" class="clip cap" data-start="61.767" data-duration="1.533" data-track-index="1"><span id="cap28-t" class="cap-t">״חכם-לאחר-מעשה״.</span></div>
+<div id="cap29" class="clip cap" data-start="63.300" data-duration="2.400" data-track-index="1"><span id="cap29-t" class="cap-t">אגב, סווינטון היה אחד האנשים שפיתחו</span></div>
+<div id="cap30" class="clip cap" data-start="65.700" data-duration="1.200" data-track-index="1"><span id="cap30-t" class="cap-t">את הטנק הראשון,</span></div>
+<div id="cap31" class="clip cap" data-start="66.900" data-duration="3.333" data-track-index="1"><span id="cap31-t" class="cap-t">ואחר כך גם פרופסור להיסטוריה צבאית באוקספורד.</span></div>
+<div id="cap32" class="clip cap" data-start="70.233" data-duration="2.233" data-track-index="1"><span id="cap32-t" class="cap-t">בעברית הספר יצא כבר ב-1952,</span></div>
+<div id="cap33" class="clip cap" data-start="72.467" data-duration="3.867" data-track-index="1"><span id="cap33-t" class="cap-t">ומפקדים בצה״ל לומדים ממנו עד היום.</span></div>
+<div id="cap34" class="clip cap" data-start="76.333" data-duration="2.100" data-track-index="1"><span id="cap34-t" class="cap-t">והטריק של הספר?</span></div>
+<div id="cap35" class="clip cap" data-start="78.433" data-duration="1.767" data-track-index="1"><span id="cap35-t" class="cap-t">הכול קורה בחלומות.</span></div>
+<div id="cap36" class="clip cap" data-start="80.200" data-duration="1.833" data-track-index="1"><span id="cap36-t" class="cap-t">הקצין חולם את אותו קרב שש</span></div>
+<div id="cap37" class="clip cap" data-start="82.033" data-duration="3.367" data-track-index="1"><span id="cap37-t" class="cap-t">פעמים. בכל חלום הוא מתחיל מאפס,</span></div>
+<div id="cap38" class="clip cap" data-start="85.400" data-duration="2.067" data-track-index="1"><span id="cap38-t" class="cap-t">אבל זוכר את השיעורים שלמד.</span></div>
+<div id="cap39" class="clip cap" data-start="89.000" data-duration="1.800" data-track-index="1"><span id="cap39-t" class="cap-t">בואו נכיר את השטח.</span></div>
+<div id="cap40" class="clip cap" data-start="90.800" data-duration="1.667" data-track-index="1"><span id="cap40-t" class="cap-t">זה הנהר.</span></div>
+<div id="cap41" class="clip cap" data-start="92.467" data-duration="1.733" data-track-index="1"><span id="cap41-t" class="cap-t">בקיץ הוא כמעט יבש,</span></div>
+<div id="cap42" class="clip cap" data-start="94.200" data-duration="1.567" data-track-index="1"><span id="cap42-t" class="cap-t">אבל הגדות שלו גבוהות,</span></div>
+<div id="cap43" class="clip cap" data-start="95.767" data-duration="1.900" data-track-index="1"><span id="cap43-t" class="cap-t">תלולות ומכוסות שיחים.</span></div>
+<div id="cap44" class="clip cap" data-start="97.667" data-duration="1.800" data-track-index="1"><span id="cap44-t" class="cap-t">יש רק מקום אחד שבו עגלות</span></div>
+<div id="cap45" class="clip cap" data-start="99.467" data-duration="1.300" data-track-index="1"><span id="cap45-t" class="cap-t">יכולות לחצות אותו:</span></div>
+<div id="cap46" class="clip cap" data-start="100.767" data-duration="2.967" data-track-index="1"><span id="cap46-t" class="cap-t">המעבר. מעברות פתיים.</span></div>
+<div id="cap47" class="clip cap" data-start="103.733" data-duration="2.533" data-track-index="1"><span id="cap47-t" class="cap-t">דרומית למעבר מתרוממת גבעה סלעית,</span></div>
+<div id="cap48" class="clip cap" data-start="106.267" data-duration="2.733" data-track-index="1"><span id="cap48-t" class="cap-t">ועל ראשה כפר קטן של מקומיים.</span></div>
+<div id="cap49" class="clip cap" data-start="109.000" data-duration="2.100" data-track-index="1"><span id="cap49-t" class="cap-t">קוראים לה ״גבעת המכשלה״.</span></div>
+<div id="cap50" class="clip cap" data-start="111.100" data-duration="2.000" data-track-index="1"><span id="cap50-t" class="cap-t">מצפון לנהר נמצאת החווה של איכר</span></div>
+<div id="cap51" class="clip cap" data-start="113.100" data-duration="1.300" data-track-index="1"><span id="cap51-t" class="cap-t">בורי בשם ברינק,</span></div>
+<div id="cap52" class="clip cap" data-start="114.400" data-duration="2.267" data-track-index="1"><span id="cap52-t" class="cap-t">ליד גבעה שנקראת ״תל-פגע״.</span></div>
+<div id="cap53" class="clip cap" data-start="116.667" data-duration="1.633" data-track-index="1"><span id="cap53-t" class="cap-t">ורחוק יותר בצפון,</span></div>
+<div id="cap54" class="clip cap" data-start="118.300" data-duration="1.100" data-track-index="1"><span id="cap54-t" class="cap-t">הר שטוח:</span></div>
+<div id="cap55" class="clip cap" data-start="119.400" data-duration="1.233" data-track-index="1"><span id="cap55-t" class="cap-t">״הר החרטות״.</span></div>
+<div id="cap56" class="clip cap" data-start="120.633" data-duration="2.933" data-track-index="1"><span id="cap56-t" class="cap-t">והפקודה: להחזיק את המעבר בכל מחיר,</span></div>
+<div id="cap57" class="clip cap" data-start="123.567" data-duration="1.967" data-track-index="1"><span id="cap57-t" class="cap-t">עד שתגיע שיירה צבאית גדולה,</span></div>
+<div id="cap58" class="clip cap" data-start="125.533" data-duration="2.100" data-track-index="1"><span id="cap58-t" class="cap-t">בעוד שלושה או ארבעה ימים.</span></div>
+<div id="cap59" class="clip cap" data-start="127.633" data-duration="1.267" data-track-index="1"><span id="cap59-t" class="cap-t">לפי המודיעין,</span></div>
+<div id="cap60" class="clip cap" data-start="128.900" data-duration="2.333" data-track-index="1"><span id="cap60-t" class="cap-t">האויב רחוק מאה מיילים.</span></div>
+<div id="cap61" class="clip cap" data-start="131.233" data-duration="1.933" data-track-index="1"><span id="cap61-t" class="cap-t">אז מה כבר יכול לקרות?</span></div>
+<div id="cap62" class="clip cap" data-start="139.833" data-duration="2.067" data-track-index="1"><span id="cap62-t" class="cap-t">הסגן מגיע אחר הצהריים,</span></div>
+<div id="cap63" class="clip cap" data-start="141.900" data-duration="1.833" data-track-index="1"><span id="cap63-t" class="cap-t">עייף מהדרך.</span></div>
+<div id="cap64" class="clip cap" data-start="143.733" data-duration="1.833" data-track-index="1"><span id="cap64-t" class="cap-t">הוא בוחר מקום נוח למחנה:</span></div>
+<div id="cap65" class="clip cap" data-start="145.567" data-duration="1.467" data-track-index="1"><span id="cap65-t" class="cap-t">ממש ליד המעבר,</span></div>
+<div id="cap66" class="clip cap" data-start="147.033" data-duration="1.200" data-track-index="1"><span id="cap66-t" class="cap-t">קרוב למים.</span></div>
+<div id="cap67" class="clip cap" data-start="148.233" data-duration="1.533" data-track-index="1"><span id="cap67-t" class="cap-t">החיילים מקימים אוהלים,</span></div>
+<div id="cap68" class="clip cap" data-start="149.767" data-duration="1.500" data-track-index="1"><span id="cap68-t" class="cap-t">מבשלים ארוחת ערב,</span></div>
+<div id="cap69" class="clip cap" data-start="151.267" data-duration="2.933" data-track-index="1"><span id="cap69-t" class="cap-t">ומחליטים: ״את החפירות נעשה מחר״.</span></div>
+<div id="cap70" class="clip cap" data-start="154.200" data-duration="1.467" data-track-index="1"><span id="cap70-t" class="cap-t">בערב מגיע אורח:</span></div>
+<div id="cap71" class="clip cap" data-start="155.667" data-duration="1.133" data-track-index="1"><span id="cap71-t" class="cap-t">האיכר ברינק,</span></div>
+<div id="cap72" class="clip cap" data-start="156.800" data-duration="1.267" data-track-index="1"><span id="cap72-t" class="cap-t">איש זקן וחביב,</span></div>
+<div id="cap73" class="clip cap" data-start="158.067" data-duration="1.733" data-track-index="1"><span id="cap73-t" class="cap-t">עם שני בניו.</span></div>
+<div id="cap74" class="clip cap" data-start="159.800" data-duration="2.267" data-track-index="1"><span id="cap74-t" class="cap-t">הם מוכרים לחיילים חלב וביצים,</span></div>
+<div id="cap75" class="clip cap" data-start="162.067" data-duration="1.967" data-track-index="1"><span id="cap75-t" class="cap-t">ומסתובבים בכל המחנה.</span></div>
+<div id="cap76" class="clip cap" data-start="164.033" data-duration="2.700" data-track-index="1"><span id="cap76-t" class="cap-t">בלילה הזקיפים עומדים ליד מדורה גדולה,</span></div>
+<div id="cap77" class="clip cap" data-start="166.733" data-duration="2.033" data-track-index="1"><span id="cap77-t" class="cap-t">וכל חצי שעה צועקים בקול:</span></div>
+<div id="cap78" class="clip cap" data-start="168.767" data-duration="1.067" data-track-index="1"><span id="cap78-t" class="cap-t">״מספר אחת,</span></div>
+<div id="cap79" class="clip cap" data-start="169.833" data-duration="1.333" data-track-index="1"><span id="cap79-t" class="cap-t">הכול בסדר!״</span></div>
+<div id="cap80" class="clip cap" data-start="171.167" data-duration="2.300" data-track-index="1"><span id="cap80-t" class="cap-t">כלומר, כל מי שנמצא באזור,</span></div>
+<div id="cap81" class="clip cap" data-start="173.467" data-duration="1.067" data-track-index="1"><span id="cap81-t" class="cap-t">כולל האויב,</span></div>
+<div id="cap82" class="clip cap" data-start="174.533" data-duration="1.800" data-track-index="1"><span id="cap82-t" class="cap-t">יודע בדיוק איפה הם.</span></div>
+<div id="cap83" class="clip cap" data-start="176.333" data-duration="1.000" data-track-index="1"><span id="cap83-t" class="cap-t">עם שחר:</span></div>
+<div id="cap84" class="clip cap" data-start="177.333" data-duration="3.733" data-track-index="1"><span id="cap84-t" class="cap-t">יריות. הבורים הסתתרו בתוך אפיק הנהר,</span></div>
+<div id="cap85" class="clip cap" data-start="181.067" data-duration="2.000" data-track-index="1"><span id="cap85-t" class="cap-t">ויורים ישר לתוך האוהלים.</span></div>
+<div id="cap86" class="clip cap" data-start="183.067" data-duration="1.867" data-track-index="1"><span id="cap86-t" class="cap-t">החיילים מתעוררים בבהלה,</span></div>
+<div id="cap87" class="clip cap" data-start="184.933" data-duration="2.333" data-track-index="1"><span id="cap87-t" class="cap-t">ואין להם איפה להסתתר.</span></div>
+<div id="cap88" class="clip cap" data-start="187.267" data-duration="1.033" data-track-index="1"><span id="cap88-t" class="cap-t">תוך דקות,</span></div>
+<div id="cap89" class="clip cap" data-start="188.300" data-duration="2.100" data-track-index="1"><span id="cap89-t" class="cap-t">הם נאלצים להרים דגל לבן.</span></div>
+<div id="cap90" class="clip cap" data-start="190.400" data-duration="1.100" data-track-index="1"><span id="cap90-t" class="cap-t">ובין הבורים,</span></div>
+<div id="cap91" class="clip cap" data-start="191.500" data-duration="2.567" data-track-index="1"><span id="cap91-t" class="cap-t">הסגן מזהה פנים מוכרות...</span></div>
+<div id="cap92" class="clip cap" data-start="194.067" data-duration="2.067" data-track-index="1"><span id="cap92-t" class="cap-t">הבנים של ברינק החביב.</span></div>
+<div id="cap93" class="clip cap" data-start="197.933" data-duration="2.400" data-track-index="1"><span id="cap93-t" class="cap-t">הסגן מתעורר בבהלה.</span></div>
+<div id="cap94" class="clip cap" data-start="200.333" data-duration="2.700" data-track-index="1"><span id="cap94-t" class="cap-t">אבל ארבעה שיעורים נחרטו לו בלב.</span></div>
+<div id="cap95" class="clip cap" data-start="239.200" data-duration="1.200" data-track-index="1"><span id="cap95-t" class="cap-t">שוב אותו מעבר,</span></div>
+<div id="cap96" class="clip cap" data-start="240.400" data-duration="1.100" data-track-index="1"><span id="cap96-t" class="cap-t">אותה משימה,</span></div>
+<div id="cap97" class="clip cap" data-start="241.500" data-duration="1.767" data-track-index="1"><span id="cap97-t" class="cap-t">חיילים אחרים.</span></div>
+<div id="cap98" class="clip cap" data-start="243.267" data-duration="1.000" data-track-index="1"><span id="cap98-t" class="cap-t">אבל הפעם,</span></div>
+<div id="cap99" class="clip cap" data-start="244.267" data-duration="2.167" data-track-index="1"><span id="cap99-t" class="cap-t">הסגן זוכר את ארבעת השיעורים.</span></div>
+<div id="cap100" class="clip cap" data-start="246.433" data-duration="1.400" data-track-index="1"><span id="cap100-t" class="cap-t">הוא מתחיל לחפור מיד:</span></div>
+<div id="cap101" class="clip cap" data-start="247.833" data-duration="1.900" data-track-index="1"><span id="cap101-t" class="cap-t">חפירה עגולה סביב המחנה,</span></div>
+<div id="cap102" class="clip cap" data-start="249.733" data-duration="1.700" data-track-index="1"><span id="cap102-t" class="cap-t">שמגינה מכל הכיוונים.</span></div>
+<div id="cap103" class="clip cap" data-start="251.433" data-duration="1.867" data-track-index="1"><span id="cap103-t" class="cap-t">כשברינק מגיע עם ביצים,</span></div>
+<div id="cap104" class="clip cap" data-start="253.300" data-duration="2.900" data-track-index="1"><span id="cap104-t" class="cap-t">הסגן שולח אותו הביתה בנימוס.</span></div>
+<div id="cap105" class="clip cap" data-start="256.200" data-duration="2.200" data-track-index="1"><span id="cap105-t" class="cap-t">אף זר לא נכנס למחנה.</span></div>
+<div id="cap106" class="clip cap" data-start="258.400" data-duration="1.367" data-track-index="1"><span id="cap106-t" class="cap-t">הזקיפים שקטים,</span></div>
+<div id="cap107" class="clip cap" data-start="259.767" data-duration="1.667" data-track-index="1"><span id="cap107-t" class="cap-t">בלי מדורות.</span></div>
+<div id="cap108" class="clip cap" data-start="261.433" data-duration="1.533" data-track-index="1"><span id="cap108-t" class="cap-t">הלילה עובר בשקט,</span></div>
+<div id="cap109" class="clip cap" data-start="262.967" data-duration="2.200" data-track-index="1"><span id="cap109-t" class="cap-t">והסגן הולך לישון מרוצה.</span></div>
+<div id="cap110" class="clip cap" data-start="265.167" data-duration="1.467" data-track-index="1"><span id="cap110-t" class="cap-t">שעה לפני השחר:</span></div>
+<div id="cap111" class="clip cap" data-start="266.633" data-duration="1.700" data-track-index="1"><span id="cap111-t" class="cap-t">שוב יריות.</span></div>
+<div id="cap112" class="clip cap" data-start="268.333" data-duration="1.000" data-track-index="1"><span id="cap112-t" class="cap-t">אבל הפעם,</span></div>
+<div id="cap113" class="clip cap" data-start="269.333" data-duration="1.367" data-track-index="1"><span id="cap113-t" class="cap-t">מכל הכיוונים.</span></div>
+<div id="cap114" class="clip cap" data-start="270.700" data-duration="3.233" data-track-index="1"><span id="cap114-t" class="cap-t">הבורים זחלו בחושך לתוך אפיק הנהר.</span></div>
+<div id="cap115" class="clip cap" data-start="273.933" data-duration="1.900" data-track-index="1"><span id="cap115-t" class="cap-t">הגדה הגבוהה הסתירה אותם,</span></div>
+<div id="cap116" class="clip cap" data-start="275.833" data-duration="1.633" data-track-index="1"><span id="cap116-t" class="cap-t">והם ירו מטווח של כמה עשרות</span></div>
+<div id="cap117" class="clip cap" data-start="277.467" data-duration="1.300" data-track-index="1"><span id="cap117-t" class="cap-t">מטרים בלבד.</span></div>
+<div id="cap118" class="clip cap" data-start="278.767" data-duration="2.367" data-track-index="1"><span id="cap118-t" class="cap-t">וסוללת העפר הדקה סביב החפירה,</span></div>
+<div id="cap119" class="clip cap" data-start="281.133" data-duration="1.533" data-track-index="1"><span id="cap119-t" class="cap-t">לא עצרה את הכדורים.</span></div>
+<div id="cap120" class="clip cap" data-start="282.667" data-duration="2.000" data-track-index="1"><span id="cap120-t" class="cap-t">שוב דגל לבן.</span></div>
+<div id="cap121" class="clip cap" data-start="284.667" data-duration="0.767" data-track-index="1"><span id="cap121-t" class="cap-t">הוא חפר,</span></div>
+<div id="cap122" class="clip cap" data-start="285.433" data-duration="0.900" data-track-index="1"><span id="cap122-t" class="cap-t">הוא שמר,</span></div>
+<div id="cap123" class="clip cap" data-start="286.333" data-duration="2.133" data-track-index="1"><span id="cap123-t" class="cap-t">אבל ישב במקום הכי גרוע שיש:</span></div>
+<div id="cap124" class="clip cap" data-start="288.467" data-duration="1.233" data-track-index="1"><span id="cap124-t" class="cap-t">ממש על המעבר,</span></div>
+<div id="cap125" class="clip cap" data-start="289.700" data-duration="2.767" data-track-index="1"><span id="cap125-t" class="cap-t">מוקף בשיחים ובגדות שמסתירות את האויב.</span></div>
+<div id="cap126" class="clip cap" data-start="330.600" data-duration="1.633" data-track-index="1"><span id="cap126-t" class="cap-t">עם שבעה שיעורים בכיס,</span></div>
+<div id="cap127" class="clip cap" data-start="332.233" data-duration="2.067" data-track-index="1"><span id="cap127-t" class="cap-t">הסגן שולח מיד שני סיורים,</span></div>
+<div id="cap128" class="clip cap" data-start="334.300" data-duration="2.600" data-track-index="1"><span id="cap128-t" class="cap-t">לאסוף את כל הגברים מהחוות ומהכפר.</span></div>
+<div id="cap129" class="clip cap" data-start="336.900" data-duration="1.800" data-track-index="1"><span id="cap129-t" class="cap-t">הם חוזרים עם שלושה איכרים,</span></div>
+<div id="cap130" class="clip cap" data-start="338.700" data-duration="1.100" data-track-index="1"><span id="cap130-t" class="cap-t">שני נערים,</span></div>
+<div id="cap131" class="clip cap" data-start="339.800" data-duration="2.000" data-track-index="1"><span id="cap131-t" class="cap-t">ושלושה-עשר פועלים מקומיים.</span></div>
+<div id="cap132" class="clip cap" data-start="341.800" data-duration="1.300" data-track-index="1"><span id="cap132-t" class="cap-t">האיכרים כועסים,</span></div>
+<div id="cap133" class="clip cap" data-start="343.100" data-duration="3.933" data-track-index="1"><span id="cap133-t" class="cap-t">צועקים, ומאיימים להתלונן לפרלמנט בלונדון.</span></div>
+<div id="cap134" class="clip cap" data-start="347.033" data-duration="1.100" data-track-index="1"><span id="cap134-t" class="cap-t">אבל בסוף,</span></div>
+<div id="cap135" class="clip cap" data-start="348.133" data-duration="1.233" data-track-index="1"><span id="cap135-t" class="cap-t">כולם חופרים.</span></div>
+<div id="cap136" class="clip cap" data-start="349.367" data-duration="1.900" data-track-index="1"><span id="cap136-t" class="cap-t">את החפירה הוא מציב על רמה</span></div>
+<div id="cap137" class="clip cap" data-start="351.267" data-duration="2.733" data-track-index="1"><span id="cap137-t" class="cap-t">קטנה, כ-650 מטרים דרומית למעבר.</span></div>
+<div id="cap138" class="clip cap" data-start="354.000" data-duration="1.767" data-track-index="1"><span id="cap138-t" class="cap-t">קו ישר אחד,</span></div>
+<div id="cap139" class="clip cap" data-start="355.767" data-duration="1.367" data-track-index="1"><span id="cap139-t" class="cap-t">באורך 50 מטרים,</span></div>
+<div id="cap140" class="clip cap" data-start="357.133" data-duration="2.600" data-track-index="1"><span id="cap140-t" class="cap-t">עם סוללת עפר גבוהה מלפנים.</span></div>
+<div id="cap141" class="clip cap" data-start="359.733" data-duration="2.967" data-track-index="1"><span id="cap141-t" class="cap-t">התוכנית: לחכות שהאויב ייכנס לנהר,</span></div>
+<div id="cap142" class="clip cap" data-start="362.700" data-duration="2.267" data-track-index="1"><span id="cap142-t" class="cap-t">ואז לפתוח עליו באש מפתיעה.</span></div>
+<div id="cap143" class="clip cap" data-start="364.967" data-duration="3.300" data-track-index="1"><span id="cap143-t" class="cap-t">בבוקר נראה ענן אבק בצפון.</span></div>
+<div id="cap144" class="clip cap" data-start="368.267" data-duration="3.033" data-track-index="1"><span id="cap144-t" class="cap-t">שיירה גדולה של בורים מתקרבת.</span></div>
+<div id="cap145" class="clip cap" data-start="371.300" data-duration="1.267" data-track-index="1"><span id="cap145-t" class="cap-t">הסגן מחכה...</span></div>
+<div id="cap146" class="clip cap" data-start="372.567" data-duration="1.033" data-track-index="1"><span id="cap146-t" class="cap-t">ומחכה...</span></div>
+<div id="cap147" class="clip cap" data-start="373.600" data-duration="2.533" data-track-index="1"><span id="cap147-t" class="cap-t">ופתאום, עוד לפני שהגיעו לטווח,</span></div>
+<div id="cap148" class="clip cap" data-start="376.133" data-duration="1.833" data-track-index="1"><span id="cap148-t" class="cap-t">הבורים עוצרים ומתפצלים,</span></div>
+<div id="cap149" class="clip cap" data-start="377.967" data-duration="1.767" data-track-index="1"><span id="cap149-t" class="cap-t">כאילו מישהו הזהיר אותם.</span></div>
+<div id="cap150" class="clip cap" data-start="379.733" data-duration="2.100" data-track-index="1"><span id="cap150-t" class="cap-t">ואז מגיע הרעם.</span></div>
+<div id="cap151" class="clip cap" data-start="381.833" data-duration="2.200" data-track-index="1"><span id="cap151-t" class="cap-t">לבורים יש תותחים.</span></div>
+<div id="cap152" class="clip cap" data-start="384.033" data-duration="1.733" data-track-index="1"><span id="cap152-t" class="cap-t">הם יורים פגזי רסיסים,</span></div>
+<div id="cap153" class="clip cap" data-start="385.767" data-duration="2.733" data-track-index="1"><span id="cap153-t" class="cap-t">שמתפוצצים באוויר מעל החפירה.</span></div>
+<div id="cap154" class="clip cap" data-start="388.500" data-duration="2.333" data-track-index="1"><span id="cap154-t" class="cap-t">סוללת העפר הגבוהה בלטה למרחוק,</span></div>
+<div id="cap155" class="clip cap" data-start="390.833" data-duration="1.300" data-track-index="1"><span id="cap155-t" class="cap-t">כמו שלט שאומר:</span></div>
+<div id="cap156" class="clip cap" data-start="392.133" data-duration="3.367" data-track-index="1"><span id="cap156-t" class="cap-t">״כאן!״ והחפירה הרחבה לא הגנה מפני</span></div>
+<div id="cap157" class="clip cap" data-start="395.500" data-duration="1.900" data-track-index="1"><span id="cap157-t" class="cap-t">הרסיסים שנפלו מלמעלה.</span></div>
+<div id="cap158" class="clip cap" data-start="397.400" data-duration="2.000" data-track-index="1"><span id="cap158-t" class="cap-t">שוב דגל לבן.</span></div>
+<div id="cap159" class="clip cap" data-start="399.400" data-duration="1.767" data-track-index="1"><span id="cap159-t" class="cap-t">ורק אחר כך הסגן מבין מי</span></div>
+<div id="cap160" class="clip cap" data-start="401.167" data-duration="1.233" data-track-index="1"><span id="cap160-t" class="cap-t">הזהיר את האויב:</span></div>
+<div id="cap161" class="clip cap" data-start="402.400" data-duration="2.200" data-track-index="1"><span id="cap161-t" class="cap-t">הנשים שנשארו בחווה.</span></div>
+<div id="cap162" class="clip cap" data-start="404.600" data-duration="2.400" data-track-index="1"><span id="cap162-t" class="cap-t">אותן, הוא שכח לאסוף.</span></div>
+<div id="cap163" class="clip cap" data-start="441.267" data-duration="1.800" data-track-index="1"><span id="cap163-t" class="cap-t">עשרה שיעורים.</span></div>
+<div id="cap164" class="clip cap" data-start="443.067" data-duration="3.167" data-track-index="1"><span id="cap164-t" class="cap-t">הפעם, הסיורים אוספים את כולם.</span></div>
+<div id="cap165" class="clip cap" data-start="446.233" data-duration="1.233" data-track-index="1"><span id="cap165-t" class="cap-t">גם את הנשים,</span></div>
+<div id="cap166" class="clip cap" data-start="447.467" data-duration="1.467" data-track-index="1"><span id="cap166-t" class="cap-t">וגם את הילדים.</span></div>
+<div id="cap167" class="clip cap" data-start="448.933" data-duration="3.233" data-track-index="1"><span id="cap167-t" class="cap-t">והגברות הבוריות לא מרוצות בכלל.</span></div>
+<div id="cap168" class="clip cap" data-start="452.167" data-duration="1.100" data-track-index="1"><span id="cap168-t" class="cap-t">הן צועקות,</span></div>
+<div id="cap169" class="clip cap" data-start="453.267" data-duration="2.400" data-track-index="1"><span id="cap169-t" class="cap-t">מאיימות, ומסרבות לזוז.</span></div>
+<div id="cap170" class="clip cap" data-start="455.667" data-duration="1.633" data-track-index="1"><span id="cap170-t" class="cap-t">אז הסגן שואל את הסמל הוותיק</span></div>
+<div id="cap171" class="clip cap" data-start="457.300" data-duration="1.667" data-track-index="1"><span id="cap171-t" class="cap-t">שלו, בקול רם:</span></div>
+<div id="cap172" class="clip cap" data-start="458.967" data-duration="2.100" data-track-index="1"><span id="cap172-t" class="cap-t">״מה הדרך הכי טובה לפנות בית?״</span></div>
+<div id="cap173" class="clip cap" data-start="461.067" data-duration="1.233" data-track-index="1"><span id="cap173-t" class="cap-t">והסמל עונה:</span></div>
+<div id="cap174" class="clip cap" data-start="462.300" data-duration="2.800" data-track-index="1"><span id="cap174-t" class="cap-t">״יש כאלה שמתחילים מהמיטה הגדולה.</span></div>
+<div id="cap175" class="clip cap" data-start="465.100" data-duration="1.067" data-track-index="1"><span id="cap175-t" class="cap-t">אבל לדעתי,</span></div>
+<div id="cap176" class="clip cap" data-start="466.167" data-duration="1.633" data-track-index="1"><span id="cap176-t" class="cap-t">כמה טיפות נפט בפינה,</span></div>
+<div id="cap177" class="clip cap" data-start="467.800" data-duration="2.000" data-track-index="1"><span id="cap177-t" class="cap-t">והבית נקי כמו חדש.״</span></div>
+<div id="cap178" class="clip cap" data-start="469.800" data-duration="1.767" data-track-index="1"><span id="cap178-t" class="cap-t">הגברות הבינו את הרמז,</span></div>
+<div id="cap179" class="clip cap" data-start="471.567" data-duration="1.767" data-track-index="1"><span id="cap179-t" class="cap-t">והצטרפו מיד.</span></div>
+<div id="cap180" class="clip cap" data-start="473.333" data-duration="2.000" data-track-index="1"><span id="cap180-t" class="cap-t">הפעם החפירה צרה ועמוקה,</span></div>
+<div id="cap181" class="clip cap" data-start="475.333" data-duration="2.967" data-track-index="1"><span id="cap181-t" class="cap-t">וסוללת העפר נמוכה ומוסתרת.</span></div>
+<div id="cap182" class="clip cap" data-start="478.300" data-duration="2.933" data-track-index="1"><span id="cap182-t" class="cap-t">מרחוק, כמעט לא רואים אותה.</span></div>
+<div id="cap183" class="clip cap" data-start="481.233" data-duration="2.100" data-track-index="1"><span id="cap183-t" class="cap-t">את הנשים והילדים הוא מסתיר בערוץ</span></div>
+<div id="cap184" class="clip cap" data-start="483.333" data-duration="1.233" data-track-index="1"><span id="cap184-t" class="cap-t">קטן מאחור.</span></div>
+<div id="cap185" class="clip cap" data-start="484.567" data-duration="2.133" data-track-index="1"><span id="cap185-t" class="cap-t">בבוקר האויב מופיע מצפון,</span></div>
+<div id="cap186" class="clip cap" data-start="486.700" data-duration="2.533" data-track-index="1"><span id="cap186-t" class="cap-t">בדיוק כמו בחלום הקודם.</span></div>
+<div id="cap187" class="clip cap" data-start="489.233" data-duration="2.000" data-track-index="1"><span id="cap187-t" class="cap-t">הסגן מחכה שיתקרבו.</span></div>
+<div id="cap188" class="clip cap" data-start="491.233" data-duration="2.367" data-track-index="1"><span id="cap188-t" class="cap-t">אבל אז משהו משתבש.</span></div>
+<div id="cap189" class="clip cap" data-start="493.600" data-duration="2.700" data-track-index="1"><span id="cap189-t" class="cap-t">חלק מהבורים מקיפים את החפירה מהצד,</span></div>
+<div id="cap190" class="clip cap" data-start="496.300" data-duration="2.233" data-track-index="1"><span id="cap190-t" class="cap-t">וזוחלים לתוך הערוץ שמאחור.</span></div>
+<div id="cap191" class="clip cap" data-start="498.533" data-duration="2.500" data-track-index="1"><span id="cap191-t" class="cap-t">עכשיו יורים עליהם מהגב.</span></div>
+<div id="cap192" class="clip cap" data-start="501.033" data-duration="2.433" data-track-index="1"><span id="cap192-t" class="cap-t">והחפירה, קו ישר וארוך,</span></div>
+<div id="cap193" class="clip cap" data-start="503.467" data-duration="2.467" data-track-index="1"><span id="cap193-t" class="cap-t">פגיעה במיוחד לאש מהצד.</span></div>
+<div id="cap194" class="clip cap" data-start="505.933" data-duration="1.800" data-track-index="1"><span id="cap194-t" class="cap-t">כדור שנכנס מהקצה</span></div>
+<div id="cap195" class="clip cap" data-start="507.733" data-duration="2.200" data-track-index="1"><span id="cap195-t" class="cap-t">עובר לאורך כל השורה.</span></div>
+<div id="cap196" class="clip cap" data-start="509.933" data-duration="1.233" data-track-index="1"><span id="cap196-t" class="cap-t">לזה קוראים:</span></div>
+<div id="cap197" class="clip cap" data-start="511.167" data-duration="1.167" data-track-index="1"><span id="cap197-t" class="cap-t">״אש אנפילדית״.</span></div>
+<div id="cap198" class="clip cap" data-start="512.333" data-duration="3.800" data-track-index="1"><span id="cap198-t" class="cap-t">הבעיה? החפירה פנתה רק לכיוון אחד,</span></div>
+<div id="cap199" class="clip cap" data-start="516.133" data-duration="2.700" data-track-index="1"><span id="cap199-t" class="cap-t">צפונה. והסגן שכח,</span></div>
+<div id="cap200" class="clip cap" data-start="518.833" data-duration="2.233" data-track-index="1"><span id="cap200-t" class="cap-t">שאויב יכול להגיע מכל צד.</span></div>
+<div id="cap201" class="clip cap" data-start="521.067" data-duration="1.700" data-track-index="1"><span id="cap201-t" class="cap-t">שוב תבוסה.</span></div>
+<div id="cap202" class="clip cap" data-start="522.767" data-duration="2.633" data-track-index="1"><span id="cap202-t" class="cap-t">והפעם, הרשימה ארוכה במיוחד:</span></div>
+<div id="cap203" class="clip cap" data-start="525.400" data-duration="1.833" data-track-index="1"><span id="cap203-t" class="cap-t">תשעה שיעורים חדשים.</span></div>
+<div id="cap204" class="clip cap" data-start="604.467" data-duration="2.033" data-track-index="1"><span id="cap204-t" class="cap-t">תשעה-עשר שיעורים.</span></div>
+<div id="cap205" class="clip cap" data-start="606.500" data-duration="2.567" data-track-index="1"><span id="cap205-t" class="cap-t">הסגן כבר מרגיש מומחה.</span></div>
+<div id="cap206" class="clip cap" data-start="609.067" data-duration="1.567" data-track-index="1"><span id="cap206-t" class="cap-t">ובכל הספרים כתוב:</span></div>
+<div id="cap207" class="clip cap" data-start="610.633" data-duration="1.533" data-track-index="1"><span id="cap207-t" class="cap-t">״תפוס את הגבעה הגבוהה,</span></div>
+<div id="cap208" class="clip cap" data-start="612.167" data-duration="1.733" data-track-index="1"><span id="cap208-t" class="cap-t">זו שחולשת על השטח.״</span></div>
+<div id="cap209" class="clip cap" data-start="613.900" data-duration="2.667" data-track-index="1"><span id="cap209-t" class="cap-t">אז הוא עולה לראש גבעת המכשלה.</span></div>
+<div id="cap210" class="clip cap" data-start="616.567" data-duration="2.767" data-track-index="1"><span id="cap210-t" class="cap-t">משם רואים קילומטרים לכל כיוון.</span></div>
+<div id="cap211" class="clip cap" data-start="619.333" data-duration="2.067" data-track-index="1"><span id="cap211-t" class="cap-t">הוא חופר עשר חפירות קצרות ועמוקות</span></div>
+<div id="cap212" class="clip cap" data-start="621.400" data-duration="2.233" data-track-index="1"><span id="cap212-t" class="cap-t">מסביב לבקתות של הכפר.</span></div>
+<div id="cap213" class="clip cap" data-start="623.633" data-duration="1.600" data-track-index="1"><span id="cap213-t" class="cap-t">הגנה היקפית מלאה,</span></div>
+<div id="cap214" class="clip cap" data-start="625.233" data-duration="1.267" data-track-index="1"><span id="cap214-t" class="cap-t">מוסתרת היטב,</span></div>
+<div id="cap215" class="clip cap" data-start="626.500" data-duration="2.233" data-track-index="1"><span id="cap215-t" class="cap-t">עם תעלות קשר ביניהן.</span></div>
+<div id="cap216" class="clip cap" data-start="628.733" data-duration="1.367" data-track-index="1"><span id="cap216-t" class="cap-t">את כל המקומיים,</span></div>
+<div id="cap217" class="clip cap" data-start="630.100" data-duration="1.500" data-track-index="1"><span id="cap217-t" class="cap-t">הוא אוסף לבקתות.</span></div>
+<div id="cap218" class="clip cap" data-start="631.600" data-duration="3.733" data-track-index="1"><span id="cap218-t" class="cap-t">בבוקר, הבורים מגיעים ומקיפים את הגבעה.</span></div>
+<div id="cap219" class="clip cap" data-start="635.333" data-duration="0.967" data-track-index="1"><span id="cap219-t" class="cap-t">הם יורים,</span></div>
+<div id="cap220" class="clip cap" data-start="636.300" data-duration="2.267" data-track-index="1"><span id="cap220-t" class="cap-t">אבל לא מצליחים להתקרב.</span></div>
+<div id="cap221" class="clip cap" data-start="638.567" data-duration="1.433" data-track-index="1"><span id="cap221-t" class="cap-t">העמדה מצוינת.</span></div>
+<div id="cap222" class="clip cap" data-start="640.000" data-duration="2.500" data-track-index="1"><span id="cap222-t" class="cap-t">ואז הסגן מגלה בעיה.</span></div>
+<div id="cap223" class="clip cap" data-start="642.500" data-duration="1.500" data-track-index="1"><span id="cap223-t" class="cap-t">מהחפירות למעלה,</span></div>
+<div id="cap224" class="clip cap" data-start="644.000" data-duration="2.233" data-track-index="1"><span id="cap224-t" class="cap-t">אי אפשר בכלל לראות את המעבר.</span></div>
+<div id="cap225" class="clip cap" data-start="646.233" data-duration="1.800" data-track-index="1"><span id="cap225-t" class="cap-t">המדרון של הגבעה מעוגל,</span></div>
+<div id="cap226" class="clip cap" data-start="648.033" data-duration="1.900" data-track-index="1"><span id="cap226-t" class="cap-t">כמו גב של כדור.</span></div>
+<div id="cap227" class="clip cap" data-start="649.933" data-duration="2.167" data-track-index="1"><span id="cap227-t" class="cap-t">ומאחורי העיקול נוצר ״שטח מת״:</span></div>
+<div id="cap228" class="clip cap" data-start="652.100" data-duration="1.600" data-track-index="1"><span id="cap228-t" class="cap-t">אזור שאי אפשר לראות,</span></div>
+<div id="cap229" class="clip cap" data-start="653.700" data-duration="1.700" data-track-index="1"><span id="cap229-t" class="cap-t">ואי אפשר לירות אליו.</span></div>
+<div id="cap230" class="clip cap" data-start="655.400" data-duration="2.567" data-track-index="1"><span id="cap230-t" class="cap-t">והמעבר, והדרך שמובילה אליו,</span></div>
+<div id="cap231" class="clip cap" data-start="657.967" data-duration="1.900" data-track-index="1"><span id="cap231-t" class="cap-t">נמצאים בדיוק בשטח המת.</span></div>
+<div id="cap232" class="clip cap" data-start="659.867" data-duration="2.800" data-track-index="1"><span id="cap232-t" class="cap-t">וכך, בזמן שהסגן ואנשיו יושבים בבטחה</span></div>
+<div id="cap233" class="clip cap" data-start="662.667" data-duration="0.900" data-track-index="1"><span id="cap233-t" class="cap-t">על הגבעה,</span></div>
+<div id="cap234" class="clip cap" data-start="663.567" data-duration="2.333" data-track-index="1"><span id="cap234-t" class="cap-t">השיירה הבורית חוצה את המעבר בשקט,</span></div>
+<div id="cap235" class="clip cap" data-start="665.900" data-duration="1.367" data-track-index="1"><span id="cap235-t" class="cap-t">וממשיכה דרומה.</span></div>
+<div id="cap236" class="clip cap" data-start="667.267" data-duration="1.167" data-track-index="1"><span id="cap236-t" class="cap-t">הם לא נכנעו,</span></div>
+<div id="cap237" class="clip cap" data-start="668.433" data-duration="2.333" data-track-index="1"><span id="cap237-t" class="cap-t">וכמעט לא היו נפגעים.</span></div>
+<div id="cap238" class="clip cap" data-start="670.767" data-duration="1.100" data-track-index="1"><span id="cap238-t" class="cap-t">אבל המשימה,</span></div>
+<div id="cap239" class="clip cap" data-start="671.867" data-duration="1.367" data-track-index="1"><span id="cap239-t" class="cap-t">להחזיק את המעבר,</span></div>
+<div id="cap240" class="clip cap" data-start="673.233" data-duration="1.333" data-track-index="1"><span id="cap240-t" class="cap-t">נכשלה לגמרי.</span></div>
+<div id="cap241" class="clip cap" data-start="674.567" data-duration="2.333" data-track-index="1"><span id="cap241-t" class="cap-t">והסגן כבר שומע את הקולונל שלו:</span></div>
+<div id="cap242" class="clip cap" data-start="676.900" data-duration="3.100" data-track-index="1"><span id="cap242-t" class="cap-t">״מה?! אתה מתכוון לומר לי</span></div>
+<div id="cap243" class="clip cap" data-start="680.000" data-duration="2.000" data-track-index="1"><span id="cap243-t" class="cap-t">שהבורים צלחו את המעבר?!״</span></div>
+<div id="cap244" class="clip cap" data-start="713.833" data-duration="2.233" data-track-index="1"><span id="cap244-t" class="cap-t">עשרים ושניים שיעורים.</span></div>
+<div id="cap245" class="clip cap" data-start="716.067" data-duration="1.933" data-track-index="1"><span id="cap245-t" class="cap-t">הסגן עומד שוב על הגבעה,</span></div>
+<div id="cap246" class="clip cap" data-start="718.000" data-duration="1.933" data-track-index="1"><span id="cap246-t" class="cap-t">ומחפש את המקום המושלם.</span></div>
+<div id="cap247" class="clip cap" data-start="719.933" data-duration="2.100" data-track-index="1"><span id="cap247-t" class="cap-t">ואז עולה בראשו רעיון משוגע,</span></div>
+<div id="cap248" class="clip cap" data-start="722.033" data-duration="1.700" data-track-index="1"><span id="cap248-t" class="cap-t">שנוגד את כל מה שלמד:</span></div>
+<div id="cap249" class="clip cap" data-start="723.733" data-duration="1.300" data-track-index="1"><span id="cap249-t" class="cap-t">לא לעלות למעלה,</span></div>
+<div id="cap250" class="clip cap" data-start="725.033" data-duration="1.933" data-track-index="1"><span id="cap250-t" class="cap-t">אלא לרדת למטה.</span></div>
+<div id="cap251" class="clip cap" data-start="726.967" data-duration="2.167" data-track-index="1"><span id="cap251-t" class="cap-t">להחזיק בתוך אפיק הנהר עצמו,</span></div>
+<div id="cap252" class="clip cap" data-start="729.133" data-duration="1.667" data-track-index="1"><span id="cap252-t" class="cap-t">משני צידי המעבר.</span></div>
+<div id="cap253" class="clip cap" data-start="730.800" data-duration="2.500" data-track-index="1"><span id="cap253-t" class="cap-t">הגדות הגבוהות יסתירו אותו מכל עין,</span></div>
+<div id="cap254" class="clip cap" data-start="733.300" data-duration="1.867" data-track-index="1"><span id="cap254-t" class="cap-t">והמים קרובים.</span></div>
+<div id="cap255" class="clip cap" data-start="735.167" data-duration="1.333" data-track-index="1"><span id="cap255-t" class="cap-t">ומה שהכי חשוב:</span></div>
+<div id="cap256" class="clip cap" data-start="736.500" data-duration="1.900" data-track-index="1"><span id="cap256-t" class="cap-t">כל מי שירצה להגיע למעבר,</span></div>
+<div id="cap257" class="clip cap" data-start="738.400" data-duration="2.300" data-track-index="1"><span id="cap257-t" class="cap-t">יצטרך לחצות שטח פתוח וחשוף,</span></div>
+<div id="cap258" class="clip cap" data-start="740.700" data-duration="1.567" data-track-index="1"><span id="cap258-t" class="cap-t">ישר מול הרובים שלו.</span></div>
+<div id="cap259" class="clip cap" data-start="742.267" data-duration="1.233" data-track-index="1"><span id="cap259-t" class="cap-t">אז קודם כול,</span></div>
+<div id="cap260" class="clip cap" data-start="743.500" data-duration="1.767" data-track-index="1"><span id="cap260-t" class="cap-t">אוספים את כולם.</span></div>
+<div id="cap261" class="clip cap" data-start="745.267" data-duration="1.833" data-track-index="1"><span id="cap261-t" class="cap-t">גברים, נשים,</span></div>
+<div id="cap262" class="clip cap" data-start="747.100" data-duration="2.300" data-track-index="1"><span id="cap262-t" class="cap-t">ילדים, ואפילו העגלות.</span></div>
+<div id="cap263" class="clip cap" data-start="749.400" data-duration="2.267" data-track-index="1"><span id="cap263-t" class="cap-t">לאורך הגדות חופרים שוחות קטנות,</span></div>
+<div id="cap264" class="clip cap" data-start="751.667" data-duration="2.333" data-track-index="1"><span id="cap264-t" class="cap-t">לשניים או שלושה חיילים כל אחת,</span></div>
+<div id="cap265" class="clip cap" data-start="754.000" data-duration="2.033" data-track-index="1"><span id="cap265-t" class="cap-t">מוסתרות בין השיחים.</span></div>
+<div id="cap266" class="clip cap" data-start="756.033" data-duration="2.367" data-track-index="1"><span id="cap266-t" class="cap-t">את השיחים שמלפנים גוזמים בזהירות,</span></div>
+<div id="cap267" class="clip cap" data-start="758.400" data-duration="2.167" data-track-index="1"><span id="cap267-t" class="cap-t">כדי לפנות שדה אש בלי לחשוף</span></div>
+<div id="cap268" class="clip cap" data-start="760.567" data-duration="0.933" data-track-index="1"><span id="cap268-t" class="cap-t">את העמדה.</span></div>
+<div id="cap269" class="clip cap" data-start="761.500" data-duration="1.833" data-track-index="1"><span id="cap269-t" class="cap-t">על ראש גבעת המכשלה מוצבת חוליה</span></div>
+<div id="cap270" class="clip cap" data-start="763.333" data-duration="1.367" data-track-index="1"><span id="cap270-t" class="cap-t">קטנה ומוסתרת,</span></div>
+<div id="cap271" class="clip cap" data-start="764.700" data-duration="1.600" data-track-index="1"><span id="cap271-t" class="cap-t">כדי שהאויב לא יוכל לתפוס את</span></div>
+<div id="cap272" class="clip cap" data-start="766.300" data-duration="1.700" data-track-index="1"><span id="cap272-t" class="cap-t">הגבעה ולירות משם.</span></div>
+<div id="cap273" class="clip cap" data-start="768.000" data-duration="1.333" data-track-index="1"><span id="cap273-t" class="cap-t">ובשטח הפתוח,</span></div>
+<div id="cap274" class="clip cap" data-start="769.333" data-duration="2.033" data-track-index="1"><span id="cap274-t" class="cap-t">הטריק: חפירות דמה,</span></div>
+<div id="cap275" class="clip cap" data-start="771.367" data-duration="1.867" data-track-index="1"><span id="cap275-t" class="cap-t">עם שקי חול לבנים וחדשים,</span></div>
+<div id="cap276" class="clip cap" data-start="773.233" data-duration="2.133" data-track-index="1"><span id="cap276-t" class="cap-t">שנראים מקילומטרים.</span></div>
+<div id="cap277" class="clip cap" data-start="775.367" data-duration="1.467" data-track-index="1"><span id="cap277-t" class="cap-t">מלכודת לעין.</span></div>
+<div id="cap278" class="clip cap" data-start="776.833" data-duration="1.467" data-track-index="1"><span id="cap278-t" class="cap-t">וההוראה לחיילים:</span></div>
+<div id="cap279" class="clip cap" data-start="778.300" data-duration="1.300" data-track-index="1"><span id="cap279-t" class="cap-t">לא יורים אף כדור,</span></div>
+<div id="cap280" class="clip cap" data-start="779.600" data-duration="2.200" data-track-index="1"><span id="cap280-t" class="cap-t">עד שהאויב ממש קרוב.</span></div>
+<div id="cap281" class="clip cap" data-start="781.800" data-duration="1.967" data-track-index="1"><span id="cap281-t" class="cap-t">כולם מחכים לשריקה.</span></div>
+<div id="cap282" class="clip cap" data-start="783.767" data-duration="2.500" data-track-index="1"><span id="cap282-t" class="cap-t">בבוקר מופיעים הבורים.</span></div>
+<div id="cap283" class="clip cap" data-start="786.267" data-duration="3.000" data-track-index="1"><span id="cap283-t" class="cap-t">סיירים מתקרבים בזהירות למעבר.</span></div>
+<div id="cap284" class="clip cap" data-start="789.267" data-duration="1.467" data-track-index="1"><span id="cap284-t" class="cap-t">הם לא רואים כלום.</span></div>
+<div id="cap285" class="clip cap" data-start="790.733" data-duration="2.167" data-track-index="1"><span id="cap285-t" class="cap-t">ואז: אש!</span></div>
+<div id="cap286" class="clip cap" data-start="792.900" data-duration="1.200" data-track-index="1"><span id="cap286-t" class="cap-t">מכל השוחות,</span></div>
+<div id="cap287" class="clip cap" data-start="794.100" data-duration="1.633" data-track-index="1"><span id="cap287-t" class="cap-t">בבת אחת.</span></div>
+<div id="cap288" class="clip cap" data-start="795.733" data-duration="1.833" data-track-index="1"><span id="cap288-t" class="cap-t">הבורים מופתעים לגמרי,</span></div>
+<div id="cap289" class="clip cap" data-start="797.567" data-duration="1.400" data-track-index="1"><span id="cap289-t" class="cap-t">ונסוגים במהירות.</span></div>
+<div id="cap290" class="clip cap" data-start="798.967" data-duration="1.500" data-track-index="1"><span id="cap290-t" class="cap-t">הם מביאים תותחים,</span></div>
+<div id="cap291" class="clip cap" data-start="800.467" data-duration="2.267" data-track-index="1"><span id="cap291-t" class="cap-t">ומפגיזים בכל הכוח...</span></div>
+<div id="cap292" class="clip cap" data-start="802.733" data-duration="1.600" data-track-index="1"><span id="cap292-t" class="cap-t">את חפירות הדמה!</span></div>
+<div id="cap293" class="clip cap" data-start="804.700" data-duration="1.667" data-track-index="1"><span id="cap293-t" class="cap-t">פגז אחרי פגז נוחת על שקי</span></div>
+<div id="cap294" class="clip cap" data-start="806.367" data-duration="1.067" data-track-index="1"><span id="cap294-t" class="cap-t">החול הלבנים,</span></div>
+<div id="cap295" class="clip cap" data-start="807.433" data-duration="2.333" data-track-index="1"><span id="cap295-t" class="cap-t">בזמן שהחיילים האמיתיים יושבים מוסתרים</span></div>
+<div id="cap296" class="clip cap" data-start="809.767" data-duration="0.867" data-track-index="1"><span id="cap296-t" class="cap-t">בגדה.</span></div>
+<div id="cap297" class="clip cap" data-start="810.633" data-duration="1.000" data-track-index="1"><span id="cap297-t" class="cap-t">יום שלם,</span></div>
+<div id="cap298" class="clip cap" data-start="811.633" data-duration="1.167" data-track-index="1"><span id="cap298-t" class="cap-t">ולילה שלם,</span></div>
+<div id="cap299" class="clip cap" data-start="812.800" data-duration="2.167" data-track-index="1"><span id="cap299-t" class="cap-t">הם מנסים שוב ושוב.</span></div>
+<div id="cap300" class="clip cap" data-start="814.967" data-duration="2.767" data-track-index="1"><span id="cap300-t" class="cap-t">והמעבר נשאר בידיים של הסגן.</span></div>
+<div id="cap301" class="clip cap" data-start="817.733" data-duration="1.533" data-track-index="1"><span id="cap301-t" class="cap-t">ובבוקר שאחרי,</span></div>
+<div id="cap302" class="clip cap" data-start="819.267" data-duration="2.267" data-track-index="1"><span id="cap302-t" class="cap-t">רעם של תותחים מרחוק.</span></div>
+<div id="cap303" class="clip cap" data-start="821.533" data-duration="2.400" data-track-index="1"><span id="cap303-t" class="cap-t">השיירה הבריטית מגיעה.</span></div>
+<div id="cap304" class="clip cap" data-start="823.933" data-duration="1.500" data-track-index="1"><span id="cap304-t" class="cap-t">המשימה הושלמה!</span></div>
+<div id="cap305" class="clip cap" data-start="825.433" data-duration="1.300" data-track-index="1"><span id="cap305-t" class="cap-t">המחיר היה כבד:</span></div>
+<div id="cap306" class="clip cap" data-start="826.733" data-duration="1.300" data-track-index="1"><span id="cap306-t" class="cap-t">אחד-עשר הרוגים,</span></div>
+<div id="cap307" class="clip cap" data-start="828.033" data-duration="2.067" data-track-index="1"><span id="cap307-t" class="cap-t">וחמישה-עשר פצועים.</span></div>
+<div id="cap308" class="clip cap" data-start="830.100" data-duration="1.133" data-track-index="1"><span id="cap308-t" class="cap-t">אבל המעבר,</span></div>
+<div id="cap309" class="clip cap" data-start="831.233" data-duration="1.967" data-track-index="1"><span id="cap309-t" class="cap-t">נשאר בידיים בריטיות.</span></div>
+<div id="cap310" class="clip cap" data-start="834.000" data-duration="1.933" data-track-index="1"><span id="cap310-t" class="cap-t">הסגן כבר שומע את התזמורת,</span></div>
+<div id="cap311" class="clip cap" data-start="835.933" data-duration="1.333" data-track-index="1"><span id="cap311-t" class="cap-t">את מחיאות הכפיים,</span></div>
+<div id="cap312" class="clip cap" data-start="837.267" data-duration="1.600" data-track-index="1"><span id="cap312-t" class="cap-t">ואת הקולונל אומר לו:</span></div>
+<div id="cap313" class="clip cap" data-start="838.867" data-duration="1.100" data-track-index="1"><span id="cap313-t" class="cap-t">״קום על רגליך,</span></div>
+<div id="cap314" class="clip cap" data-start="839.967" data-duration="1.367" data-track-index="1"><span id="cap314-t" class="cap-t">האביר תכנוני.״</span></div>
+<div id="cap315" class="clip cap" data-start="841.333" data-duration="2.700" data-track-index="1"><span id="cap315-t" class="cap-t">ופתאום, הקול משתנה...</span></div>
+<div id="cap316" class="clip cap" data-start="844.033" data-duration="4.533" data-track-index="1"><span id="cap316-t" class="cap-t">״המפקד! הגיע הזמן לארוז את החפצים.</span></div>
+<div id="cap317" class="clip cap" data-start="848.567" data-duration="2.100" data-track-index="1"><span id="cap317-t" class="cap-t">הקפה שלך כבר מוכן.״</span></div>
+<div id="cap318" class="clip cap" data-start="850.667" data-duration="2.067" data-track-index="1"><span id="cap318-t" class="cap-t">הוא פוקח את העיניים.</span></div>
+<div id="cap319" class="clip cap" data-start="852.733" data-duration="2.200" data-track-index="1"><span id="cap319-t" class="cap-t">הוא עדיין שוכב באותו חור מאובק,</span></div>
+<div id="cap320" class="clip cap" data-start="854.933" data-duration="1.800" data-track-index="1"><span id="cap320-t" class="cap-t">בכפר החלומות.</span></div>
+<div id="cap321" class="clip cap" data-start="856.733" data-duration="1.533" data-track-index="1"><span id="cap321-t" class="cap-t">הכול היה חלום.</span></div>
+<div id="cap322" class="clip cap" data-start="861.633" data-duration="1.100" data-track-index="1"><span id="cap322-t" class="cap-t">אז מה למדנו,</span></div>
+<div id="cap323" class="clip cap" data-start="862.733" data-duration="3.067" data-track-index="1"><span id="cap323-t" class="cap-t">משישה חלומות ועשרים ושניים שיעורים?</span></div>
+<div id="cap324" class="clip cap" data-start="865.800" data-duration="2.867" data-track-index="1"><span id="cap324-t" class="cap-t">אפשר לסכם את זה בשישה רעיונות גדולים.</span></div>
+<div id="cap325" class="clip cap" data-start="868.667" data-duration="3.167" data-track-index="1"><span id="cap325-t" class="cap-t">אחד: ההגנה קודמת לנוחות.</span></div>
+<div id="cap326" class="clip cap" data-start="871.833" data-duration="1.167" data-track-index="1"><span id="cap326-t" class="cap-t">חופרים היום,</span></div>
+<div id="cap327" class="clip cap" data-start="873.000" data-duration="1.067" data-track-index="1"><span id="cap327-t" class="cap-t">לא מחר.</span></div>
+<div id="cap328" class="clip cap" data-start="874.067" data-duration="2.500" data-track-index="1"><span id="cap328-t" class="cap-t">שתיים: כל מקומי שרואה אותך,</span></div>
+<div id="cap329" class="clip cap" data-start="876.567" data-duration="1.933" data-track-index="1"><span id="cap329-t" class="cap-t">יכול לספר עליך.</span></div>
+<div id="cap330" class="clip cap" data-start="878.500" data-duration="1.400" data-track-index="1"><span id="cap330-t" class="cap-t">אוספים את כולם.</span></div>
+<div id="cap331" class="clip cap" data-start="879.900" data-duration="2.233" data-track-index="1"><span id="cap331-t" class="cap-t">שלוש: מי שלא רואים אותו,</span></div>
+<div id="cap332" class="clip cap" data-start="882.133" data-duration="2.900" data-track-index="1"><span id="cap332-t" class="cap-t">מפתיע. מסתירים את העמדות,</span></div>
+<div id="cap333" class="clip cap" data-start="885.033" data-duration="1.567" data-track-index="1"><span id="cap333-t" class="cap-t">ומשתמשים בהסחה.</span></div>
+<div id="cap334" class="clip cap" data-start="886.600" data-duration="2.100" data-track-index="1"><span id="cap334-t" class="cap-t">ארבע: חפירות קצרות,</span></div>
+<div id="cap335" class="clip cap" data-start="888.700" data-duration="1.300" data-track-index="1"><span id="cap335-t" class="cap-t">צרות ועמוקות,</span></div>
+<div id="cap336" class="clip cap" data-start="890.000" data-duration="3.733" data-track-index="1"><span id="cap336-t" class="cap-t">ומפוזרות. לא קו ישר אחד וארוך.</span></div>
+<div id="cap337" class="clip cap" data-start="893.733" data-duration="3.500" data-track-index="1"><span id="cap337-t" class="cap-t">חמש: לעמדה מבודדת אין עורף.</span></div>
+<div id="cap338" class="clip cap" data-start="897.233" data-duration="2.000" data-track-index="1"><span id="cap338-t" class="cap-t">מגינים מכל הכיוונים.</span></div>
+<div id="cap339" class="clip cap" data-start="899.233" data-duration="3.500" data-track-index="1"><span id="cap339-t" class="cap-t">ושש: בוחרים את הקרקע לפי המשימה.</span></div>
+<div id="cap340" class="clip cap" data-start="902.733" data-duration="2.900" data-track-index="1"><span id="cap340-t" class="cap-t">הגבעה הגבוהה היא לא תמיד התשובה.</span></div>
+<div id="cap341" class="clip cap" data-start="905.633" data-duration="2.700" data-track-index="1"><span id="cap341-t" class="cap-t">לפעמים, דווקא אפיק הנהר.</span></div>
+<div id="cap342" class="clip cap" data-start="908.700" data-duration="2.167" data-track-index="1"><span id="cap342-t" class="cap-t">ובהקדמה לספר יש עצה שמתאימה לא</span></div>
+<div id="cap343" class="clip cap" data-start="910.867" data-duration="1.033" data-track-index="1"><span id="cap343-t" class="cap-t">רק לצבא:</span></div>
+<div id="cap344" class="clip cap" data-start="911.900" data-duration="1.800" data-track-index="1"><span id="cap344-t" class="cap-t">״שאל את עצמך תמיד במה אני</span></div>
+<div id="cap345" class="clip cap" data-start="913.700" data-duration="2.500" data-track-index="1"><span id="cap345-t" class="cap-t">טועה? היכן אכשל?״</span></div>
+<div id="cap346" class="clip cap" data-start="916.200" data-duration="1.067" data-track-index="1"><span id="cap346-t" class="cap-t">כי הכי טוב,</span></div>
+<div id="cap347" class="clip cap" data-start="917.267" data-duration="2.367" data-track-index="1"><span id="cap347-t" class="cap-t">זה להיות חכם לפני מעשה.</span></div>
+<div id="cap348" class="clip cap" data-start="919.633" data-duration="1.300" data-track-index="1"><span id="cap348-t" class="cap-t">בהצלחה!</span></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#cap0-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 1.067);
+      tl.fromTo("#cap1-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 3.400);
+      tl.fromTo("#cap2-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 5.033);
+      tl.fromTo("#cap3-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 6.533);
+      tl.fromTo("#cap4-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 8.100);
+      tl.fromTo("#cap5-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 9.267);
+      tl.fromTo("#cap6-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 11.000);
+      tl.fromTo("#cap7-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 13.667);
+      tl.fromTo("#cap8-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 16.167);
+      tl.fromTo("#cap9-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 17.433);
+      tl.fromTo("#cap10-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 19.167);
+      tl.fromTo("#cap11-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 25.567);
+      tl.fromTo("#cap12-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 27.633);
+      tl.fromTo("#cap13-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 29.300);
+      tl.fromTo("#cap14-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 31.833);
+      tl.fromTo("#cap15-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 37.500);
+      tl.fromTo("#cap16-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 38.533);
+      tl.fromTo("#cap17-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 39.900);
+      tl.fromTo("#cap18-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 41.300);
+      tl.fromTo("#cap19-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 42.367);
+      tl.fromTo("#cap20-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 44.967);
+      tl.fromTo("#cap21-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 46.667);
+      tl.fromTo("#cap22-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 49.500);
+      tl.fromTo("#cap23-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 51.700);
+      tl.fromTo("#cap24-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 54.133);
+      tl.fromTo("#cap25-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 56.567);
+      tl.fromTo("#cap26-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 58.333);
+      tl.fromTo("#cap27-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 59.967);
+      tl.fromTo("#cap28-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 61.767);
+      tl.fromTo("#cap29-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 63.300);
+      tl.fromTo("#cap30-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 65.700);
+      tl.fromTo("#cap31-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 66.900);
+      tl.fromTo("#cap32-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 70.233);
+      tl.fromTo("#cap33-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 72.467);
+      tl.fromTo("#cap34-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 76.333);
+      tl.fromTo("#cap35-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 78.433);
+      tl.fromTo("#cap36-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 80.200);
+      tl.fromTo("#cap37-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 82.033);
+      tl.fromTo("#cap38-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 85.400);
+      tl.fromTo("#cap39-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 89.000);
+      tl.fromTo("#cap40-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 90.800);
+      tl.fromTo("#cap41-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 92.467);
+      tl.fromTo("#cap42-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 94.200);
+      tl.fromTo("#cap43-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 95.767);
+      tl.fromTo("#cap44-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 97.667);
+      tl.fromTo("#cap45-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 99.467);
+      tl.fromTo("#cap46-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 100.767);
+      tl.fromTo("#cap47-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 103.733);
+      tl.fromTo("#cap48-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 106.267);
+      tl.fromTo("#cap49-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 109.000);
+      tl.fromTo("#cap50-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 111.100);
+      tl.fromTo("#cap51-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 113.100);
+      tl.fromTo("#cap52-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 114.400);
+      tl.fromTo("#cap53-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 116.667);
+      tl.fromTo("#cap54-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 118.300);
+      tl.fromTo("#cap55-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 119.400);
+      tl.fromTo("#cap56-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 120.633);
+      tl.fromTo("#cap57-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 123.567);
+      tl.fromTo("#cap58-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 125.533);
+      tl.fromTo("#cap59-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 127.633);
+      tl.fromTo("#cap60-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 128.900);
+      tl.fromTo("#cap61-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 131.233);
+      tl.fromTo("#cap62-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 139.833);
+      tl.fromTo("#cap63-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 141.900);
+      tl.fromTo("#cap64-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 143.733);
+      tl.fromTo("#cap65-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 145.567);
+      tl.fromTo("#cap66-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 147.033);
+      tl.fromTo("#cap67-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 148.233);
+      tl.fromTo("#cap68-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 149.767);
+      tl.fromTo("#cap69-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 151.267);
+      tl.fromTo("#cap70-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 154.200);
+      tl.fromTo("#cap71-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 155.667);
+      tl.fromTo("#cap72-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 156.800);
+      tl.fromTo("#cap73-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 158.067);
+      tl.fromTo("#cap74-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 159.800);
+      tl.fromTo("#cap75-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 162.067);
+      tl.fromTo("#cap76-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 164.033);
+      tl.fromTo("#cap77-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 166.733);
+      tl.fromTo("#cap78-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 168.767);
+      tl.fromTo("#cap79-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 169.833);
+      tl.fromTo("#cap80-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 171.167);
+      tl.fromTo("#cap81-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 173.467);
+      tl.fromTo("#cap82-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 174.533);
+      tl.fromTo("#cap83-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 176.333);
+      tl.fromTo("#cap84-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 177.333);
+      tl.fromTo("#cap85-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 181.067);
+      tl.fromTo("#cap86-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 183.067);
+      tl.fromTo("#cap87-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 184.933);
+      tl.fromTo("#cap88-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 187.267);
+      tl.fromTo("#cap89-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 188.300);
+      tl.fromTo("#cap90-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 190.400);
+      tl.fromTo("#cap91-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 191.500);
+      tl.fromTo("#cap92-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 194.067);
+      tl.fromTo("#cap93-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 197.933);
+      tl.fromTo("#cap94-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 200.333);
+      tl.fromTo("#cap95-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 239.200);
+      tl.fromTo("#cap96-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 240.400);
+      tl.fromTo("#cap97-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 241.500);
+      tl.fromTo("#cap98-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 243.267);
+      tl.fromTo("#cap99-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 244.267);
+      tl.fromTo("#cap100-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 246.433);
+      tl.fromTo("#cap101-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 247.833);
+      tl.fromTo("#cap102-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 249.733);
+      tl.fromTo("#cap103-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 251.433);
+      tl.fromTo("#cap104-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 253.300);
+      tl.fromTo("#cap105-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 256.200);
+      tl.fromTo("#cap106-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 258.400);
+      tl.fromTo("#cap107-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 259.767);
+      tl.fromTo("#cap108-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 261.433);
+      tl.fromTo("#cap109-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 262.967);
+      tl.fromTo("#cap110-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 265.167);
+      tl.fromTo("#cap111-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 266.633);
+      tl.fromTo("#cap112-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 268.333);
+      tl.fromTo("#cap113-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 269.333);
+      tl.fromTo("#cap114-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 270.700);
+      tl.fromTo("#cap115-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 273.933);
+      tl.fromTo("#cap116-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 275.833);
+      tl.fromTo("#cap117-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 277.467);
+      tl.fromTo("#cap118-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 278.767);
+      tl.fromTo("#cap119-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 281.133);
+      tl.fromTo("#cap120-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 282.667);
+      tl.fromTo("#cap121-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 284.667);
+      tl.fromTo("#cap122-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 285.433);
+      tl.fromTo("#cap123-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 286.333);
+      tl.fromTo("#cap124-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 288.467);
+      tl.fromTo("#cap125-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 289.700);
+      tl.fromTo("#cap126-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 330.600);
+      tl.fromTo("#cap127-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 332.233);
+      tl.fromTo("#cap128-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 334.300);
+      tl.fromTo("#cap129-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 336.900);
+      tl.fromTo("#cap130-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 338.700);
+      tl.fromTo("#cap131-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 339.800);
+      tl.fromTo("#cap132-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 341.800);
+      tl.fromTo("#cap133-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 343.100);
+      tl.fromTo("#cap134-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 347.033);
+      tl.fromTo("#cap135-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 348.133);
+      tl.fromTo("#cap136-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 349.367);
+      tl.fromTo("#cap137-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 351.267);
+      tl.fromTo("#cap138-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 354.000);
+      tl.fromTo("#cap139-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 355.767);
+      tl.fromTo("#cap140-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 357.133);
+      tl.fromTo("#cap141-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 359.733);
+      tl.fromTo("#cap142-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 362.700);
+      tl.fromTo("#cap143-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 364.967);
+      tl.fromTo("#cap144-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 368.267);
+      tl.fromTo("#cap145-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 371.300);
+      tl.fromTo("#cap146-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 372.567);
+      tl.fromTo("#cap147-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 373.600);
+      tl.fromTo("#cap148-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 376.133);
+      tl.fromTo("#cap149-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 377.967);
+      tl.fromTo("#cap150-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 379.733);
+      tl.fromTo("#cap151-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 381.833);
+      tl.fromTo("#cap152-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 384.033);
+      tl.fromTo("#cap153-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 385.767);
+      tl.fromTo("#cap154-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 388.500);
+      tl.fromTo("#cap155-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 390.833);
+      tl.fromTo("#cap156-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 392.133);
+      tl.fromTo("#cap157-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 395.500);
+      tl.fromTo("#cap158-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 397.400);
+      tl.fromTo("#cap159-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 399.400);
+      tl.fromTo("#cap160-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 401.167);
+      tl.fromTo("#cap161-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 402.400);
+      tl.fromTo("#cap162-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 404.600);
+      tl.fromTo("#cap163-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 441.267);
+      tl.fromTo("#cap164-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 443.067);
+      tl.fromTo("#cap165-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 446.233);
+      tl.fromTo("#cap166-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 447.467);
+      tl.fromTo("#cap167-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 448.933);
+      tl.fromTo("#cap168-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 452.167);
+      tl.fromTo("#cap169-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 453.267);
+      tl.fromTo("#cap170-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 455.667);
+      tl.fromTo("#cap171-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 457.300);
+      tl.fromTo("#cap172-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 458.967);
+      tl.fromTo("#cap173-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 461.067);
+      tl.fromTo("#cap174-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 462.300);
+      tl.fromTo("#cap175-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 465.100);
+      tl.fromTo("#cap176-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 466.167);
+      tl.fromTo("#cap177-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 467.800);
+      tl.fromTo("#cap178-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 469.800);
+      tl.fromTo("#cap179-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 471.567);
+      tl.fromTo("#cap180-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 473.333);
+      tl.fromTo("#cap181-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 475.333);
+      tl.fromTo("#cap182-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 478.300);
+      tl.fromTo("#cap183-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 481.233);
+      tl.fromTo("#cap184-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 483.333);
+      tl.fromTo("#cap185-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 484.567);
+      tl.fromTo("#cap186-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 486.700);
+      tl.fromTo("#cap187-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 489.233);
+      tl.fromTo("#cap188-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 491.233);
+      tl.fromTo("#cap189-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 493.600);
+      tl.fromTo("#cap190-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 496.300);
+      tl.fromTo("#cap191-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 498.533);
+      tl.fromTo("#cap192-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 501.033);
+      tl.fromTo("#cap193-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 503.467);
+      tl.fromTo("#cap194-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 505.933);
+      tl.fromTo("#cap195-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 507.733);
+      tl.fromTo("#cap196-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 509.933);
+      tl.fromTo("#cap197-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 511.167);
+      tl.fromTo("#cap198-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 512.333);
+      tl.fromTo("#cap199-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 516.133);
+      tl.fromTo("#cap200-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 518.833);
+      tl.fromTo("#cap201-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 521.067);
+      tl.fromTo("#cap202-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 522.767);
+      tl.fromTo("#cap203-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 525.400);
+      tl.fromTo("#cap204-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 604.467);
+      tl.fromTo("#cap205-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 606.500);
+      tl.fromTo("#cap206-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 609.067);
+      tl.fromTo("#cap207-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 610.633);
+      tl.fromTo("#cap208-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 612.167);
+      tl.fromTo("#cap209-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 613.900);
+      tl.fromTo("#cap210-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 616.567);
+      tl.fromTo("#cap211-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 619.333);
+      tl.fromTo("#cap212-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 621.400);
+      tl.fromTo("#cap213-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 623.633);
+      tl.fromTo("#cap214-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 625.233);
+      tl.fromTo("#cap215-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 626.500);
+      tl.fromTo("#cap216-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 628.733);
+      tl.fromTo("#cap217-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 630.100);
+      tl.fromTo("#cap218-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 631.600);
+      tl.fromTo("#cap219-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 635.333);
+      tl.fromTo("#cap220-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 636.300);
+      tl.fromTo("#cap221-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 638.567);
+      tl.fromTo("#cap222-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 640.000);
+      tl.fromTo("#cap223-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 642.500);
+      tl.fromTo("#cap224-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 644.000);
+      tl.fromTo("#cap225-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 646.233);
+      tl.fromTo("#cap226-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 648.033);
+      tl.fromTo("#cap227-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 649.933);
+      tl.fromTo("#cap228-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 652.100);
+      tl.fromTo("#cap229-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 653.700);
+      tl.fromTo("#cap230-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 655.400);
+      tl.fromTo("#cap231-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 657.967);
+      tl.fromTo("#cap232-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 659.867);
+      tl.fromTo("#cap233-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 662.667);
+      tl.fromTo("#cap234-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 663.567);
+      tl.fromTo("#cap235-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 665.900);
+      tl.fromTo("#cap236-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 667.267);
+      tl.fromTo("#cap237-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 668.433);
+      tl.fromTo("#cap238-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 670.767);
+      tl.fromTo("#cap239-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 671.867);
+      tl.fromTo("#cap240-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 673.233);
+      tl.fromTo("#cap241-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 674.567);
+      tl.fromTo("#cap242-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 676.900);
+      tl.fromTo("#cap243-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 680.000);
+      tl.fromTo("#cap244-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 713.833);
+      tl.fromTo("#cap245-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 716.067);
+      tl.fromTo("#cap246-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 718.000);
+      tl.fromTo("#cap247-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 719.933);
+      tl.fromTo("#cap248-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 722.033);
+      tl.fromTo("#cap249-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 723.733);
+      tl.fromTo("#cap250-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 725.033);
+      tl.fromTo("#cap251-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 726.967);
+      tl.fromTo("#cap252-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 729.133);
+      tl.fromTo("#cap253-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 730.800);
+      tl.fromTo("#cap254-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 733.300);
+      tl.fromTo("#cap255-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 735.167);
+      tl.fromTo("#cap256-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 736.500);
+      tl.fromTo("#cap257-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 738.400);
+      tl.fromTo("#cap258-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 740.700);
+      tl.fromTo("#cap259-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 742.267);
+      tl.fromTo("#cap260-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 743.500);
+      tl.fromTo("#cap261-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 745.267);
+      tl.fromTo("#cap262-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 747.100);
+      tl.fromTo("#cap263-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 749.400);
+      tl.fromTo("#cap264-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 751.667);
+      tl.fromTo("#cap265-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 754.000);
+      tl.fromTo("#cap266-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 756.033);
+      tl.fromTo("#cap267-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 758.400);
+      tl.fromTo("#cap268-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 760.567);
+      tl.fromTo("#cap269-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 761.500);
+      tl.fromTo("#cap270-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 763.333);
+      tl.fromTo("#cap271-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 764.700);
+      tl.fromTo("#cap272-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 766.300);
+      tl.fromTo("#cap273-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 768.000);
+      tl.fromTo("#cap274-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 769.333);
+      tl.fromTo("#cap275-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 771.367);
+      tl.fromTo("#cap276-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 773.233);
+      tl.fromTo("#cap277-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 775.367);
+      tl.fromTo("#cap278-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 776.833);
+      tl.fromTo("#cap279-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 778.300);
+      tl.fromTo("#cap280-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 779.600);
+      tl.fromTo("#cap281-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 781.800);
+      tl.fromTo("#cap282-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 783.767);
+      tl.fromTo("#cap283-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 786.267);
+      tl.fromTo("#cap284-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 789.267);
+      tl.fromTo("#cap285-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 790.733);
+      tl.fromTo("#cap286-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 792.900);
+      tl.fromTo("#cap287-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 794.100);
+      tl.fromTo("#cap288-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 795.733);
+      tl.fromTo("#cap289-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 797.567);
+      tl.fromTo("#cap290-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 798.967);
+      tl.fromTo("#cap291-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 800.467);
+      tl.fromTo("#cap292-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 802.733);
+      tl.fromTo("#cap293-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 804.700);
+      tl.fromTo("#cap294-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 806.367);
+      tl.fromTo("#cap295-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 807.433);
+      tl.fromTo("#cap296-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 809.767);
+      tl.fromTo("#cap297-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 810.633);
+      tl.fromTo("#cap298-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 811.633);
+      tl.fromTo("#cap299-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 812.800);
+      tl.fromTo("#cap300-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 814.967);
+      tl.fromTo("#cap301-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 817.733);
+      tl.fromTo("#cap302-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 819.267);
+      tl.fromTo("#cap303-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 821.533);
+      tl.fromTo("#cap304-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 823.933);
+      tl.fromTo("#cap305-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 825.433);
+      tl.fromTo("#cap306-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 826.733);
+      tl.fromTo("#cap307-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 828.033);
+      tl.fromTo("#cap308-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 830.100);
+      tl.fromTo("#cap309-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 831.233);
+      tl.fromTo("#cap310-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 834.000);
+      tl.fromTo("#cap311-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 835.933);
+      tl.fromTo("#cap312-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 837.267);
+      tl.fromTo("#cap313-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 838.867);
+      tl.fromTo("#cap314-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 839.967);
+      tl.fromTo("#cap315-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 841.333);
+      tl.fromTo("#cap316-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 844.033);
+      tl.fromTo("#cap317-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 848.567);
+      tl.fromTo("#cap318-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 850.667);
+      tl.fromTo("#cap319-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 852.733);
+      tl.fromTo("#cap320-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 854.933);
+      tl.fromTo("#cap321-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 856.733);
+      tl.fromTo("#cap322-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 861.633);
+      tl.fromTo("#cap323-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 862.733);
+      tl.fromTo("#cap324-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 865.800);
+      tl.fromTo("#cap325-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 868.667);
+      tl.fromTo("#cap326-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 871.833);
+      tl.fromTo("#cap327-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 873.000);
+      tl.fromTo("#cap328-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 874.067);
+      tl.fromTo("#cap329-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 876.567);
+      tl.fromTo("#cap330-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 878.500);
+      tl.fromTo("#cap331-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 879.900);
+      tl.fromTo("#cap332-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 882.133);
+      tl.fromTo("#cap333-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 885.033);
+      tl.fromTo("#cap334-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 886.600);
+      tl.fromTo("#cap335-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 888.700);
+      tl.fromTo("#cap336-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 890.000);
+      tl.fromTo("#cap337-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 893.733);
+      tl.fromTo("#cap338-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 897.233);
+      tl.fromTo("#cap339-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 899.233);
+      tl.fromTo("#cap340-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 902.733);
+      tl.fromTo("#cap341-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 905.633);
+      tl.fromTo("#cap342-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 908.700);
+      tl.fromTo("#cap343-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 910.867);
+      tl.fromTo("#cap344-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 911.900);
+      tl.fromTo("#cap345-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 913.700);
+      tl.fromTo("#cap346-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 916.200);
+      tl.fromTo("#cap347-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 917.267);
+      tl.fromTo("#cap348-t", {opacity:0}, {opacity:1, duration:0.12, ease:"power2.out"}, 919.633);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>

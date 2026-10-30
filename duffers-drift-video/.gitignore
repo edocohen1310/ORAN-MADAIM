@@ -1,0 +1,12 @@
+node_modules/
+.hyperframes/
+.media/
+__pycache__/
+# regenerable intermediates
+assets/audio/seg/
+tools/art/*.html
+out/render-raw.mp4
+assets/music/
+out/work-*/
+out/.render-*/
+out/*.tmp

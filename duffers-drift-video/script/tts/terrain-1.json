@@ -1,0 +1,27 @@
+{
+ "id": "terrain-1",
+ "hash": "ef1239b4679cb2cdb11a0d2abc6bc544bbcaaf66",
+ "duration": 2.352,
+ "words": [
+  {
+   "text": "בואו",
+   "start": 0.098,
+   "end": 0.439
+  },
+  {
+   "text": "נכיר",
+   "start": 0.439,
+   "end": 0.78
+  },
+  {
+   "text": "את",
+   "start": 0.78,
+   "end": 0.87
+  },
+  {
+   "text": "השטח",
+   "start": 0.87,
+   "end": 1.575
+  }
+ ]
+}

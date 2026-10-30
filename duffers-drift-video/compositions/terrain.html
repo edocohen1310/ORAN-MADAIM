@@ -1,0 +1,93 @@
+<template>
+  <style>
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/FrankRuhlLibre-500-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/FrankRuhlLibre-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/FrankRuhlLibre-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/FrankRuhlLibre-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 900; font-display: block; src: url('assets/fonts/FrankRuhlLibre-900-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Frank Ruhl Libre'; font-style: normal; font-weight: 900; font-display: block; src: url('assets/fonts/FrankRuhlLibre-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 400; font-display: block; src: url('assets/fonts/Karantina-400-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 400; font-display: block; src: url('assets/fonts/Karantina-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Karantina-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Karantina'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Karantina-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/Rubik-500-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 500; font-display: block; src: url('assets/fonts/Rubik-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Rubik-700-hebrew.woff2') format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: 'Rubik'; font-style: normal; font-weight: 700; font-display: block; src: url('assets/fonts/Rubik-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+#root { position:absolute; inset:0; overflow:hidden; background:#140f0a; direction:rtl; }
+
+.shot { position:absolute; inset:0; overflow:hidden; }
+.shot-in { position:absolute; inset:0; }
+.abs { position:absolute; }
+.full { position:absolute; left:0; top:0; width:1920px; height:1080px; }
+.sky { position:absolute; inset:0; }
+svg.stage { position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:visible; }
+.cam { position:absolute; left:0; top:0; width:1920px; height:1080px; }
+.cam > img.map { position:absolute; left:0; top:0; width:1920px; height:1080px; }
+.k-title { font-family:'Karantina'; font-weight:700; color:#F4E7CB; line-height:0.95; letter-spacing:0.5px; }
+.label { font-family:'Rubik'; font-weight:700; }
+.bubble { position:absolute; font-family:'Rubik'; font-weight:700; font-size:40px; line-height:1.2; color:#1E1812;
+  background:#FFF6E2; border:4px solid #1E1812; border-radius:28px; padding:16px 30px; white-space:nowrap; box-shadow:6px 8px 0 rgba(0,0,0,.28); }
+.bubble.tail-r::after, .bubble.tail-l::after { content:''; position:absolute; bottom:-26px; width:34px; height:30px; background:#FFF6E2;
+  border-right:4px solid #1E1812; border-bottom:4px solid #1E1812; }
+.bubble.tail-r::after { right:58px; transform:skewX(35deg) rotate(8deg); }
+.bubble.tail-l::after { left:58px; transform:skewX(-35deg) rotate(-8deg); }
+.tag { position:absolute; font-family:'Rubik'; font-weight:700; font-size:32px; color:#1E1812; background:#F6ECD6;
+  border:3px solid #1E1812; border-radius:10px; padding:6px 18px 8px; white-space:nowrap; box-shadow:4px 5px 0 rgba(30,24,18,.35); }
+.tag.dark { background:#1E1812; color:#F6ECD6; border-color:#F6ECD6; }
+.tag.red { background:#B3261E; color:#FFF3E6; border-color:#5d120e; }
+.tag.navy { background:#203A5E; color:#F3ECDD; border-color:#0e1a2c; }
+.tag.rust { background:#B3452A; color:#FFF0E2; border-color:#5b1f10; }
+.stamp { position:absolute; width:760px; height:300px; }
+.pin { position:absolute; width:0; height:0; }
+.pin-post { position:absolute; left:-2px; top:-62px; width:5px; height:64px; background:#4a3520; border-radius:2px; }
+.pin-post::after { content:''; position:absolute; left:-5px; top:58px; width:15px; height:7px; border-radius:50%; background:rgba(0,0,0,.3); }
+.pin .tag { right:0; top:0; }
+
+
+.pin { position:absolute; width:0; height:0; }
+.pin-post { position:absolute; left:-2px; top:-62px; width:5px; height:64px; background:#4a3520; border-radius:2px; }
+.pin-post::after { content:''; position:absolute; left:-5px; top:58px; width:15px; height:7px; border-radius:50%; background:rgba(0,0,0,.3); }
+.pin .tag { right:0; top:0; }
+
+  </style>
+  <div id="root" data-composition-id="terrain" data-width="1920" data-height="1080" data-duration="46.400">
+<div id="tr" class="clip shot " data-start="0.000" data-duration="46.400" data-track-index="1" style="z-index:1;"><div id="tr-in" class="shot-in"><div id="tr-cam" class="cam"><img class="map" src="assets/art/sand-base.jpg" alt=""><svg class="stage" viewBox="0 0 1920 1080"><g transform="translate(960 255)"><g id="tr-ring" opacity="0"><circle r="70" fill="none" stroke="#B3261E" stroke-width="6" stroke-dasharray="12 9"/></g></g></svg><img id="tr-gully" class="map" src="assets/art/layer-gully.png" style="opacity:0" alt=""><img id="tr-road" class="map" src="assets/art/layer-road.png" style="opacity:0" alt=""><img id="tr-river" class="map" src="assets/art/layer-river.png" style="opacity:0" alt=""><img id="tr-kraal" class="map" src="assets/art/layer-kraal.png" style="opacity:0" alt=""><img id="tr-farm" class="map" src="assets/art/layer-farm.png" style="opacity:0" alt=""><div id="tr-p-river" class="pin" style="left:452px; top:470px;"><div class="pin-post"></div><div class="tag navy" style="transform:translate(calc(50% + 0px), -78px)">נהר עיט-אויל</div></div><div id="tr-p-drift" class="pin" style="left:980px; top:285px;"><div class="pin-post"></div><div class="tag red" style="transform:translate(calc(50% + 0px), -78px)">מעברות פתיים</div></div><div id="tr-p-kopje" class="pin" style="left:1320px; top:815px;"><div class="pin-post"></div><div class="tag " style="transform:translate(calc(50% + 0px), -78px)">גבעת המכשלה</div></div><div id="tr-p-kraal" class="pin" style="left:1190px; top:685px;"><div class="pin-post"></div><div class="tag dark" style="transform:translate(calc(50% + 0px), -78px)">כפר (קראל)</div></div><div id="tr-p-farm" class="pin" style="left:1450px; top:180px;"><div class="pin-post"></div><div class="tag rust" style="transform:translate(calc(50% + 0px), -78px)">החווה של ברינק</div></div><div id="tr-p-tel" class="pin" style="left:1720px; top:145px;"><div class="pin-post"></div><div class="tag " style="transform:translate(calc(50% + 0px), -78px)">תל-פגע</div></div><div id="tr-p-regrets" class="pin" style="left:330px; top:120px;"><div class="pin-post"></div><div class="tag " style="transform:translate(calc(50% + 0px), -78px)">הר החרטות</div></div></div><div id="tr-order" class="abs" style="right:120px; top:170px; width:640px; padding:40px 48px; background:#F6ECD6; border:4px solid #1E1812; box-shadow:12px 14px 0 rgba(30,24,18,.35); opacity:0"><div class="k-title" style="color:#1E1812; font-size:96px">פקודה</div><div class="label" style="font-size:44px; line-height:1.35; color:#1E1812; margin-top:14px">להחזיק את מעברות פתיים<br>בכל מחיר</div><div class="label" style="font-size:36px; line-height:1.35; color:#5a4a36; margin-top:18px; font-weight:500">שיירת תגבורת תגיע<br>בעוד 3 עד 4 ימים</div></div><div id="tr-enemy" class="tag red" style="left:820px; top:40px; font-size:44px; opacity:0">האויב: 100 מייל מכאן ⬆</div><div id="tr-q" class="abs k-title" style="left:1010px; top:250px; font-size:220px; color:#B3261E; opacity:0">?</div></div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#tr-in", {"opacity": 0, "filter": "blur(14px)"}, {"opacity": 1, "filter": "blur(0px)", "duration": 0.5, "ease": "power3.out"}, 0.000);
+      tl.set("#tr-cam", {"x": -864.0, "y": -30.0, "scale": 1.9, "transformOrigin": "0 0"}, 0.000);
+      tl.to("#tr-cam", {"x": 0.0, "y": 0.0, "scale": 1.0, "transformOrigin": "0 0", "duration": 2.2, "ease": "power3.inOut"}, 0.500);
+      tl.fromTo("#tr-river", {"opacity": 1, "clipPath": "inset(0 100% 0 0)"}, {"opacity": 1, "clipPath": "inset(0 0% 0 0)", "duration": 2.0, "ease": "power2.inOut"}, 2.400);
+      tl.fromTo("#tr-p-river", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 3.600);
+      tl.to("#tr-cam", {"x": -408.0, "y": 0.0, "scale": 1.8, "transformOrigin": "0 0", "duration": 1.4, "ease": "power2.inOut"}, 5.633);
+      tl.to("#tr-cam", {"x": 0.0, "y": 0.0, "scale": 1.0, "transformOrigin": "0 0", "duration": 1.2, "ease": "power2.inOut"}, 8.767);
+      tl.fromTo("#tr-road", {"opacity": 1, "clipPath": "inset(0 0 100% 0)"}, {"opacity": 1, "clipPath": "inset(0 0 0% 0)", "duration": 1.6, "ease": "power2.inOut"}, 9.267);
+      tl.to("#tr-cam", {"x": -672.0, "y": 0.0, "scale": 1.7, "transformOrigin": "0 0", "duration": 1.3, "ease": "power2.inOut"}, 11.900);
+      tl.fromTo("#tr-ring", {"opacity": 0, "scale": 0.5, "transformOrigin": "50% 50%"}, {"opacity": 1, "scale": 1, "duration": 0.4, "ease": "back.out(2)"}, 12.300);
+      tl.fromTo("#tr-p-drift", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 13.800);
+      tl.to("#tr-ring", {"opacity": 0, "duration": 0.3, "ease": "power2.in"}, 15.333);
+      tl.to("#tr-cam", {"x": -660.0, "y": -378.0, "scale": 1.35, "transformOrigin": "0 0", "duration": 1.6, "ease": "power2.inOut"}, 15.333);
+      tl.fromTo("#tr-kraal", {"opacity": 0.0}, {"opacity": 1.0, "duration": 0.5, "ease": "power2.out"}, 18.167);
+      tl.fromTo("#tr-p-kraal", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 18.367);
+      tl.fromTo("#tr-p-kopje", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 21.367);
+      tl.to("#tr-cam", {"x": -864.0, "y": 0.0, "scale": 1.45, "transformOrigin": "0 0", "duration": 1.6, "ease": "power2.inOut"}, 22.667);
+      tl.fromTo("#tr-farm", {"opacity": 0.0}, {"opacity": 1.0, "duration": 0.5, "ease": "power2.out"}, 23.667);
+      tl.fromTo("#tr-p-farm", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 25.167);
+      tl.fromTo("#tr-p-tel", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 26.967);
+      tl.to("#tr-cam", {"x": 0.0, "y": 0.0, "scale": 1.25, "transformOrigin": "0 0", "duration": 1.6, "ease": "power2.inOut"}, 28.267);
+      tl.fromTo("#tr-p-regrets", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 100%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 30.800);
+      tl.to("#tr-cam", {"x": 0.0, "y": 0.0, "scale": 1.0, "transformOrigin": "0 0", "duration": 1.6, "ease": "power2.inOut"}, 32.233);
+      tl.fromTo("#tr-gully", {"opacity": 0.0}, {"opacity": 1.0, "duration": 0.8, "ease": "power2.out"}, 32.633);
+      tl.fromTo("#tr-order", {"opacity": 0, "x": 80, "rotation": 4}, {"opacity": 1, "x": 0, "rotation": 1.5, "duration": 0.7, "ease": "expo.out"}, 33.000);
+      tl.to("#tr-order", {"opacity": 0, "x": 60, "duration": 0.35, "ease": "power2.in"}, 39.167);
+      tl.fromTo("#tr-enemy", {"scale": 0.0, "opacity": 0, "transformOrigin": "50% 0%"}, {"scale": 1, "opacity": 1, "duration": 0.35, "ease": "back.out(1.7)"}, 41.000);
+      tl.fromTo("#tr-q", {"opacity": 0, "scale": 0.4, "transformOrigin": "50% 80%"}, {"opacity": 1, "scale": 1, "duration": 0.4, "ease": "back.out(2.4)"}, 43.533);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["terrain"] = tl;
+    })();
+  </script>
+</template>
